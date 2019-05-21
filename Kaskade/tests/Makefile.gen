@@ -1,0 +1,39 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TRILINOSINC) $(UMFPACKINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS) 
+#FLAGS = $(WFLAGS) $(DEBUGFLAGS)
+
+SRC = quadraturecheck.cpp threadedMatrixTest.cpp
+
+tests:
+	rm -f testResult.txt
+	cd poisson; make; export DYLD_LIBRARY_PATH=$(BOOST)/lib;  ./poisson --verbosity 0 --result 1
+	cd statHeatTransfer; make; export DYLD_LIBRARY_PATH=$(BOOST)/lib;  ./statHeatTransfer --verbosity 0 --result 1 --solver.type iterate --solver.preconditioner PARTIAL --solver.iteEps 1e-8
+	cd embErrorEst; make; export DYLD_LIBRARY_PATH=$(BOOST)/lib;  ./embErrorEst --verbosity 0 --result 1 --solver.direct MUMPS
+	cd reentrantCorner; make; export DYLD_LIBRARY_PATH=$(BOOST)/lib;  ./reentrantCorner --verbosity 0 --result 1
+	cd hbPrec; make; export DYLD_LIBRARY_PATH=$(BOOST)/lib;  ./hbPrec --verbosity 0 --result 1
+
+quadraturecheck: quadraturecheck.o 
+	$(CXX) -g $<  $(DUNELIB)  $(UGLIB)  $(BLASLIB) $(FTNLIB) -o $@
+	
+threadedMatrixTest: threadedMatrixTest.o
+	$(CXX) -g $<  $(KASKADELIB) $(DUNELIB)  $(UGLIB)  $(BLASLIB) $(FTNLIB) $(BOOSTLIB) -o $@
+	
+kallocTest: kallocTest.o
+	$(CXX) -pg $< ../utilities/kalloc.o $(KASKADELIB) $(FTNLIB) $(BOOSTLIB) -o $@
+	
+hdivTest: hdivTest.o
+	$(CXX) -g $<  $(KASKADELIB) $(DUNELIB)  $(UGLIB)  $(BLASLIB) $(FTNLIB) $(BOOSTLIB) -o $@
+
+clean:
+	rm -f quadraturecheck quadraturecheck.o threadedMatrixTest threadedMatrixTest.o
+	rm -f kallocTest kallocTest.o hdivTest hdivTest.o
+	rm -f testResult.txt
+
+depend:
+	cp Makefile.gen Makefile 
+	CXX="$(CXX)" $(KASKADE7)/gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC)
+	$(KASKADE7)/remove_install_deps Makefile
+

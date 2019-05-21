@@ -1,0 +1,119 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = /Volumes/Daten/Users/weimann/test/Projekte/Kaskade7.3
+USE_MPI = 0
+INSTALLS=/Numerik/Software/clang-3.8.0
+BOOST = $(INSTALLS)/boost-1.59.0
+UG = $(INSTALLS)/dune-2.4.1
+ALUGRID = $(INSTALLS)/ALUGrid-1.52
+ALBERTA = $(INSTALLS)/alberta-3.0.1
+DUNE = $(INSTALLS)/dune-2.4.1
+MUMPS= $(INSTALLS)/mumps-4.10.0
+MUMPSMPI = $(INSTALLS)/mumpsmpi-4.10.0
+#METIS= $(INSTALLS)/metis-
+#SCOTCH =$(INSTALLS)/scotch_esmumps-
+#SUPERLU= $(INSTALLS)/superlu-4.3
+ITSOL= $(INSTALLS)/itsol-1
+HYPRE= $(INSTALLS)/hypre-2.6.0b
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+AMIRAMESH = $(INSTALLS)/libamira
+TAUCS = $(INSTALLS)/taucs-2.0
+PSURFACE = $(INSTALLS)/libpsurface-1.3.1
+SPACY = $(INSTALLS)/Spacy
+# X11 = /usr/X11
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune -I$(DUNE)
+UGINC = -I$(UG)/include -I$(UG)/include/ug
+ALUGRIDINC = -I$(ALUGRID)/include -I$(ALUGRID)/include/serial
+ALBERTAINC = -I$(ALBERTA)/include -I$(ALBERTA)/include/alberta
+FUSIONINC = 
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+MUMPSMPIINC = -I$(MUMPSMPI)/include 
+#SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/include
+HYPREINC = -I$(HYPRE)/include
+AMIRAINC = -I$(AMIRAMESH)/include
+TAUCSINC = -I$(TAUCS)/include
+PSURFACEINC = -I$(PSURFACE)/include
+SPACYINC = -I$(SPACY)/include
+KASKADEINC = -I$(KASKADE7)
+BLASINC = -I/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+DUNELIB = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry  -ldunealugrid $(OPENGLLIB)
+DUNELIBA1D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_1d -ldunealugrid  $(OPENGLLIB)
+DUNELIBA2D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_2d -ldunealugrid  $(OPENGLLIB)
+DUNELIBA3D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_3d -ldunealugrid  $(OPENGLLIB)
+UGLIB = -L$(UG)/lib -lugS3 -lugS2 -lugL3 -lugL2 -ldevS -ldevX 
+ALUGRIDLIB = 
+ALBERTA1DLIB = -L$(ALBERTA)/lib  -lalberta_1d -lalberta_utilities 
+ALBERTA2DLIB = -L$(ALBERTA)/lib  -lalberta_2d -lalberta_utilities 
+ALBERTA3DLIB = -L$(ALBERTA)/lib  -lalberta_3d -lalberta_utilities 
+BOOSTLIB =  -L$(BOOST)/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono
+BLASLIB = -framework Accelerate
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd $(BLASLIB)
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread $(BLASLIB)
+SCALAP  = 
+#METISLIB = $(METIS)/lib/libmetis.a
+#SCOTCHLIB = -L$(SCOTCH)/lib -lesmumps -lscotch -lscotcherr
+MUMPSMPILIB = -L$(MUMPSMPI)/lib -ldmumps -lmumps_common -lpord $(SCALAP) $(METISLIB) $(SCOTCHLIB) -lpthread  $(BLASLIB)
+#SUPERLULIB = -L$(SUPERLU)/lib64 -lsuperlu $(BLASLIB)
+ITSOLLIB = -L$(ITSOL)/lib -litsol
+HYPRELIB = -L$(HYPRE)/lib -lHYPRE
+AMIRALIB = -L$(AMIRAMESH)/lib -lamiramesh
+TAUCSLIB = -L$(TAUCS)/lib -ltaucs
+PSURFACELIB = 
+SPACYLIB = -L$(SPACY)/lib -lspacy
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+FTNLIB =  -L/opt/local/lib  -lgfortran
+NUMALIB = 
+# X11LIB = -L$(X11)/ -lX11
+
+##
+## C++ compiler
+##
+CXX = "/opt/local/bin/clang++"
+MPICXX = mpicxx
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated 
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG -g -DDarwin  -std=c++1y   -DHAVE_LIBAMIRA=1
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O2 -DDarwin  -std=c++1y   -DHAVE_LIBAMIRA=1
+OPTLOWFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O1 -DDarwin  -std=c++1y    -DHAVE_LIBAMIRA=1
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = -O0 -DDarwin  -std=c++1y   -DHAVE_LIBAMIRA=1
+
+##
+## Flag to allow multiple entries of the same routine during link - only needed on some platforms
+##
+ALLOWMULTIPLEDEFS = 
+
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DDarwin  -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L

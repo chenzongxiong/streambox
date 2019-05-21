@@ -1,0 +1,20 @@
+{
+ "solver":
+   {
+     "type": "iterate",
+     "iterate": "CG",
+     "property": "GENERAL",
+     "preconditioner": "BOOMERAMG",
+     "BOOMERAMG":
+       {
+         "steps": 1,
+         "coarsentype": 21,
+         "interpoltype": 0,
+         "cycleType": 1,
+         "relaxType":3,
+         "tol": 1.0e-8,
+         "variant": 0,
+         "overlap": 1
+       }
+   }
+}

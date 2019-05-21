@@ -1,0 +1,57 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(HYPREINC) $(ITSOLINC) $(HYPREINC) $(TRILINOSINC) $(UMFPACKINC) $(MUMPSINC) $(PSURFACEINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+ms: movingsource.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+ms_gnuplot: movingsource_gnuplot.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+knownsol: knownsol.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) movingsource.cpp movingsource_gnuplot.cpp knownsol.cpp; ../../remove_install_deps Makefile
+
+clean:
+	rm -f gccerr.txt ms ms_gnuplot movingsource.o movingsource_gnuplot.o graph/* *.bak
+

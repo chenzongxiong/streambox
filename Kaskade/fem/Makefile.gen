@@ -1,0 +1,27 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(MUMPSINC) $(HYPREINC) $(KASKADEINC) 
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+OBJ=hierarchicshapefunctions.o assemble.o errorest.o lagrangeshapefunctions.o nedelecshapefunctions.o
+SRC=hierarchicshapefunctions.cpp assemble.cpp errorest.cpp lagrangeshapefunctions.cpp nedelecshapefunctions.cpp
+
+default: ../libs/libkaskade.a 
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC); ../remove_install_deps Makefile
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+	
+	
+hdivshapefunctiontest: nedelecshapefunctions.cpp nedelecshapefunctions.hh
+	$(CXX) -g -DUNITTEST $(INCLUDE)  $(WFLAGS) $(DEBUGFLAGS) $< $(KASKADELIB) $(DUNELIB)  $(BOOSTLIB) $(BLASLIB) $(FTNLIB) $(NUMALIB)  -o $@
+	
+advectiontest: advect.cpp advect.hh
+	$(CXX) -g -DUNITTEST $(INCLUDE)  $(WFLAGS) $(DEBUGFLAGS) $< $(KASKADELIB) $(DUNELIB) $(UGLIB)  $(BOOSTLIB) $(BLASLIB) $(FTNLIB) $(NUMALIB)  -o $@
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp
+

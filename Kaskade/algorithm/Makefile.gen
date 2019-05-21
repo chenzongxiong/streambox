@@ -1,0 +1,23 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(KASKADEINC)
+FLAGS = $(WFLAGS) $(DEBUGFLAGS)
+
+#OBJ = adaptive_refinement.o  algorithm_base.o  homotopy_base.o  newton_base.o  newton_damped.o  searchspace.o optimization.o
+#SRC = adaptive_refinement.cpp  algorithm_base.cpp  homotopy_base.cpp  newton_base.cpp  newton_damped.cpp searchspace.cpp hyp_ip.cpp optimization.cpp
+OBJ =  algorithm_base.o  homotopy_base.o  newton_base.o  newton_damped.o  lipschitzConstants.o lagrangeLinearization.o modelCreator.o modelFunctions.o optimization.o 
+#bramblepasciakcg.o jacobipreconditioner.o chebysheviteration.o 
+SRC =  algorithm_base.cpp  homotopy_base.cpp  newton_base.cpp  newton_damped.cpp hyp_ip.cpp lipschitzConstants.cpp lagrangeLinearization.cpp modelCreator.cpp modelFunctions.cpp optimization.cpp
+#bramblepasciakcg.cpp jacobipreconditioner.cpp chebysheviteration.cpp 
+
+default: ../libs/libkaskade.a
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC); ../remove_install_deps Makefile
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+
+clean:
+	rm -f gccerr.txt *.o *.a *.tmp *.bak

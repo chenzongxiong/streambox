@@ -1,0 +1,273 @@
+Third-party software needed to use Kaskade7.3
+=============================================
+
+The following software is needed for Kaskade7 and will be installed almost 
+automatically by the Install_Kaskade7 scripts:
+
+ - The gcc 4.9.3 (or gcc 5.2.0 or newer) c-, c++ and gfortran-compiler
+   (or clang/clang++ LLVM 3.6.0 or newer)
+ - DUNE 2.4.0 (or newer) together with a suitable version of the UG libraries
+   (Kaskade7.3 is still back-compatible with dune-2.3.1)
+ - The boost 1.57.0 (or newer) libraries
+ - The UMFPACK 5.4.0 (not newer!) and AMD (current versions) libraries
+ 
+Further libraries which are needed for the supplied examples:
+
+ - The MUMPS 4.10.0 library
+ - The ITSOL 1 library
+ - The HYPRE 2.6.0b library
+ - The Taucs 2.0 library
+
+Getting the sources of Kaskade7.2 ($KASKADE7):
+
+Download: See at bottom of Webpage http://www.zib.de/en/numerik/software/kaskade-7.html
+  Get full development repository (for ZIB-members):
+  https://svn.zib.de/zibDUNE/Kaskade7.3 and 
+  https://svn.zib.de/zibDUNE/Install_Kaskade7 
+  (you need a user-account on svn.zib.de)
+
+Kaskade 7.3 Build-system:
+=========================
+
+$(KASKADE7)/Makefile includes clean, depend, kasklib, tutorial, test (distribution)
+
+A new installation is done by adapting Makefile.Local (various templates named Makefile-xxx.Local are 
+available).
+Don't forget to set the right KASKADE7 path in Makefile.Local.
+The following makes are available:
+
+make install        generates the Makefiles and compiles the library
+make clean          removes object files (.o, .a and programs) and some data
+make depend         generates dependencies in Makefiles
+                    ($(KASKADE7)/algorithm, $(KASKADE7)/linalg, $(KASKADE7)/fem, $(KASKADE7)/fem/diffops, 
+                    $(KASKADE7)/io, $(KASKADE7)/timestepping,$ $(KASKADE7)/utilities, 
+                    $(KASKADE7)/tutorial subdirectories, $(KASKADE7)/tests subdirectories,
+                    where $(KASKADE7) is the directory-path where this README file is located)
+make kasklib        generates the library $(KASKADE7)/libs/libkaskade.a
+make tutorial       compile, link and run the tutorial programs
+make test           compile, link and run the test programs
+
+Remarks:
+========
+
+1. You have to set the environment variable
+LD_LIBRARY_PATH="/nfs/datanumerik/archiv/software/linux64/gfortran64/lib:\
+/nfs/datanumerik/archiv/software/linux64/gcc-5.2.0/gcc/lib64:\
+/nfs/datanumerik/archiv/software/linux64/gcc-5.2.0/gcc/lib:\
+/nfs/datanumerik/archiv/software/linux64/gcc-5.2.0/boost-1.59.0/lib"
+on the computers of the ZIB htc-cluster.
+   
+2. "make distribution" needs a tar command with the --exclude-vcs option available.
+
+Appendix: Header files
+======================
+                                        
+algorithm/abstract_interface.hh
+algorithm/adaptive_refinement.hh
+algorithm/algorithm_base.hh
+algorithm/comp_step.hh
+algorithm/composite_step.hh
+algorithm/discrete_bridge.hh
+algorithm/dune_bridge.hh
+algorithm/errorDistribution.hh
+algorithm/errorEstimator.hh
+algorithm/errorEstimator2.hh
+algorithm/giant_gbit.hh
+algorithm/goalOrientedErrorEstimator.hh
+algorithm/hierarchicErrorEstimator.hh
+algorithm/homotopy_base.hh
+algorithm/hyp_ip.hh
+algorithm/ip_aux.hh
+algorithm/ipfunctional.hh
+algorithm/modelfunction.hh
+algorithm/newton_base.hh
+algorithm/newton_bridge.hh
+algorithm/newton_damped.hh
+algorithm/nleq_err.hh
+algorithm/opt_interface.hh
+algorithm/opt_model_functions.hh
+algorithm/optimization.hh
+algorithm/searchspace.hh
+
+fem/assemble.hh
+fem/averaging_errorest.hh
+fem/bank_weiser_est.hh
+fem/barycentric.hh
+fem/boundaryconditionmanager.hh
+fem/boundaryconditions/boundary_condition_base.hh
+fem/boundaryconditions/cauchy.hh
+fem/boundaryconditions/dirichlet.hh
+fem/boundaryconditions/neumann.hh
+fem/boundaryconditions/normal_projected_neumann.hh
+fem/boundaryconditions/sliding_dirichlet.hh
+fem/boundaryspace.hh
+fem/celldata.hh
+fem/coarsening.hh
+fem/combinatorics.hh
+fem/concepts.hh
+fem/constantspace.hh
+fem/converter.hh
+fem/deforminggridmanager.hh
+fem/diffops/elasto.hh
+fem/diffops/laplace.hh
+fem/diffops/material_laws.hh
+fem/diffops/membraneModels.hh
+fem/doxygen.hh
+fem/embedded_errorest.hh
+fem/errorest.hh
+fem/fetransfer.hh
+fem/firstless.hh
+fem/fixdune.hh
+fem/fixfusion.hh
+fem/forEach.hh
+fem/functional_aux.hh
+fem/functional_manipulation.hh
+fem/functionspace.hh
+fem/functionviews.hh
+fem/gridcombinatorics.hh
+fem/gridmanager.hh
+fem/gridscanner.hh
+fem/hierarchicErrorEstimator.hh
+fem/hierarchicshapefunctions.hh
+fem/hierarchicspace.hh
+fem/istlinterface.hh
+fem/iterate_grid.hh
+fem/lagrangeshapefunctions.hh
+fem/lagrangespace.hh
+fem/linearspace.hh
+fem/local_integrals.hh
+fem/mgtools.hh
+fem/mllgeometry.hh
+fem/nedelecshapefunctions.hh
+fem/nedelecspace.hh
+fem/norms.hh
+fem/pardiso_solve.hh
+fem/partialindexset.hh
+fem/power.hh
+fem/pshapefunctions.hh
+fem/residual_errorest.hh
+fem/scalarspace.hh
+fem/shapefunctioncache.hh
+fem/sign.hh
+fem/special_quadrature.hh
+fem/variables.hh
+fem/variationalfunctional.hh
+fem/views.hh
+
+io/amira.hh
+io/amirameshreader.hh
+io/ansysmeshreader.hh
+io/base64.hh
+io/check_endianness.hh
+io/gnuplot.hh
+io/gnuplotwriter.hh
+io/ioTools.hh
+io/iobase.hh
+io/lossy_helper.hh
+io/lossystorage.hh
+io/lossystorageDUNE.hh
+io/lossystorageWithoutTemporalPred.hh
+io/matlab.hh
+io/rangecoder.hh
+io/readPoly.hh
+io/vtk.hh
+io/vtkwriter.hh
+
+ipopt/ocipopt.hh
+ipopt/trackingcontrolipopt.hh
+
+linalg/acml_to_stdlapack.hh
+linalg/additiveschwarz.hh
+linalg/apcg.hh
+linalg/blockDiagonalSchurPreconditioner.hh
+linalg/composite_step_solvers.hh
+linalg/conjugation.hh
+linalg/crsutil.hh
+linalg/direct.hh
+linalg/directPreconditioner.hh
+linalg/discrete_solver.hh
+linalg/factorization.hh
+linalg/factory.hh
+linalg/gbit.hh
+linalg/hyprecond.hh
+linalg/icc0precond.hh
+linalg/iccprecond.hh
+linalg/iluprecond.hh
+linalg/jacobiPreconditioner.hh
+linalg/linearsystem.hh
+linalg/mumps_solve.hh
+linalg/numaMatrix.hh
+linalg/pardiso_solve.hh
+linalg/partialDirectPreconditioner.hh
+linalg/preconditionerFactory.hh
+linalg/schur_solver.hh
+linalg/schurblocklu_solve.hh
+linalg/simpleLAPmatrix.hh
+linalg/superlu_solve.hh
+linalg/symmetricOperators.hh
+linalg/tcg.hh
+linalg/threadedMatrix.hh
+linalg/triplet.hh
+linalg/trivialpreconditioner.hh
+linalg/umfpack_solve.hh
+linalg/umfpack_tools.hh
+linalg/uzawa.hh
+
+mg/apcg.hh
+mg/bicgstab.hh
+mg/cg.hh
+mg/fgmres.hh
+mg/hb.hh
+mg/multiGridSolver.hh
+mg/multiGridStacks.hh
+mg/pcg.hh
+
+timestepping/bsplines.hh
+timestepping/extrapolation.hh
+timestepping/limex.hh
+timestepping/limexWithoutJens.hh
+timestepping/sdc.hh
+timestepping/sdc_.hh
+timestepping/semieuler.hh
+
+tools/check_derivative.hh
+tools/detailed_exception.hh
+tools/elementary_functions.hh
+tools/select.hh
+tools/type2type.hh
+
+utilities/GridGeneration/cube.hh
+utilities/GridGeneration/cuboid.hh
+utilities/GridTree/gridtree.hh
+utilities/GridTree/gridtreepolicy.hh
+utilities/check_derivative.hh
+utilities/convenientFunctional.hh
+utilities/date_and_time.hh
+utilities/detailed_exception.hh
+utilities/duneInterface.hh
+utilities/elementary_functions.hh
+utilities/enums.hh
+utilities/factory2.hh
+utilities/functor.hh
+utilities/geometric_sequence.hh
+utilities/geometry/geometric_objects.hh
+utilities/geometry/geomtools.hh
+utilities/get.hh
+utilities/get_protected_constructor.hh
+utilities/gridGeneration.hh
+utilities/interpolation/boundarynormalcollector.hh
+utilities/interpolation/polynomialcollection.hh
+utilities/interpolation/tools.hh
+utilities/is_function.hh
+utilities/kalloc.hh
+utilities/kaskopt.hh
+utilities/linalg/determinant.hh
+utilities/linalg/scalarproducts.hh
+utilities/member_variable_macro.hh
+utilities/save_file.hh
+utilities/scalar.hh
+utilities/select.hh
+utilities/straintensors.hh
+utilities/threading.hh
+utilities/type2type.hh
+utilities/vectorTools.hh

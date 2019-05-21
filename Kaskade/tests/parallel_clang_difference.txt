@@ -1,0 +1,54 @@
+470,471c470,471
+<    1      4.54321e-01      7.95331e+00         1e-12  converged     79  0.698867       1.06s 
+<    2      8.94705e-02      7.23169e+03         1e-12  converged     46  0.541878        0.7s 
+---
+>    1      4.54321e-01      7.95331e+00         1e-12  converged     79  0.698867       1.05s 
+>    2      8.94705e-02      7.23169e+03         1e-12  converged     46  0.541878       0.69s 
+473,474c473,474
+<    4      2.48716e-08      2.02951e-03         1e-12  converged     47  0.542346       0.71s 
+<    5      2.04772e-13      1.88405e-11         1e-12  converged     88  0.726419       1.13s 
+---
+>    4      2.48716e-08      2.02951e-03         1e-12  converged     47  0.542346        0.7s 
+>    5      2.04772e-13      1.88405e-11         1e-12  converged     88  0.726419       1.14s 
+667c667
+< grid creation & refinement time:  0.155337s wall, 0.150000s user + 0.000000s system = 0.150000s CPU (96.6%)
+---
+> grid creation & refinement time:  0.165922s wall, 0.160000s user + 0.000000s system = 0.160000s CPU (96.4%)
+1350c1350
+< t=0.767435, dt=0.0240044, err=0.50007, factor=0.999965, red=0, dof=10040
+---
+> t=0.767435, dt=0.0240044, err=0.500069, factor=0.999965, red=0, dof=10040
+1538,1540c1538,1540
+< Limex time: 12.99s matrix assembly
+<             10.66s rhs assembly
+<             4.09s preconditioner assembly
+---
+> Limex time: 9.83s matrix assembly
+>             8.08s rhs assembly
+>             3.86s preconditioner assembly
+1542,1545c1542,1545
+<             0s init solution
+<             12.84s solution
+<             7.5s estimate
+< used cpu time: 54.32s
+---
+>             0.03s init solution
+>             13.28s solution
+>             7.03s estimate
+> used cpu time: 48.41s
+1826c1826
+< Limex time: 29.16s matrix assembly
+---
+> Limex time: 21.64s matrix assembly
+1828c1828
+<             18.62s preconditioner assembly
+---
+>             18.31s preconditioner assembly
+1830,1832c1830,1832
+<             0.04s init solution
+<             148.6s solution
+<             7.65s estimate
+---
+>             0.03s init solution
+>             147.53s solution
+>             6.34s estimate

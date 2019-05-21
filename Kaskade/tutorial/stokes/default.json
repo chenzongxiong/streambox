@@ -1,0 +1,109 @@
+{
+ "solver":
+   {
+     "type": "direct",
+     "direct": "UMFPACK3264",
+     "iterate": "CG",
+     "property": "GENERAL",
+     "preconditioner": "NONE",
+     "gnuplotinfo": "none",
+     "iteEps": 1.0e-12,
+     "iteMax": 1000,
+     "ILUT":
+       {
+         "dropTol": 0.01,
+         "lfil": 140
+       },
+     "ILUK":
+       {
+         "fill_lev": 3
+       },
+     "ICC":
+       {
+         "dropTol": 0.01
+       },
+     "ARMS":
+       {
+         "dropTol": 0.01,
+         "tolind": 0.2,
+         "lev_reord": 2,
+         "lfil": 4
+       },
+     "BOOMERAMG":
+       {
+         "steps": 1,
+         "coarsentype": 21,
+         "interpoltype": 0,
+         "cycleType": 1,
+         "relaxType":3,
+         "tol": 1.0e-8,
+         "variant": 0,
+         "overlap": 1
+       },
+     "EUCLID":
+       {
+         "level": 1,
+         "droptol": 0.0,
+         "printlevel": 0,
+         "bj": 0
+       }
+   },
+ "names":
+   {
+     "type":
+       {
+         "iterate": 0,
+         "direct": 1
+       },
+     "property":
+       {
+         "GENERAL": 0,
+         "SYMMETRICSTRUCTURE": 1,
+         "SYMMETRIC": 2,
+         "POSITIVEDEFINITE": 3
+       },
+     "direct":
+     {
+     "UMFPACK":0,
+     "PARDISO":1,
+     "MUMPS": 2,
+     "SUPERLU": 3,
+     "UMFPACK3264": 4,
+     "UMFPACK64": 5
+     },
+     "iterate":
+     {
+     "CG":0,
+     "BICGSTAB":1,
+     "GMRES": 2,
+     "PCG":3,
+     "APCG":4,
+     "SGS":5
+     },
+     "preconditioner":
+     {
+     "NONE":0,
+     "JACOBI":1,
+     "PARTIAL": 2,
+     "ILUT": 3,
+     "ILUK": 4,
+     "ARMS": 5,
+     "INVERSE": 6,
+     "ADDITIVESCHWARZ": 7,
+     "BOOMERAMG": 8,
+     "EUCLID": 9,
+     "TRILINOSML": 10,
+     "SSOR": 11,
+     "ICC0": 12,
+     "ICC": 13,
+     "ILUKS": 14,
+     "HB": 15
+     },
+     "gnuplotinfo":
+     {
+     "none":0,
+     "summary":1,
+     "detail":2
+     }
+   }
+}

@@ -1,0 +1,24 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(MUMPSINC) $(HYPREINC) $(BLASINC) $(KASKADEINC) 
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+OBJ=sdc.o
+SRC=sdc.cpp
+
+
+default: ../libs/libkaskade.a 
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC); ../remove_install_deps Makefile
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp sdc
+
+sdc: sdc.cpp sdc.hh
+	$(CXX) $(WFLAGS) $(DEBUGFLAGS) $(INCLUDE) -DUNITTEST $< $(DUNELIB) $(BOOSTLIB) $(BLASLIB) $(FTNLIB) -o $@
+

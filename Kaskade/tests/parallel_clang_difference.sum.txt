@@ -1,0 +1,13 @@
+*** Results summary of Fri May 13 13:08:04 2016
+*** Summary of absolute deviations ***
+Maximum fixed point    deviation is 9.53674e-07 at line 18 and position 3
+Maximum time           deviation is 7.52 at line 40 and position 1
+
+*** Summary of relative deviations ***
+Maximum fixed point    deviation is 1.90708e-06 at line 18 and position 3
+Maximum time           deviation is 2 at line 30 and position 1
+*** Summary of comparations ***
+The number of integer numbers        compared is 10
+The number of fixed point numbers    compared is 8
+The number of floating point numbers compared is 12
+The number of time numbers           compared is 20

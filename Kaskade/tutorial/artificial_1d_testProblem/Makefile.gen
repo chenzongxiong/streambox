@@ -1,0 +1,19 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(BOOSTINC) $(KASKADEINC) $(UMFPACKINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+atp: atp.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+clean:
+	rm -f gccerr.txt atp atp.o function.data *.bak run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS)  atp.cpp; ../../remove_install_deps Makefile
+

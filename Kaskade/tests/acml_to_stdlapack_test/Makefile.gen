@@ -1,0 +1,16 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(KASKADEINC) $(BLASINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+acml_to_stdlapack_test: acml_to_stdlapack_test.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(BLASLIB) $(FTNLIB) -o $@
+
+
+clean:
+	rm -f gccerr.txt acml_to_stdlapack_test *.o *.bak
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS)  acml_to_stdlapack_test.cpp; ../../remove_install_deps Makefile
+

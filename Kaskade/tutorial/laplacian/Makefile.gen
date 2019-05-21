@@ -1,0 +1,22 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(KASKADEINC) $(UMFPACKINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+laplace: laplace.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+clean:
+	rm -f gccerr.txt laplace laplace.o temperature.vtu *.bak
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS)  laplace.cpp; ../../remove_install_deps Makefile
+
+# DO NOT DELETE
+

@@ -1,0 +1,34 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(KASKADEINC) 
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+FLAGS2 = $(WFLAGS) -O1 -std=c++0x -DBOOST_NO_VARIADIC_TEMPLATES -DZIBHTC
+FLAGS3 = $(WFLAGS) $(DEBUGFLAGS)
+
+
+OBJ = readPoly.o iobase.o ansysmeshreader.o base64.o vtkwriter.o
+SRC = readPoly.cpp iobase.cpp ansysmeshreader.cpp base64.cpp vtkwriter.cpp
+OBJ2 = check_endianness.o
+SRC2 = check_endianness.cpp
+
+default: ../libs/libkaskade.a $(OBJ2)
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC) $(SRC2); ../remove_install_deps Makefile
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)	
+	
+vtktest: vtkwriter2.cpp vtkwriter2.hh
+	$(CXX) $(FLAGS3) $(INCLUDE) -DUNITTEST $< $(KASKADELIB) $(BOOSTLIB) $(DUNELIB) $(UGLIB) $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+		
+$(OBJ2): $(SRC2)
+	$(CXX) $(FLAGS2) -c $(SRC2)
+	ar rcs ../libs/libkaskade.a $(OBJ2)
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp
+	
+# DO NOT DELETE
+

@@ -1,0 +1,48 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC)
+#FLAGS = $(WFLAGS) $(OPTFLAGS) $(GPROFFLAGS) 
+FLAGS = $(WFLAGS) $(OPTFLAGS) 
+
+heat: peaksource.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -pg -o $@
+
+heat3d: peaksource3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -pg -o $@
+
+peaksource3d.o: peaksource.cpp
+	$(CXX) $(FLAGS) -DSPACEDIM=3 $(INCLUDE) $(CLANGINC) peaksource.cpp -c -o $@ 2> gccerr.txt
+
+clean:
+	rm -f gccerr.txt heat peaksource.o heat3d peaksource3d.o temperature.am temperature.vtu graph/* *.bak run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) peaksource.cpp; ../../remove_install_deps Makefile
+

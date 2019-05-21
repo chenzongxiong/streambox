@@ -1,0 +1,10 @@
+*.bin
+streambox/TAGS
+streambox/creek.cbp
+streambox/libcreek.a
+*.dat
+*.bk
+streambox/Release/*
+streambox/Debug/*
+streambox/build/*
+streambox/inputdata.dat

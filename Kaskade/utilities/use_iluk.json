@@ -1,0 +1,14 @@
+{
+ "solver":
+   {
+     "type": "iterate",
+     "iterate": "CG",
+     "property": "GENERAL",
+     "preconditioner": "BOOMERAMG",
+     "BOOMERAMG":
+       {
+         "steps": 5,
+         "coarsentype": 10,
+       }
+   }
+}

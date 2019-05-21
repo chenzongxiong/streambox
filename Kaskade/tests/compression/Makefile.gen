@@ -1,0 +1,25 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(UMFPACKINC) $(MUMPSINC) $(SUPERLUINC) $(AMIRAINC) $(ITSOLINC) $(HYPREINC) $(KASKADEINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+ms: movingsource.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) -g $< $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(SUPERLULIB) \
+ $(AMIRALIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(BLASLIB) $(FTNLIB) -o $@
+
+depend:
+	cp Makefile.gen Makefile; $(KASKADE7)/gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) movingsource.cpp; ../../remove_install_deps Makefile
+
+clean:
+	rm -f gccerr.txt ms movingsource.o graph/*.vtu graph/*.dat
+

@@ -1,0 +1,27 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TRILINOSINC) $(UMFPACKINC) $(MUMPSINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+aliev: aliev.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) -g $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) -o $@
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) aliev.cpp; ../../remove_install_deps Makefile
+
+clean:
+	rm -f gccerr.txt aliev  aliev.o  graph/* *.bak
+

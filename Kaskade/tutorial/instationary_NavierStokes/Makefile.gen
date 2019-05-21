@@ -1,0 +1,17 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+#INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC)
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC) $(MUMPSINC) $(PSURFACEINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+navierStokes: navierStokes.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o $(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+	          $(BOOSTLIB) $(DUNELIB) $(UGLIB) $(UMFPACKLIB) $(MUMPSLIB) $(ITSOLLIB) $(HYPRELIB) $(AMIRALIB) $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) navierStokes.cpp; ../../remove_install_deps Makefile
+
+clean:
+	rm -f gccerr.txt navierStokes navierStokes.o *.bak *.vtu graph/* run-*.json
+

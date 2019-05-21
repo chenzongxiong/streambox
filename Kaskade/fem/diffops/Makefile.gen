@@ -1,0 +1,31 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(HYPREINC) $(MUMPSINC) $(KASKADEINC) 
+FLAGS = $(WFLAGS) $(DEBUGFLAGS)
+
+OBJ=elasto.o membraneModels.o elastoVariationalFunctionals.o materialLaws.o
+SRC=elasto.cpp membraneModels.cpp elastoVariationalFunctionals.cpp materialLaws.cpp
+
+default: ../../libs/libkaskade.a 
+
+elastoTest.o: elastoVariationalFunctionals.cpp elastoVariationalFunctionals.hh
+	$(CXX) $(FLAGS) $(INCLUDE) -DUNITTEST $< -c -o $@ 2> gccerr.txt 
+
+elasto: elastoTest.o
+	$(CXX) $<  $(KASKADELIB) \
+	    $(BOOSTLIB) \
+	    $(DUNELIB) \
+	    $(BLASLIB) $(FTNLIB) -o $@ 
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC); ../../remove_install_deps Makefile
+
+../../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp
+
+
+	

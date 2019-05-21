@@ -1,0 +1,32 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC) -I.
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+PLATFORM= $(shell uname)
+
+elastomechanics: elastomechanics.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+ifneq (,$(findstring CYGWIN,$(PLATFORM)))
+	peflags --cygwin-heap=2048 elastomechanics.exe
+endif
+
+
+clean:
+	rm -f gccerr.txt elastomechanics *.o *.vtu *.bak run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) elastomechanics.cpp; ../../remove_install_deps Makefile

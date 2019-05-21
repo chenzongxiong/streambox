@@ -1,0 +1,29 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS) $(GPROFFLAGS) 
+#FLAGS = $(WFLAGS) $(OPTFLAGS) 
+
+reentrantCorner: reentrantCorner.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+clean:
+	rm -f gccerr.txt reentrantCorner reentrantCorner.o *.bak run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) reentrantCorner.cpp; ../../remove_install_deps Makefile
+

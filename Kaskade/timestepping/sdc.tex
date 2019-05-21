@@ -1,0 +1,134 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[10pt,twoside,a4paper, openany]{article}
+\usepackage[ngerman]{babel}
+\usepackage{latexsym, amsmath}  %zur Erzeugung von pdf-Dateien
+\usepackage{psfrag}
+\usepackage{epsfig}
+\usepackage{subfig}
+\usepackage[utf8]{inputenc}
+\pagestyle{plain}
+\hyphenation{}
+\sloppy
+
+%A4=210mm x 297mm
+%topmargin, sidemargin: -25mm
+\setlength{\oddsidemargin}{-5mm}
+\setlength{\evensidemargin}{-5mm}
+\setlength{\textwidth}{170mm}
+\setlength{\topmargin}{-5mm} % bottom 19mm
+\setlength{\textheight}{241mm}
+
+\newcommand{\du}{\delta\hspace{-1pt}u}
+
+\begin{document}
+\title{Method of Spectral Deferred Corrections}
+\author{Martin Weiser, Juliane Rosemeier, Bodo Erdmann}
+\maketitle
+\section{Projektziel}
+
+
+
+\section{Algorithmus}
+Der Algorithmus Spectral Deferred Corrections, kurz SDC, wird zur näherungsweisen Lösung
+von Diffusions-Reaktions-Gleichungen  auf einem Zeitintervall $[0,T]$ der Gestalt
+
+\begin{equation}
+  \frac{\partial}{\partial t} {\bf u} - \nabla \cdot (D \nabla {\bf u}) = f({\bf u}) \label{eq:heateq}
+\end{equation}
+
+\noindent mit von $u$ unabhängigem Diffusionskoeffizienten $D$ sowie dem Reaktions- oder Quellterm $f({\bf u})$ und
+passenden Rand- und Anfangsbedingungen, verwendet.
+ 
+Mit Bezeichnung
+
+\[
+F(t,{\bf u}) = \nabla \cdot (D \nabla {\bf u}) + f({\bf u})
+\] 
+
+\noindent haben wir also das Cauchy-Problem
+
+\[
+\dot{{\bf u}} = F(t,{\bf u})
+\]
+
+\noindent zu lösen.
+ 
+\vspace{1cm}
+
+\noindent SDC wird im Programm {\sc Kaskade} wie folgt realisiert, zunächst ohne Schätzung des
+Diskretisierungsfehlers in Ort und Zeit:
+
+\begin{itemize}
+\item ${\bf u}_0(t)$ sei die Lösung zum Zeitpunkt $t = 0$.
+
+\item Wahl einer Schrittweite $\tau$.
+
+\item Unterteilung des Intervalls $[0,\tau]$ in $n$ Teilintervalle $[t_i,t_{i+1}]$ entsprechend der Lobatto-Punktverteilung 
+im Intervall:\\
+      $0 = t_0 < t_1 < \dots < t_n = \tau$.
+   
+\item FE-Assemblierung aus der schwachen Formulierung liefert rechte Seite $r(u_0)$, Massenmatrix $M$ und Jacobi-Matrix $J(u_0)$
+(Ableitung $r_u(u_0)$).
+
+\item Bezeichne $r(u_i) = r(u_0(t_i))$. Auswertung $r(u_0(t_i))$ an den Zeitpunkten $t_0, \dots, t_n$. Achtung: die Werte stimmen alle überein.
+
+\item Bestimmung des Interpolationspoynoms $p(t)$ mit $p(t_i) = r(u_i)$ für $i=0,\dots, n$
+und Bereitstellung der Abbildung $S = (S_{ij})$ mit der Eigenschaft
+
+\[
+\int_{t=t_i}^{t_{i+1}} p(t)dt = \sum_{j=0}^{n} S_{ij}r(u_j)  \quad i=0,\dots, n-1.
+\]
+
+\item Berechnung der Lösung im Zeitpunkt $t+\tau$ über eine Newton-Iteration. In jeder
+Iteration wird die bisherige Näherung der Lösung $u_i = u_0(t_i)$ an den Lobatto-Punkten $t_i$, $i=0,\dots, n$
+verbessert um die im Folgenden zu berechnenden Korrekturen ${\du}_i$.
+
+Bezeichnet $k$ den Index der Newton-Iteration, so ist zu berechnen: $u_i^{k+1} = u_i^{k} + \du_i^k$ für $i=0,\dots,n$.
+Zu beachten: $\du_0^k = 0$ für $k = 0,1,2,\dots$.\\
+Die Newton-Iteration:
+
+\begin{itemize}
+\item Löse für $i=0,1,\dots, n-1$:
+
+\[
+\Big[ M - (t_{i+1}-t_i) J(u_{i+1}^k) \Big] (\du_{i+1}^k - \du_{i}^k) = (t_{i+1}-t_i) J(u_{i+1}^k)\du_i^k - M(u_{i+1}^k-u_{i}^k) + \sum_{j=0}^{n} S_{ij}r(u_j^k)
+\]
+
+\item Für jeden Newton-Schritt sind also bereitzustellen: die rechten Seiten $r(u_i^k)$ und deren Ableitung $J(u_{i}^k)$ für alle $i$.
+Der immense Aufwand lässt sich allerdings durch Parallelisierung erheblich reduzieren. 
+In gewissen Problemklassen genügt es, ein "billiges Update" von $J(u_{i}^k)$ vorzunehmen. ?
+
+\item Wenn eine vorgegebene Genauigkeit erreicht ist, also die Korrekturen $\du_i^k$ klein sind, kann die
+Newton-Schleife verlassen werden. Das zuletzt erzielte Update $u_n^{k+1} = u_n^{k} + \du_n^k$ stellt die
+gesuchte Näherung der Lösung $u(\tau)$ dar.
+
+\item Anstelle der o.g. Iteration lässt sich durch reine Umformungen unter Verwendung von 
+$u_i^{k+1} = u_i^{k} + \du_i^k$ auch schreiben:
+
+\[
+\Big[ M - (t_{i+1}-t_i) J(u_{i+1}^k) \Big] \du_{i+1}^k = M(u_{i}^{k+1} - u_{i+1}^k) + \sum_{j=0}^{n} S_{ij}r(u_j^k)
+\]
+
+Da $u_{i}^{k+1}$ bereits berechnet wurde, sollte sich der Term $M(u_{i}^{k+1} - u_{i+1}^k)$ auf der rechten Seite   
+als modifizierte rechte Seite der schon verwendeten SemiEuler-Diskretisierung assemblieren lassen. Als Startwert der Iteration
+sollte die zuletzt berechnete Korrektur $\du_{i}^k$ genommen werden.
+
+\end{itemize}
+
+\item Mit der Setzung $u_0 = u_n^{k+1}$ und $t_0 = \tau$ kann der nächste Zeitschritt durchgeführt werden, 
+in gleicher Weise wie der erste. Das Verfahren wird fortgesetzt bis $t = T$ erreicht ist.
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

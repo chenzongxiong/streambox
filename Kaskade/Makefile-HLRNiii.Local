@@ -1,0 +1,111 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = $(WORK)/Kaskade7.3
+USE_MPI = 1
+THIRDPARTY = /home/b/bemweima/software
+INSTALLS = $(THIRDPARTY)/gcc-4.9.2
+BOOST = $(INSTALLS)/boost-1.59.0
+UG = $(INSTALLS)/dune-2.4.0
+#ALUGRID = $(INSTALLS)/ALUGrid-1.52
+ALBERTA = $(INSTALLS)/alberta-3.0.1
+OPENGL = /usr
+DUNE = $(INSTALLS)/dune-2.4.0
+MUMPS= $(INSTALLS)/mumps-4.10.0
+METIS= $(INSTALLS)/metis-4.0.3
+SCOTCH = $(INSTALLS)/scotch_esmumps-5.1.12
+MUMPSMPI= $(INSTALLS)/mumpsmpi-4.10.0
+#SUPERLU= $(INSTALLS)/superlu-4.3
+ITSOL= $(INSTALLS)/itsol-1
+HYPRE= $(INSTALLS)/hypre-2.6.0b
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+AMIRAMESH = $(INSTALLS)/libamira
+TAUCS = $(INSTALLS)/taucs-2.0
+# X11 = /usr/X11
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune -I$(DUNE)
+UGINC = -I$(UG)/include -I$(UG)/include/ug
+#ALUGRIDINC = -I$(ALUGRID)/include -I$(ALUGRID)/include/serial
+ALBERTAINC = -I$(ALBERTA)/include -I$(ALBERTA)/include/alberta
+FUSIONINC = 
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+MUMPSMPIINC = -I$(MUMPSMPI)/include -I/opt/cray/mpt/7.2.5/gni/mpich2-gnu/4.9/include
+#SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/include
+HYPREINC = -I$(HYPRE)/include
+AMIRAINC = -I$(AMIRAMESH)/include
+TAUCSINC = -I$(TAUCS)/include
+PSURFACEINC = -I$(PSURFACE)/include
+KASKADEINC = -I$(KASKADE7)
+BLASINC = -I$(THIRDPARTY)/acml-5.0.0/gfortran64/include
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+DUNELIB = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid $(OPENGLLIB)
+DUNELIBA1D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_1d -ldunealugrid -ldunegridglue $(OPENGLLIB)
+DUNELIBA2D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_2d -ldunealugrid -ldunegridglue $(OPENGLLIB)
+DUNELIBA3D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_3d -ldunealugrid -ldunegridglue $(OPENGLLIB)
+UGLIB = -L$(UG)/lib -lugS3 -lugS2 -lugL3 -lugL2 -ldevS -ldevX 
+ALUGRIDLIB = 
+ALBERTA1DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_1d -lalberta_utilities 
+ALBERTA2DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_2d -lalberta_utilities 
+ALBERTA3DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_3d -lalberta_utilities 
+BOOSTLIB =  -L$(BOOST)/lib -Wl,-rpath,$(BOOST)/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono
+BLASLIB = -L$(THIRDPARTY)/acml-5.0.0/gfortran64/lib -Wl,-rpath,$(THIRDPARTY)/acml-5.0.0/gfortran64/lib -lacml
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd $(BLASLIB)
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread $(BLASLIB)
+SCALAP  = 
+METISLIB = -L$(METIS)/lib -lmetis
+SCOTCHLIB = -L$(SCOTCH)/lib -lesmumps -lscotch -lscotcherr
+SYSLIBS = -Wl,--rpath=/opt/cray/cce/8.4.0/craylibs/x86-64 -ulast_user_arg  -L/opt/cray/cce/8.4.0/CC/x86-64/lib/x86-64 -Wl,-rpath=/opt/cray/cce/8.4.0/CC/x86-64/lib/x86-64 -L/opt/gcc/4.9.2/snos/lib64 -Wl,-rpath=/opt/cray/gcc-libs -ugcc_base=/opt/gcc/4.9.2/snos -usysroot=/ -uno_driver_libs -Wl,/opt/cray/cce/8.4.0/craylibs/x86-64/libmodules.a,/opt/cray/cce/8.4.0/craylibs/x86-64/libomp.a,/opt/cray/cce/8.4.0/craylibs/x86-64/libopenacc.a -Wl,--no-as-needed,-lAtpSigHandler,-lAtpSigHCommData -L/opt/cray/dmapp/default/lib64 -L/opt/cray/mpt/7.2.5/gni/mpich2-cray/8.3/lib -L/opt/cray/libsci/13.2.0/CRAY/8.3/x86_64/lib -L/opt/cray/rca/1.0.0-2.0502.53711.3.127.ari/lib64 -L/opt/cray/alps/5.2.1-2.0502.9041.11.6.ari/lib64 -L/opt/cray/xpmem/0.1-2.0502.55507.3.2.ari/lib64 -L/opt/cray/dmapp/7.0.1-1.0502.9501.5.219.ari/lib64 -L/opt/cray/pmi/5.0.9-1.0000.10911.0.0.ari/lib64 -L/opt/cray/ugni/5.0-1.0502.9685.4.24.ari/lib64 -L/opt/cray/udreg/2.3.2-1.0502.9275.1.12.ari/lib64 -L/opt/cray/atp/1.8.3/libApp -L/opt/cray/k1om/wlm_detect/1.0-1.0502.53341.1.2.ari/lib64 -L/opt/cray/cce/8.4.0/craylibs/x86-64 -lmpichf90_cray -lsci_cray_mpi_mp -lmpich_cray_mt -lsci_cray_mp -lpgas-dmapp -lxpmem -ldmapp -ludreg -lpmi -lalpslli -lalpsutil -lrca -lugni -lomp -lcraymp -lcray-c++-rts  -lmodules -lfi -lf -lpthread -lcraymath -lm -lgfortran -lquadmath -lu -lrt -lcsup  -lpthread -lc -lcsup -lgcc_eh -lm -lgcc -Wl,-T/opt/cray/cce/8.4.0/craylibs/x86-64/2.23.1.cce.ld
+MUMPSMPILIB = -L$(MUMPSMPI)/lib -ldmumps -lmumps_common -lpord $(SCALAP) $(METISLIB) $(SCOTCHLIB) -lpthread -L/opt/cray/mpt/7.2.5/gni/mpich2-gnu/4.9/lib -lfmpich -lmpichcxx -lmpich $(BLASLIB) $(SYSLIBS)
+#SUPERLULIB = -L$(SUPERLU)/lib -lsuperlu $(BLASLIB)
+ITSOLLIB = -L$(ITSOL)/lib -litsol
+HYPRELIB = -L$(HYPRE)/lib -lHYPRE
+AMIRALIB = -L$(AMIRAMESH)/lib -lamiramesh
+TAUCSLIB = -L$(TAUCS)/lib -ltaucs
+PSURFACELIB = -L$(PSURFACE)/lib -Wl,-rpath,$(PSURFACE)/lib -lpsurface
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+FTNLIB =  -L/opt/gcc/4.9.2/lib64 -Wl,-rpath,/opt/gcc/4.9.2/lib64 -lgfortran
+# X11LIB = -L$(X11)/ -lX11
+
+##
+## C++ compiler
+##
+CXX = "/opt/gcc/4.9.2/bin/g++"
+MPICXX = $(CXX)
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated 
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG -g -DZIBHTC -std=c++1y   -DHAVE_LIBAMIRA=1
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O2 -DZIBHTC -std=c++1y   -DHAVE_LIBAMIRA=1
+OPTLOWFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O1 -DZIBHTC -std=c++1y    -DHAVE_LIBAMIRA=1
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = -O0 -DZIBHTC -std=c++1y   -DHAVE_LIBAMIRA=1
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DZIBHTC -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L 

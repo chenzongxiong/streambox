@@ -1,0 +1,52 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(MUMPSINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC)
+ifneq (,$(findstring -O1,$(OPTLOWFLAGS)))
+FLAGS = $(WFLAGS) $(OPTLOWFLAGS)
+else 
+FLAGS = $(WFLAGS) $(OPTFLAGS) 
+endif
+#FLAGS = $(WFLAGS) $(OPTFLAGS) $(GPROFFLAGS) 
+#FLAGS = $(WFLAGS) $(DEBUGFLAGS)  
+
+alle: heat heat3d
+
+heat3d: heat3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -pg -o $@
+
+heat: heat.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -pg -o $@
+
+clean:
+	rm -f gccerr.txt heat heat.o heat3d heat3d.o *.bak graph/* graph3d/* run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) heat3d.cpp heat.cpp; ../../remove_install_deps Makefile
+

@@ -1,0 +1,225 @@
+include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(ALUGRIDINC) $(ALBERTAINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC) $(ITSOLINC) $(HYPREINC) $(TAUCSINC) $(TRILINOSINC) $(UMFPACKINC) $(BLASINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+simple: heat heat3d
+
+heat: ht.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+heat3d: ht3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+advanced: uggrid alusimplexgrid aluconformgrid albertagrid
+
+uggrid: heatug heatug3d
+
+heatug: htug.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+heatug3d: htug3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+alusimplexgrid: heatalusimplex heatalusimplex3d
+
+heatalusimplex: htalusimplex.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+heatalusimplex3d: htalusimplex3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+aluconformgrid: heataluconform
+
+heataluconform: htaluconform.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+albertagrid: heatalberta heatalberta3d
+
+heatalberta: htalberta.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(ALLOWMULTIPLEDEFS) $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIBA2D) \
+ $(ALBERTA2DLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) $(X11LIB) $(OPENGLLIB) -o $@
+
+heatalberta3d: htalberta3d.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(ALLOWMULTIPLEDEFS) $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIBA3D) \
+ $(ALBERTA3DLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) $(X11LIB) $(OPENGLLIB) -o $@
+
+heat_gnuplot: ht_gnuplot.o Makefile $(KASKADE7)/libs/libkaskade.a 
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o \
+	$(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+ $(DUNELIB) \
+ $(UGLIB) \
+ $(ALUGRIDLIB) \
+ $(BOOSTLIB) \
+ $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(ITSOLLIB) \
+ $(HYPRELIB) \
+ $(TAUCSLIB) \
+ $(TRILINOSLIB) \
+ $(PARDISOLIB) \
+ $(AMIRALIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+all: simple advanced heat_gnuplot
+
+ht3d.o: ht.cpp
+	$(CXX) $(FLAGS) -DSPACEDIM=3 $(INCLUDE) $(CLANGINC) ht.cpp -c -o $@ 2> gccerr.txt
+
+htug.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=1 -DSPACEDIM=2 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htalusimplex.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=2 -DSPACEDIM=2 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htaluconform.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=3 -DSPACEDIM=2 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htalberta.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=4 -DSPACEDIM=2 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htug3d.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=1 -DSPACEDIM=3 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htalusimplex3d.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=2 -DSPACEDIM=3 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+htalberta3d.o: ht_advanced.cpp
+	$(CXX) $(FLAGS) -DGRIDTYPE=4 -DSPACEDIM=3 $(INCLUDE) $(CLANGINC) ht_advanced.cpp -c -o $@ 2> gccerr.txt
+
+clean:
+clean:
+	rm -f gccerr.txt heat heat3d heatug heatug3d heataluconform heatalusimplex \
+	heatalusimplex3d heatalberta heatalberta3d heat_gnuplot \
+	ht.o ht3d.o htug.o htug3d.o htalusimplex.o htalusimplex3d.o htaluconform.o \
+	htalberta.o htalberta3d.o ht_gnuplot.o temperature2.am temperature2.vtu \
+	temperature3.am temperature3.vtu *.bak run-*.json
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS)  ht.cpp ht_advanced.cpp ht_gnuplot.cpp; ../../remove_install_deps Makefile
+
+# DO NOT DELETE
+

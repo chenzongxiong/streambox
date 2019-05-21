@@ -1,0 +1,33 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(FUSIONINC) $(BOOSTINC) $(KASKADEINC)
+#~ FLAGS = $(WFLAGS) $(OPTFLAGS)
+FLAGS = $(WFLAGS) $(DEBUGFLAGS)
+
+OBJ=prolongation.o   #multigrid.o
+SRC=prolongation.cpp  multigrid.cpp
+
+default: ../libs/libkaskade.a
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC)
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+
+
+prolongationtest: prolongation.cpp prolongation.hh
+	$(CXX) -g -DUNITTEST $(INCLUDE)  $(WFLAGS) $(DEBUGFLAGS) $< $(KASKADELIB) $(DUNELIB) $(UGLIB) $(BOOSTLIB) $(BLASLIB) $(FTNLIB) $(NUMALIB)  -o $@
+
+multigrid.o: multigrid.cpp multigrid.hh prolongation.hh
+	$(CXX) $(FLAGS) -DUNITTEST $(INCLUDE)  $(WFLAGS) -c $< $
+
+multigridtest: multigrid.o
+	$(CXX) $(FLAGS)   $(WFLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o $(KASKADELIB) $(DUNELIB) $(UGLIB) $(BOOSTLIB) $(UMFPACKLIB) \
+ $(MUMPSLIB) \
+ $(BLASLIB) $(FTNLIB) $(NUMALIB)  -o $@
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp
+

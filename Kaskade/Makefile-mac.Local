@@ -1,0 +1,120 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = $(HOME)/path/to/Kaskade7.3
+USE_MPI = 0
+INSTALLS = $(HOME)/Software/gcc-5.2.0
+BOOST = $(INSTALLS)/boost-1.59.0
+DUNE = $(INSTALLS)/dune-2.4.1
+UG = $(INSTALLS)/dune-2.4.1
+#ALUGRID = $(INSTALLS)/ALUGrid-1.52
+ALBERTA = $(INSTALLS)/alberta-3.0.1
+OPENGL = /usr/X11
+MUMPS= $(INSTALLS)/mumps-4.10.0
+MUMPSMPI = $(INSTALLS)/mumpsmpi-4.10.0
+METIS= $(INSTALLS)/metis-4.0.3
+SCOTCH =$(INSTALLS)/scotch_esmumps-5.1.12
+#SUPERLU= $(INSTALLS)/superlu-4.3
+TAUCS = $(INSTALLS)/taucs-2.0
+ITSOL= $(INSTALLS)/itsol-1
+HYPRE= $(INSTALLS)/hypre-2.6.0b
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+AMIRAMESH = $(INSTALLS)/libamira
+PSURFACE = $(INSTALLS)/libpsurface-1.3.1
+# X11 = /usr/X11
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune
+UGINC = -I$(UG)/include -I$(UG)/include/ug
+#ALUGRIDINC = -I$(ALUGRID)/include -I$(ALUGRID)/include/serial
+ALBERTAINC = -I$(ALBERTA)/include -I$(ALBERTA)/include/alberta
+OPENGLINC = -I/usr/X11/include
+FUSIONINC = 
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+MUMPSMPIINC = -I$(MUMPSMPI)/include -I/opt/local/include/mpich-gcc5
+#SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/include
+HYPREINC = -I$(HYPRE)/include
+TAUCSINC = -I$(TAUCS)/include
+AMIRAINC = -I$(AMIRAMESH)/include
+PSURFACEINC = -I$(PSURFACE)/include
+KASKADEINC = -I$(KASKADE7)
+#BLASINC = -I/System/Library/Frameworks/vecLib.framework/Versions/Current/Headers
+# include directory below for OS X 10.9 Mavericks and up
+BLASINC = -I/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+#BLASLIB = -framework vecLib
+BLASLIB = -framework Accelerate
+FTNLIB =  -L$(INSTALLS)/gcc/lib -lgfortran
+# X11LIB = -L$(X11)/lib -lX11
+OPENGLLIB = -framework OpenGL
+DUNELIB = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid
+DUNELIBA1D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_1d
+DUNELIBA2D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_2d
+DUNELIBA3D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_3d
+UGLIB = -L$(UG)/lib -lugS3 -lugS2 -lugL3 -lugL2 -ldevS -ldevX
+#ALUGRIDLIB = -L$(ALUGRID)/lib -lalugrid
+# Alberta 2.0.1
+#ALBERTA1DLIB = -L$(ALBERTA)/lib -lalberta_1d -lalberta_util
+#ALBERTA2DLIB = -L$(ALBERTA)/lib -lalberta_2d -lalberta_util
+#ALBERTA3DLIB = -L$(ALBERTA)/lib -lalberta_3d -lalberta_util
+# Alberta 3.0.x
+ALBERTA1DLIB = -L$(ALBERTA)/lib -lalberta_1d -lalberta_utilities
+ALBERTA2DLIB = -L$(ALBERTA)/lib -lalberta_2d -lalberta_utilities
+ALBERTA3DLIB = -L$(ALBERTA)/lib -lalberta_3d -lalberta_utilities
+BOOSTLIB =  -L$(BOOST)/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd $(BLASLIB)
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread $(BLASLIB)
+SCALAP  = -L/opt/local/lib -lscalapack
+METISLIB = $(METIS)/lib/libmetis.a
+SCOTCHLIB = -L$(SCOTCH)/lib -lesmumps -lscotch -lscotcherr
+MUMPSMPILIB = -L$(MUMPSMPI)/lib -ldmumps -lmumps_common -lpord $(SCALAP) $(METISLIB) $(SCOTCHLIB) -lpthread -L/opt/local/lib/mpich-gcc5 -lmpichf90 -lmpicxx -lmpi $(BLASLIB)
+#SUPERLULIB = -L$(SUPERLU)/lib -lsuperlu
+ITSOLLIB = -L$(ITSOL)/lib -litsol
+HYPRELIB = -L$(HYPRE)/lib -lHYPRE
+TAUCSLIB = -L$(TAUCS)/lib -ltaucs
+AMIRALIB = -L$(AMIRAMESH)/lib -lamiramesh
+PSURFACELIB =  # -L$(PSURFACE)/lib -lpsurface
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+
+##
+## C++ compiler
+##
+CXX = $(INSTALLS)/gcc/bin/c++
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated 
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG -g -DDarwin -std=c++1y  
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O2 -DDarwin -std=c++1y 
+OPTLOWFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O1 -DDarwin -std=c++1y 
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = -O0 -DDarwin -std=c++1y
+
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DDarwin -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L

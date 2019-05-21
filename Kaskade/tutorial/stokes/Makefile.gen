@@ -1,0 +1,20 @@
+ include ../../Makefile.Local
+include ../../Makefile.Rules
+
+INCLUDE = $(HYPREINC) $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(AMIRAINC) $(KASKADEINC)
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+
+stokes: stokes.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o $(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+	          $(BOOSTLIB) $(DUNELIB) $(UGLIB) $(UMFPACKLIB) $(MUMPSLIB) $(HYPRELIB) $(AMIRALIB) $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+stokes-adaptive: stokes-adaptive.o Makefile $(KASKADE7)/libs/libkaskade.a
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/umfpack_solve.o $(KASKADE7)/libs/mumps_solve.o $(KASKADE7)/libs/superlu_solve.o $(KASKADELIB) \
+	          $(BOOSTLIB) $(DUNELIB) $(UGLIB) $(UMFPACKLIB) $(MUMPSLIB) $(HYPRELIB) $(AMIRALIB) $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+depend:
+	cp Makefile.gen Makefile; ../../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) stokes.cpp stokes-adaptive.cpp; ../../remove_install_deps Makefile
+
+clean:
+	rm -f gccerr.txt stokes stokes-adaptive stokes.o stokes-adaptive.o *.bak *.vtu
+

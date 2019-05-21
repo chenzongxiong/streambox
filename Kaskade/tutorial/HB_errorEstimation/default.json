@@ -1,0 +1,196 @@
+{
+ "problem": "schlitz",
+ "schlitz":
+   {
+     "geometry": "schlitz",
+     "funcional": "schlitz-n",
+     "aTolX": 1.0e-4,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 1
+   },
+ "BoDD":
+   {
+     "geometry": "bodd",
+     "functional": "bodd",
+     "aTolX": 50.0,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 1
+   },
+ "laplace":
+   {
+     "geometry": "einheitsquadrat",
+     "geoFile": "einheitsquadrat.am",
+     "functional": "laplace",
+     "aTolX": 0.0001,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 0,
+     "minRefine": 0.1
+   },
+ "peak":
+   {
+     "geometry": "einheitsquadrat",
+     "geoFile": "einheitsquadrat.am",
+     "functional": "peak",
+     "aTolX": 0.001,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 3,
+     "minRefine": 0.2
+   },
+ "area":
+   {
+     "geometry": "area",
+     "functional": "area",
+     "aTolX": 0.00001,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 20,
+     "order": 1,
+     "refs": 1,
+     "minRefine": 0.05
+   },
+ "jump":
+   {
+     "geometry": "einheitsquadrat",
+     "geoFile": "einheitsquadrat.am",
+     "functional": "jump",
+     "aTolX": 0.001,
+     "rTolX": 0.01,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 0,
+     "minRefine": 0.1
+   },
+ "l-shape":
+   {
+     "geometry": "l-shape",
+     "geoFile": "l-shape.am",
+     "functional": "laplace",
+     "aTolX": 0.001,
+     "rTolX": 0.001,
+     "maxAdaptSteps": 30,
+     "order": 1,
+     "refs": 0,
+     "minRefine": 0.1
+   },
+ "solver":
+   {
+     "type": "iterate",
+     "direct": "MUMPS",
+     "iterate": "APCG",
+     "property": "GENERAL",
+     "preconditioner": "JACOBI",
+     "iteEps": 1.0e-10,
+     "iteMax": 1000,
+     "verbose": 0,
+     "ILUT":
+       {
+         "dropTol": 0.01,
+         "lfil": 140
+       },
+     "ILUK":
+       {
+         "fill_lev": 3
+       },
+     "ARMS":
+       {
+         "dropTol": 0.01,
+         "tolind": 0.2,
+         "lev_reord": 2,
+         "lfil": 4
+       },
+     "BOOMERAMG":
+       {
+         "steps": 1,
+         "coarsentype": 21,
+         "interpoltype": 0,
+         "cycleType": 1,
+         "relaxType":3,
+         "tol": 1.0e-8,
+         "variant": 0,
+         "overlap": 1
+       },
+     "EUCLID":
+       {
+         "level": 1,
+         "droptol": 0.0,
+         "printlevel": 0,
+         "bj": 0
+       },
+     "APCG":
+       {
+         "addedIterations": 3
+       }
+   },
+ "names":
+   {
+     "type":
+       {
+         "iterate": 0,
+         "direct": 1
+       },
+     "property":
+       {
+         "GENERAL": 0,
+         "SYMMETRICSTRUCTURE": 1,
+         "SYMMETRIC": 2,
+         "POSITIVEDEFINITE": 3
+       },
+     "direct":
+	   {
+		 "UMFPACK":0,
+		 "PARDISO":1,
+		 "MUMPS": 2,
+		 "SUPERLU": 3,
+		 "UMFPACK3264": 4,
+		 "UMFPACK64": 5
+	   },
+     "iterate":
+	   {
+		 "CG":0,
+		 "BICGSTAB":1,
+		 "GMRES": 2,
+		 "PCG":3,
+		 "APCG":4
+	   },
+     "preconditioner":
+	   {
+		 "NONE":0,
+		 "JACOBI":1,
+		 "PARTIAL": 2,
+		 "ILUT": 3,
+		 "ILUK": 4,
+		 "ARMS": 5,
+		 "INVERSE": 6,
+		 "ADDITIVESCHWARZ": 7,
+		 "BOOMERAMG": 8,
+		 "EUCLID": 9,
+		 "TRILINOSML": 10
+	   },
+	  "geometry":
+	    {
+	      "area":3,
+	      "bank":3,
+	      "schlitz":1,
+	      "bodd":2,
+	      "einheitsquadrat":0
+	    },
+	  "functional":
+	    {
+	      "bank":0,
+	      "schlitz-n":1,
+	      "schlitz-d":2,
+	      "bodd":3,
+	      "laplace":4,
+	      "peak":5,
+	      "area":6,
+	      "jump":7
+	    }
+   }
+}

@@ -1,0 +1,124 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = /path/to/Kaskade7.3
+USE_MPI = 0
+
+# thirdparty-software compiled with clang/clang++
+INSTALLS = /nfs/datanumerik/archiv/software/linux64/clang-3.6.0-x86_64-linux-gnu
+BOOST = $(INSTALLS)/boost-1.59.0
+UG = $(INSTALLS)/dune-2.4.1
+DUNE = $(INSTALLS)/dune-2.4.1
+#ALUGRID = $(INSTALLS)/ALUGrid-1.52
+ALBERTA = $(INSTALLS)/alberta-3.0.1
+MUMPS= $(INSTALLS)/mumps-4.10.0
+METIS= $(INSTALLS)/metis-4.0.3
+SCOTCH = $(INSTALLS)/scotch_esmumps-5.1.12
+MUMPSMPI= $(INSTALLS)/mumpsmpi-4.10.0
+#SUPERLU= $(INSTALLS)/superlu-4.3
+ITSOL= $(INSTALLS)/itsol-1
+HYPRE= $(INSTALLS)/hypre-2.6.0b
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+AMIRAMESH = $(INSTALLS)/libamira
+TAUCS = $(INSTALLS)/taucs-2.0
+#PSURFACE = $(INSTALLS)/libpsurface-1.3.1   # not available with clang
+ACML = /home/datanumerik/archiv/software/linux64/acml-5.3.1/gfortran64
+
+# thirdparty-software compiled with gcc/g++
+INSTALLSGCC = /nfs/datanumerik/archiv/software/linux64/gcc-4.9.3
+PSURFACE = $(INSTALLSGCC)/libpsurface-1.3.1
+
+# X11 = /usr/X11
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune
+UGINC = -I$(UG)/include -I$(UG)/include/ug
+#ALUGRIDINC = -I$(ALUGRID)/include -I$(ALUGRID)/include/serial
+ALBERTAINC = -I$(ALBERTA)/include -I$(ALBERTA)/include/alberta
+FUSIONINC = 
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+MUMPSMPIINC = -I$(MUMPSMPI)/include -I/usr/include/mpi
+#SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/include
+HYPREINC = -I$(HYPRE)/include
+AMIRAINC = -I$(AMIRAMESH)/include
+TAUCSINC = -I$(TAUCS)/include
+PSURFACEINC = -I$(PSURFACE)/include
+KASKADEINC = -I$(KASKADE7)
+BLASINC = -I$(ACML)/include
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+DUNELIB = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -lz
+DUNELIBA1D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_1d -lz
+DUNELIBA2D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_2d -lz
+DUNELIBA3D = -L$(DUNE)/lib -ldunegrid -ldunecommon -ldunegeometry -ldunealugrid -ldunealbertagrid_3d -lz
+UGLIB = -L$(UG)/lib -lugS3 -lugS2 -lugL3 -lugL2 -ldevS -ldevX 
+#ALUGRIDLIB = -L$(ALUGRID)/lib -lalugrid
+ALBERTA1DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_1d -lalberta_utilities 
+ALBERTA2DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_2d -lalberta_utilities 
+ALBERTA3DLIB = -L$(ALBERTA)/lib -Wl,-rpath,$(ALBERTA)/lib -lalberta_3d -lalberta_utilities 
+BOOSTLIB =  -L$(BOOST)/lib -Wl,-rpath,$(BOOST)/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono
+BLASLIB = -L/nfs/datanumerik/archiv/software/linux64/acml-5.3.1/gfortran64/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/acml-5.3.1/gfortran64/lib -lacml
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd $(BLASLIB)
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread $(BLASLIB)
+METISLIB = -L$(METIS)/lib -lmetis
+SCOTCHLIB = -L$(SCOTCH)/lib -lesmumps -lscotch -lscotcherr
+SCALAP  = -lscalapack-openmpi -lblacsF77init-openmpi -lblacs-openmpi -lblacsF77init-openmpi
+MUMPSMPILIB = -L$(MUMPSMPI)/lib -ldmumps -lmumps_common -lpord $(SCALAP) $(METISLIB) $(SCOTCHLIB) -lpthread -lmpif77 -lmpi_cxx -lmpi $(BLASLIB)
+#SUPERLULIB = -L$(SUPERLU)/lib -lsuperlu $(BLASLIB)
+ITSOLLIB = -L$(ITSOL)/lib -litsol
+HYPRELIB = -L$(HYPRE)/lib -lHYPRE
+AMIRALIB = -L$(AMIRAMESH)/lib -lamiramesh
+TAUCSLIB = -L$(TAUCS)/lib -ltaucs
+PSURFACELIB = 
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+FTNLIB = -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/nfs/datanumerik/archiv/software/linux64/gcc-4.9.3/gcc/lib64 -lstdc++ # quick and dirty fix to load runtime externals from the right libstd++.so
+NUMALIB = -L/usr/lib/x86_64-linux-gnu -lnuma
+# X11LIB = -L$(X11)/lib64 -lX11
+
+##
+## C++ compiler
+##
+CXX = "/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04/bin/clang++"
+CLANGINC = -I/nfs/datanumerik/archiv/software/linux64/gcc-4.9.3/gcc/include/c++/4.9.3 # force include of g++ 4.9 system header files - needed when compiling with -std=c++1y (see also file Makefile.Rules)
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG -g -DZIBHTC -std=c++1y -DHAVE_NUMA
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O2 -DZIBHTC -std=c++1y -DHAVE_NUMA
+OPTLOWFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O1 -DZIBHTC -std=c++1y  -DHAVE_NUMA
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = -O0 -DZIBHTC -std=c++1y -DHAVE_NUMA
+
+##
+## Flag to allow multiple entries of the same routine during link - only needed on some platforms
+##
+ALLOWMULTIPLEDEFS = 
+
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DZIBHTC -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L 

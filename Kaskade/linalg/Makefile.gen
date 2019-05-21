@@ -1,0 +1,51 @@
+include ../Makefile.Local
+include ../Makefile.Rules
+
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(MUMPSINC) $(MUMPSMPIINC) $(HYPREINC) $(BLASINC) $(KASKADEINC) 
+FLAGS = $(WFLAGS) $(OPTFLAGS)
+#FLAGS = $(WFLAGS) $(DEBUGFLAGS)
+
+#OBJ=factorization.o umfpack_solve.o umfpack_tools.o mumps_solve.o superlu_solve.o pardiso_solve.o schurblocklu_solve.o simpleLAPmatrix.o apcg.o
+#SRC=factorization.cpp umfpack_solve.cpp mumps_solve.cpp superlu_solve.cpp pardiso_solve.cpp schurblocklu_solve.cpp simpleLAPmatrix.cpp apcg.cpp
+ifeq ($(USE_MPI),1)
+OBJ=dynamicMatrix.o factorization.o umfpack_solve.o umfpack_tools.o mumps_solve.o mumpsmpi_solve.o superlu_solve.o pardiso_solve.o simpleLAPmatrix.o apcg.o threadedMatrix.o
+SRC=dynamicMatrix.cpp factorization.cpp umfpack_solve.cpp mumps_solve.cpp mumpsmpi_solve.cpp superlu_solve.cpp pardiso_solve.cpp simpleLAPmatrix.cpp apcg.cpp threadedMatrix.cpp
+TARGETOBJ = ../libs/umfpack_solve.o ../libs/pardiso_solve.o ../libs/mumps_solve.o  ../libs/mumpsmpi_solve.o ../libs/superlu_solve.o
+else
+OBJ=dynamicMatrix.o factorization.o umfpack_solve.o umfpack_tools.o mumps_solve.o superlu_solve.o pardiso_solve.o simpleLAPmatrix.o apcg.o threadedMatrix.o
+SRC=dynamicMatrix.cpp factorization.cpp umfpack_solve.cpp mumps_solve.cpp superlu_solve.cpp pardiso_solve.cpp simpleLAPmatrix.cpp apcg.cpp threadedMatrix.cpp
+TARGETOBJ = ../libs/umfpack_solve.o ../libs/pardiso_solve.o ../libs/mumps_solve.o ../libs/superlu_solve.o
+endif
+
+
+default: ../libs/libkaskade.a $(TARGETOBJ)
+
+dynamicMatrix: dynamicMatrix.cpp
+	$(CXX) -g -DUNITTEST $(INCLUDE) $(FLAGS) $<  $(DUNELIB) $(BOOSTLIB) $(BLASLIB) $(FTNLIB)  -o $@
+
+numaMatrix: numaMatrix.cpp numaMatrix.hh 
+	$(CXX) -g -DUNITTEST $(INCLUDE) $(FLAGS) $<  $(KASKADELIB) $(DUNELIB) $(BOOSTLIB) $(BLASLIB) $(FTNLIB) $(NUMALIB) -o $@
+
+mumpsmpi_solve.o: mumpsmpi_solve.cpp mumpsmpi_solve.hh
+	$(CXX) $(FLAGS) $(MUMPSMPIINC) $(INCLUDE) $(CLANGINC) $< -c -o $@ 2> gccerr.txt 
+
+
+depend:
+	cp Makefile.gen Makefile; ../gccmakedep -f Makefile $(INCLUDE) $(MAKEDEPENDFLAGS) $(SRC); ../remove_install_deps Makefile
+
+../libs/libkaskade.a: $(OBJ) Makefile
+	ar rcs $@ $(OBJ)
+../libs/umfpack_solve.o: umfpack_solve.o
+	cp $< $@
+../libs/pardiso_solve.o: pardiso_solve.o 
+	cp $< $@
+../libs/mumps_solve.o: mumps_solve.o
+	cp $< $@
+../libs/mumpsmpi_solve.o: mumpsmpi_solve.o
+	cp $< $@
+../libs/superlu_solve.o: superlu_solve.o 
+	cp $< $@
+
+clean:
+	rm -f gccerr.txt *.o *.bak *.tmp
+

@@ -1,0 +1,74 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = /home/datanumerik/roitzsch/Kaskade7
+INSTALLS = /home/archiv/software/linux64
+DUNE = /home/datanumerik/archiv/MartinsDune/Install
+UG = $(DUNE)/ug
+BOOST = $(DUNE)/boost
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+MUMPS = $(INSTALLS)/mumps-4.9.2
+ITSOL = /home/datanumerik/roitzsch/ITSOL_1
+SUPERLU = $(INSTALLS)/SuperLU-4.0
+ACML = $(INSTALLS)/gfortran64
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune
+UGINC = -I$(UG)/include
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/LIB
+AMIRAINC = -I$(INSTALLS)/include
+KASKADEINC = -I$(KASKADE7)
+BLASINC = -I$(ACML)/include
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+DUNELIB = -L$(DUNE)/lib -ldunegrid -ldunecommon
+UGLIB = -L$(UG)/lib -lugS3 -lugS2 -lugL3 -lugL2 -ldevS -ldevX
+#BOOSTLIB = -L/Users/dune/installs/lib -lboost_signals-gcc -lboost_program_options-gcc
+BOOSTLIB = -L$(BOOST)/lib -Wl,-rpath,$(BOOST)/lib -lboost_signals -lboost_program_options
+BLASLIB = -L$(ACML)/lib -Wl,-rpath,$(ACML)/lib -lacml -lacml_mv
+FTNLIB = -L/home/archiv/software/linux64/gcc-4-3-4/lib64 \
+  -Wl,-rpath,/home/archiv/software/linux64/gcc-4-3-4/lib64 -lgfortran
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd $(BLASLIB) $(FTNLIB)
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmumps_common -lpord -lmpiseq
+SUPERLULIB = -L$(SUPERLU)/lib -lsuperlu_4.0
+ITSOLLIB = -L$(ITSOL) -litsol 
+PARDISOLIB = -L/home/datanumerik/roitzsch/ -Wl,-rpath,/home/datanumerik/roitzsch/ -lpardiso_GNU_AMD64 -L/home/datanumerik/roitzsch/libf2c -lf2c
+AMIRALIB = -L$(INSTALLS)/lib -lamiramesh
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+
+##
+## C++ compiler
+##
+#CXX = /htcsoft/amd/sles9/gcc/4.3.2/bin/g++
+CXX = /home/archiv/software/linux64/gcc-4-3-4/bin/g++
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated 
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -O2 -g
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L

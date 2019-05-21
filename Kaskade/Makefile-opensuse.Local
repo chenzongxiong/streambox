@@ -1,0 +1,115 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = /path/to/Kaskade7.3
+USE_MPI = 0
+INSTALLS = $(HOME)/software/gcc-4.9.3
+BLAS = $(HOME)/software/acml-5.3.1/gfortran64
+BOOST = $(INSTALLS)/boost-1.59.0
+UG = $(INSTALLS)/dune-2.4.1
+DUNE = $(INSTALLS)/dune-2.4.1
+ALUGRID = $(INSTALLS)/ALUGrid-1.52
+ALBERTA = $(INSTALLS)/alberta-3.0.1
+OPENGL = /usr
+MUMPS= $(INSTALLS)/mumps-4.10.0
+METIS= $(INSTALLS)/metis-4.0.3
+SCOTCH = $(INSTALLS)/scotch_esmumps-5.1.12
+MUMPSMPI= $(INSTALLS)/mumpsmpi-4.10.0
+#SUPERLU= $(INSTALLS)/superlu-4.0
+ITSOL= $(INSTALLS)/itsol-1
+HYPRE= $(INSTALLS)/hypre-2.6.0b
+UMFPACK = $(INSTALLS)/umfpack-5.4.0
+#AMIRAMESH = $(INSTALLS)/libamira
+TAUCS = $(INSTALLS)/taucs-2.0
+# X11 = /usr/X11
+
+##
+## Include paths for Dune, UG, Fusion, Boost, and Umfpack
+##
+DUNEINC = -I$(DUNE)/include/ -I$(DUNE)/include/dune
+UGINC = -I$(UG)/include -I$(UG)/include/ug
+ALUGRIDINC = -I$(ALUGRID)/include -I$(ALUGRID)/include/serial
+ALBERTAINC = -I$(ALBERTA)/include -I$(ALBERTA)/include/alberta
+OPENGLINC = -I/usr/include
+BOOSTINC =  -I$(BOOST)/include
+UMFPACKINC = -I$(UMFPACK)/include
+MUMPSINC = -I$(MUMPS)/include
+MUMPSMPIINC = -I$(MUMPSMPI)/include -I/usr/include/mpi
+#SUPERLUINC = -I$(SUPERLU)/include
+ITSOLINC = -I$(ITSOL)/include
+HYPREINC = -I$(HYPRE)/include
+#AMIRAINC = -I$(AMIRAMESH)/include
+TAUCSINC = -I$(TAUCS)/include
+KASKADEINC = -I$(KASKADE7)
+BLASINC = -I$(BLAS)/include
+
+##
+## Library paths for Dune, UG, Boost, and Umfpack
+##
+DUNELIB = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry
+DUNELIBA1D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_1d
+DUNELIBA2D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_2d
+DUNELIBA3D = -L$(DUNE)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_3d
+DUNEA3LIBA1D = -L$(DUNEA3)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_1d
+DUNEA3LIBA2D = -L$(DUNEA3)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_2d
+DUNEA3LIBA3D = -L$(DUNEA3)/lib64 -ldunegrid -ldunecommon -ldunegeometry -ldunealbertagrid_3d
+UGLIB = -L$(UG)/lib64 -lugS3 -lugS2 -lugL3 -lugL2 -ldevS 
+ALUGRIDLIB = -L$(ALUGRID)/lib64 -lalugrid
+ALBERTA31DLIB = -L$(ALBERTA3)/lib64 -Wl,-rpath,$(ALBERTA3)/lib64 -lalberta_1d -lalberta_gfx_1d -lalbas_1d -loem_block_solve_1d -lstatic_condensation_1d -lalberta_utilities
+ALBERTA32DLIB = -L$(ALBERTA3)/lib64 -Wl,-rpath,$(ALBERTA3)/lib64 -lalberta_2d -lalberta_gfx_2d -lalbas_2d -loem_block_solve_2d -lstatic_condensation_2d -lalberta_utilities
+ALBERTA33DLIB = -L$(ALBERTA3)/lib64 -Wl,-rpath,$(ALBERTA3)/lib64 -lalberta_3d -lalberta_gfx_3d -lalbas_3d -loem_block_solve_3d -lstatic_condensation_3d -lalberta_utilities
+ALBERTA1DLIB = -L$(ALBERTA)/lib64 -Wl,-rpath,$(ALBERTA)/lib64 -lalberta_1d -lalberta_util
+ALBERTA2DLIB = -L$(ALBERTA)/lib64 -Wl,-rpath,$(ALBERTA)/lib64 -lalberta_2d -lalberta_util
+ALBERTA3DLIB = -L$(ALBERTA)/lib64 -Wl,-rpath,$(ALBERTA)/lib64 -lalberta_3d -lalberta_util
+OPENGLLIB = -L/usr/lib -lGL
+BOOSTLIB =  -L$(BOOST)/lib -Wl,-rpath,$(BOOST)/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono
+UMFPACKLIB = -L$(UMFPACK)/lib -lumfpack -lamd
+MUMPSLIB = -L$(MUMPS)/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread
+METISLIB = -L$(METIS)/lib -lmetis
+SCOTCHLIB = -L$(SCOTCH)/lib -lesmumps -lscotch -lscotcherr
+SCALAP  = -lscalapack-openmpi -lblacsF77init-openmpi -lblacs-openmpi -lblacsF77init-openmpi
+MUMPSMPILIB = -L$(MUMPSMPI)/lib -ldmumps -lmumps_common -lpord $(SCALAP) $(METISLIB) $(SCOTCHLIB) -lpthread -lmpif77 -lmpi_cxx -lmpi $(BLASLIB)
+#SUPERLULIB = -L$(SUPERLU)/lib -lsuperlu
+ITSOLLIB = -L$(ITSOL)/lib -litsol
+HYPRELIB = -L$(HYPRE)/lib64 -lHYPRE
+#AMIRALIB = -L$(AMIRAMESH)/lib -lamiramesh
+TAUCSLIB = -L$(TAUCS)/lib -ltaucs
+KASKADELIB = -L$(KASKADE7)/libs -lkaskade
+BLASLIB = -L$(BLAS)/lib -Wl,-rpath,$(BLAS)/lib -lacml
+FTNLIB = -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran
+# X11LIB = -L$(X11)/lib64 -lX11
+
+##
+## C++ compiler
+##
+CXX = "$(INSTALLS)/gcc/bin/c++"
+
+##
+## warnings
+##
+WFLAGS = -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated 
+
+##
+## compiler flags for debug builds
+##
+DEBUGFLAGS = -DDEBUG -g -DZIBHTC -std=c++1y
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O2 -DZIBHTC -std=c++1y
+OPTLOWFLAGS = -fmessage-length=0 -funroll-loops -DNDEBUG -O1 -DZIBHTC -std=c++1y
+
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = -O0 -DZIBHTC -std=c++1y
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DZIBHTC -D__GXX_EXPERIMENTAL_CXX0X__ -D__cplusplus=201103L
