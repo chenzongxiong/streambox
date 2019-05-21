@@ -1,0 +1,55 @@
+config:
+[0;37m                              USE_NUMA_TP  undefined [0m
+[0;32m                               USE_TBB_DS          1 [0m
+[0;37m                         USE_FOLLY_VECTOR  undefined [0m
+[0;37m                         USE_FOLLY_STRING  undefined [0m
+[0;37m                        USE_FOLLY_HASHMAP  undefined [0m
+[0;37m                       USE_CUCKOO_HASHMAP  undefined [0m
+[0;32m                          USE_TBB_HASHMAP          1 [0m
+[0;37m                           USE_NUMA_ALLOC  undefined [0m
+[0;32m                    INPUT_ALWAYS_ON_NODE0          1 [0m
+[0;32m                          MEASURE_LATENCY          1 [0m
+[0;32m                    CONFIG_SOURCE_THREADS          1 [0m
+[0;32m        CONFIG_MIN_PERNODE_BUFFER_SIZE_MB      200UL [0m
+[0;32m         CONFIG_MIN_EPOCHS_PERNODE_BUFFER        2UL [0m
+[0;32m              CONFIG_NETMON_HT_PARTITIONS       1024 [0m
+[0;32m                CONFIG_JOIN_HT_PARTITIONS          4 [0m
+---- source configuration ---- 
+source file: /home/zxchen/inputdata.bin (specified as: /home/zxchen/inputdata.bin)
+source file size: 7438.66 MB
+buffer size: 200.00 MB
+   #nodes: KRec/nodebuf         MB   epoch/ms KRec/epoch    MB/epoc target:KRec/S    RecSize
+         1       2688        200       2000         12          0 18446744073709551         78
+node 0: loading buffer 200.00 MB
+
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+window_size: 2
+pbegin --> [unbounded-inmem] --> src_out --> [yahoo_parser] --> parser_out --> [yahoo_filter] --> filter_out --> [yahoo_aggregate] --> mapper_out --> [wingbk] --> wgbk_out --> [reducer] --> reducer_out --> [sink] --> sink_out --> 
+[0;31m162 StartThreads: 8 threads fired up...[0m
+                    Trans      MB/s       Avg    KRec/s       Avg
+start thread: 0x7ffe5555cab8
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+[0;31m409 evaluate:  ---- punc internal is 2 sec (ev time) --- [0m
+Latency: 5.45819
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]    923.12    923.12  12118.91  12118.91
+           [yahoo_parser]    262.05    262.05   3440.23   3440.23
+           [yahoo_filter]      0.00      0.00   3440.23   3440.23
+        [yahoo_aggregate]      0.00      0.00   1145.41   1145.41
+                [reducer]      0.00      0.00   1149.46   1149.46
+                   [sink]      0.00      0.00      4.00      4.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]    488.26    705.69   6410.00   9264.45
+           [yahoo_parser]    259.55    260.80   3407.38   3423.81
+           [yahoo_filter]      0.00      0.00   3407.38   3423.81
+        [yahoo_aggregate]      0.00      0.00   1134.48   1139.95
+                [reducer]      0.00      0.00   1133.74   1141.60
+                   [sink]      0.00      0.00      0.00      2.00
+Stop measure latency...[0;31m176 StopThreads: --- start to stop worker threads...[0m
+[0;31m180 StopThreads: --- all worker threads stopped.[0m
+time elapses: 6.02049

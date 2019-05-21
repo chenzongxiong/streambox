@@ -27,6 +27,7 @@ class WindowsBundleSinkEvaluator
 	//using InputBundleT = WindowsKeyedBundle<KVPair>;
 	using OutputBundleT = WindowsBundle<InputT>;
 
+    std::atomic<bool> firstLatencyEvaluation;
 public:
 
 	WindowsBundleSinkEvaluator(int node)
@@ -41,15 +42,12 @@ public:
         TransformT::printBundle(*input_bundle);
         // std::cout << "EvaluateSingleInput" << std::endl;
         if (first) {
-            // boost::posix_time::ptime latencyEnd = boost::posix_time::second_clock::local_time();
+            first = false;
             uint64_t latencyEnd = std::chrono::duration_cast<NanoSeconds>(
                 Clock::now().time_since_epoch())
                 .count();
-            double diff = (latencyEnd - latencyStart) / 10e6;
-            // std::cout << "start time: " << boost::posix_time::to_simple_string(latencyStart) << std::endl;
-            // std::cout << "End time: " << boost::posix_time::to_simple_string(latencyEnd) << std::endl;
+            double diff = (latencyEnd - latencyStart) / 1e6;
             std::cout << "Latency: " << diff << std::endl;
-            first = false;
         }
 
         int size = 0;

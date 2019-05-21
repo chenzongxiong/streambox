@@ -243,8 +243,8 @@ class UnboundedInMemEvaluator<string_range, BundleT>
 				 * 3. we don't force each string_range's later char to be \0
 				 */
 
-				VV("pack records in bundle ts %s:",
-						to_simple_string(current_ts + delta * i).c_str());
+				// VV("pack records in bundle ts %s:",
+				// 		to_simple_string(current_ts + delta * i).c_str());
 
 				while (offset + record_size < range_per_bundle) {
 					range.data = bundle_start + offset;
@@ -441,8 +441,14 @@ class UnboundedInMemEvaluator<string_range, BundleT>
 
 
 		while (true) {
+            uint64_t measureLatencyElapsed = std::chrono::duration_cast<NanoSeconds>(
+                Clock::now().time_since_epoch())
+                .count();
 
-
+            if (measureLatencyElapsed - latencyStart >= (uint64_t)2L*1e9) {
+                std::cout << "Stop measure latency...";
+                break;
+            }
 #ifdef MEASURE_40M_TUPLES
             unsigned long total_records = t->record_counter_.load(std::memory_order_relaxed);
             // std::cout << "already consumes: " << total_records << std::endl;
@@ -532,8 +538,8 @@ class UnboundedInMemEvaluator<string_range, BundleT>
 						      * 3. we don't force each string_range's later char to be \0
 						      */
 
-						     I("pack records in bundle ts %s:",
-                               to_simple_string(BaseT::current_ts + delta * i).c_str());
+						     // I("pack records in bundle ts %s:",
+                             //   to_simple_string(BaseT::current_ts + delta * i).c_str());
 
 						     for (unsigned int j = 0; j < records_per_bundle; j++, local_offset++) {
 							     if (local_offset == t->buffer_size_records)
@@ -1203,8 +1209,8 @@ public:
 				 * 3. we don't force each string_range's later char to be \0
 				 */
 
-				VV("pack records in bundle ts %s:",
-						to_simple_string(current_ts + delta * i).c_str());
+				// VV("pack records in bundle ts %s:",
+				// 		to_simple_string(current_ts + delta * i).c_str());
 
 				while (offset + record_size < range_per_bundle) {
 					range.data = bundle_start + offset;
