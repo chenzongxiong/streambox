@@ -20,6 +20,7 @@ using Clock = std::chrono::high_resolution_clock;
 // extern  boost::posix_time::ptime start; //global variable
 // #endif
 extern uint64_t latencyStart;
+static uint64_t MAX_LOOP = 0;
 
 /* no generic impl */
 template<class T, template<class> class BundleT> class UnboundedInMemEvaluator;
@@ -441,19 +442,22 @@ class UnboundedInMemEvaluator<string_range, BundleT>
 
 
 		while (true) {
-            uint64_t measureLatencyElapsed = std::chrono::duration_cast<NanoSeconds>(
-                Clock::now().time_since_epoch())
-                .count();
+            // uint64_t measureLatencyElapsed = std::chrono::duration_cast<NanoSeconds>(
+            //     Clock::now().time_since_epoch())
+            //     .count();
 
-            if (measureLatencyElapsed - latencyStart >= (uint64_t)2L*1e9) {
-                std::cout << "Stop measure latency...";
-                break;
-            }
+            // if (measureLatencyElapsed - latencyStart >= (uint64_t)2L*1e9) {
+            //     std::cout << "Stop measure latency...";
+            //     break;
+            // }
+
 #ifdef MEASURE_40M_TUPLES
             unsigned long total_records = t->record_counter_.load(std::memory_order_relaxed);
             // std::cout << "already consumes: " << total_records << std::endl;
 
             if (total_records >= 40*1000*1000) {
+                // std::cout << "c->num_workers: " << c->num_workers << ", c->executor_.nwait_: " << c->executor_.nwait_ << std::endl;
+                // MAX_LOOP ++;
                 // all the workers are idle, that means there is no
                 // further tuples to processing.
                 if (c->executor_.nwait_ == c->num_workers) {
@@ -462,6 +466,7 @@ class UnboundedInMemEvaluator<string_range, BundleT>
                 } else {
 //                    std::cout << "already consumes: " << total_records << std::endl;
                     usleep(us_per_iteration);
+                    // if (MAX_LOOP >= 100)
                     continue;
                 }
             }

@@ -58,8 +58,7 @@ public:
             for (auto &kv : pfrag->vals) {
                 auto k = kv.data.first;
                 auto v = kv.data.second;
-                // EE("win.start: %s, k: %lu, v: %lu", to_simplest_string(win.window_start()).c_str(), k, v);
-
+                EE("win.start: %s, k: %lu, v: %lu", to_simplest_string(win.window_start()).c_str(), k, v);
             }
             size += pfrag->vals.size();
         }
