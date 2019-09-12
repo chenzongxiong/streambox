@@ -660,7 +660,7 @@ FIND_LIBRARY(papi NAMES libpapi.so)
 
 # x86 libs
 if(NOT CMAKE_ENV STREQUAL "arm")
-  FIND_LIBRARY(folly NAMES libfolly.a PATHS /ssd/local/lib)
+  FIND_LIBRARY(folly NAMES libfolly.a PATHS /usr/local/lib)
   FIND_LIBRARY(re2 NAMES libre2.a PATHS /usr/local/lib)
   FIND_LIBRARY(glog NAMES libglog.a PATHS /usr/local/lib)
   FIND_LIBRARY(re2 NAMES libre2.a PATHS /usr/local/lib)
