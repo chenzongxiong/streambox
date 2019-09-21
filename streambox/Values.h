@@ -1153,6 +1153,11 @@ inline void RecordBundle<creek::tvpair>::add_record(const Window &win,
     add_record(rec);
 }
 
+template <>
+inline void RecordBundle<std::pair<uint64_t, uint64_t>>::add_record(const Window &win, const RecordT &rec) {
+    add_record(rec);
+}
+
 template <typename T> struct RecordBundleDebug : public RecordBundle<T> {
     /* for debugging */
     virtual ~RecordBundleDebug() {

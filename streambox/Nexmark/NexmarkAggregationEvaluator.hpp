@@ -29,7 +29,8 @@ public:
             trans->do_map(*it, output_bundle);
         }
         trans->record_counter_.fetch_add(input_bundle->size(), std::memory_order_relaxed);
-        return false;
+        // return false;
+        return true;
     }
 
     NexmarkAggregationEvaluator(int node)

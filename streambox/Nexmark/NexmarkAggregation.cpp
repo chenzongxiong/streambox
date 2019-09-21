@@ -20,7 +20,8 @@ using KVPair = pair<uint64_t, uint64_t>;
 template<>
 uint64_t NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::do_map(Record<NexmarkRecord> const& in,
                                                                          shared_ptr<RecordBundle<KVPair>> output_bundle) {
-    // std::cout << "nexmark aggregation do map" << std::endl;
+    uint64_t auction = in.data.auction;
+    output_bundle->emplace_record(KVPair(auction, 1), in.ts);
     return 1;
 }
 

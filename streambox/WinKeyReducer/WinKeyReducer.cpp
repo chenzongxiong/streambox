@@ -9,19 +9,20 @@
 #endif
 
 template <typename KVPair,
-					template<class> class InputWindowKeyedFragmentT,
-					template<class> class InternalWindowKeyedFragmentT,
-					typename KVPairOut,
-					template<class> class OutputBundleT_
->
+          template<class> class InputWindowKeyedFragmentT,
+          template<class> class InternalWindowKeyedFragmentT,
+          typename KVPairOut,
+          template<class> class OutputBundleT_
+          >
 void WinKeyReducer<KVPair,InputWindowKeyedFragmentT,
-		InternalWindowKeyedFragmentT, KVPairOut, OutputBundleT_>
-::ExecEvaluator
-	(int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr)
-{
+                   InternalWindowKeyedFragmentT,
+                   KVPairOut,
+                   OutputBundleT_>::ExecEvaluator(int nodeid,
+                                                  EvaluationBundleContext *c,
+                                                  shared_ptr<BundleBase> bundle_ptr) {
 	/* instantiate an evaluator */
 	WinKeyReducerEval<KVPair,InputWindowKeyedFragmentT,
-			InternalWindowKeyedFragmentT, KVPairOut, OutputBundleT_> eval(nodeid);
+                      InternalWindowKeyedFragmentT, KVPairOut, OutputBundleT_> eval(nodeid);
 	eval.evaluate(this, c, bundle_ptr);
 }
 

@@ -900,6 +900,12 @@ add_executable(test-nexmark.bin
   Nexmark/NexmarkAggregation.cpp
   Nexmark/NexmarkAggregationEvaluator.hpp
 
+  Nexmark/NexmarkWinKeyReducerCommon.hpp
+  Nexmark/NexmarkWinKeyReducerEvalCommon.hpp
+  Nexmark/NexmarkWinKeyReducerEvalWinBundle.cpp
+  Nexmark/NexmarkWinKeyReducerWinBundle.cpp
+  Nexmark/NexmarkWinKeyReducerEvalRecordBundle.cpp
+  Nexmark/NexmarkWinKeyReducerRecordBundle.cpp
   )
 
 TARGET_LINK_LIBRARIES(test-nexmark.bin

@@ -6,11 +6,12 @@
 #include "WinGBKEvaluator.h"
 
 template <class KVPair,
-					template<class> class InputBundleT,
-					template<class> class WindowKeyedFragmentT
-					>
+          template<class> class InputBundleT,
+          template<class> class WindowKeyedFragmentT
+          >
 void WinGBK<KVPair, InputBundleT, WindowKeyedFragmentT>::ExecEvaluator(int nodeid,
-			EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr) {
+                                                                       EvaluationBundleContext *c,
+                                                                       shared_ptr<BundleBase> bundle_ptr) {
 
 #ifndef NDEBUG /* if evaluators get stuck ...*/
 	static atomic<int> outstanding (0);
@@ -34,15 +35,15 @@ void WinGBK<KVPair, InputBundleT, WindowKeyedFragmentT>::ExecEvaluator(int nodei
 /* ---- for netmon --- */
 template
 void WinGBK<pair<creek::ippair, long>, RecordBundle, WinKeyFragLocal_Simple>
-	::ExecEvaluator(int nodeid,
-									EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+::ExecEvaluator(int nodeid,
+                EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* ---- for wordcount --- */
 template
 //void WinGBK<pair<creek::string, long>, RecordBundle<pair<std::string, long>>>
 void WinGBK<pair<creek::string, long>, RecordBundle, WinKeyFragLocal_Std>
-	::ExecEvaluator(int nodeid,
-									EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+::ExecEvaluator(int nodeid,
+                EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* ---- for yahoo --- */
 template

@@ -25,14 +25,13 @@ template <
 	typename KVPairOut,
 	template<class> class OutputBundleT_
 	>
-class WinKeyReducer
-		: public StatefulTransform<
-		  		WinKeyReducer<KVPairIn,InputWinKeyFragT,InternalWinKeyFragT,KVPairOut,OutputBundleT_>,
-		  		InputWinKeyFragT<KVPairIn>,			/* InputT */
-		  		shared_ptr<InternalWinKeyFragT<KVPairIn>>,		/* WindowResultT */
-		  		shared_ptr<InternalWinKeyFragT<KVPairIn>>		/* LocalWindowResultT */
+class WinKeyReducer : public StatefulTransform<
+    WinKeyReducer<KVPairIn,InputWinKeyFragT,InternalWinKeyFragT,KVPairOut,OutputBundleT_>,
+    InputWinKeyFragT<KVPairIn>,			/* InputT */
+    shared_ptr<InternalWinKeyFragT<KVPairIn>>,		/* WindowResultT */
+    shared_ptr<InternalWinKeyFragT<KVPairIn>>		/* LocalWindowResultT */
 //		  		shared_ptr<InputWindowKeyedFragmentT<KVPair>>		/* LocalWindowResultT */
-		  >
+    >
 {
 
 public:
@@ -46,7 +45,7 @@ public:
 
 	//  using windows_map = map<Window, WindowKeyedFragment<KVPair>, Window>;
 	using TransformT = WinKeyReducer<KVPairIn, InputWinKeyFragT, InternalWinKeyFragT,
-	      KVPairOut,OutputBundleT_>;
+                                     KVPairOut,OutputBundleT_>;
 	using InputT = InputWinKeyFragT<KVPairIn>;
 
 	/* Aggregation types
@@ -71,7 +70,7 @@ public:
 
 public:
 	WinKeyReducer(string name)
-		: StatefulTransform<TransformT, InputT, WindowResultT, LocalWindowResultT>(name), record_counter_(0) { }
+		: StatefulTransform<TransformT, InputT, WindowResultT, LocalWindowResultT>(name), record_counter_(0) {}
 
 	////////////////////////////////////////////////////////////////////
 
@@ -106,16 +105,24 @@ public:
 	static WindowResultT const & combine(WindowResultT & mine, LocalWindowResultT const & others);
 
 	void ExecEvaluator(int nodeid, EvaluationBundleContext *c,
-			shared_ptr<BundleBase> bundle_ptr) override;
+                       shared_ptr<BundleBase> bundle_ptr) override;
 
     std::atomic<unsigned long> record_counter_;
     // zxchen: lsds yahoo benchmark doesn't implement this function, work-around method
-    bool ReportStatistics(PTransform::Statstics* stat) override { return false;}
+    bool ReportStatistics(PTransform::Statstics* stat) override { return false; }
 };
 
 
 /* the default version that outputs WindowsBundle */
-template <typename KVPairIn, template<class> class InputWinKeyFragT, template<class> class InternalWinKeyFragT /* = WindowKeyedFragment*/>
-    using WinKeyReducer_winbundle = WinKeyReducer<KVPairIn, InputWinKeyFragT, InternalWinKeyFragT, KVPairIn, /* kv out */WindowsBundle>;
+template <typename KVPairIn,
+          template<class> class InputWinKeyFragT,
+          template<class> class InternalWinKeyFragT /* = WindowKeyedFragment*/>
+
+using WinKeyReducer_winbundle = WinKeyReducer<KVPairIn,
+                                              InputWinKeyFragT,
+                                              InternalWinKeyFragT,
+                                              KVPairIn,
+                                              /* kv out */
+                                              WindowsBundle>;
 
 #endif // WINDOWED_KEY_REC_H

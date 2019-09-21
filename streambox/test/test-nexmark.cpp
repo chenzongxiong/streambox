@@ -40,6 +40,8 @@ Timestamp getTimestamp() {
         .count();
 }
 
+using KVPair = pair<uint64_t, uint64_t>;
+
 void testInput() {
     UnboundedInMem<string_range, BundleT>
         unbound("[unbounded-inmem]",
@@ -57,37 +59,28 @@ void testInput() {
 
     NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
     NexmarkFilter<NexmarkRecord, NexmarkRecord, RecordBundle> filter("[nexmark_filter]");
-    NexmarkAggregation<NexmarkRecord, pair<uint64_t, uint64_t>, BundleT> mapper("[nexmark_aggregation]");
+    NexmarkAggregation<NexmarkRecord, KVPair, BundleT> mapper("[nexmark_aggregation]");
 
-	// // aggregate (calculate campaign_id count in window),
-    // YahooAggregation<YahooRecord, pair<uint64_t, uint64_t>, BundleT> mapper ("[yahoo_aggregate]");
+	WinGBK<KVPair, BundleT, WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
 
-	// // create a 2 seconds window, group by key
-    // std::cout << "window_size: " << config.window_size << std::endl;
-    // // SessionWindowInto< pair<uint64_t, uint64_t> > wgbk("[wingbk]", seconds(5));
-	// WinGBK<pair<uint64_t, uint64_t>, BundleT,
-    //        WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
-	// // WinGBK<pair<uint64_t, uint64_t>, BundleT,
-    // //         WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(10));
-
-	// // WinGBK<pair<uint64_t, uint64_t>, BundleT,
-    // //         WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(100));
+    // reduce aggregation
+    WinKeyReducer<KVPair,  /* pair in */
+                  WinKeyFragLocal_Std,
+                  WinKeyFrag_Std, /* kv d/s */
+                  KVPair,  /* pair out */
+                  // WindowsBundle /* bundle out */
+                  RecordBundle
+                  > reducer("[reducer]");
 
 
-    // // reduce aggregation
-    // WinKeyReducer<pair<uint64_t, uint64_t>,  /* pair in */
-    //               WinKeyFragLocal_Std, WinKeyFrag_Std, /* kv d/s */
-    //               pair<uint64_t, uint64_t>,  /* pair out */
-    //               WindowsBundle /* bundle out */
-    //               > reducer("[reducer]");
-
+    // NexmarkAggregation<NexmarkRecord, KVPair, BundleT> mapper("[nexmark_aggregation]");
     // WindowsBundleSink<pair<uint64_t, uint64_t>> sink("[sink]");
 
 	connect_transform(unbound, parser);
     connect_transform(parser, filter);
     connect_transform(filter, mapper);
-	// connect_transform(mapper, wgbk);
-    // connect_transform(wgbk, reducer);
+	connect_transform(mapper, wgbk);
+    connect_transform(wgbk, reducer);
     // connect_transform(reducer, sink);
 
 	EvaluationBundleContext eval(1, config.cores);
