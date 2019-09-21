@@ -887,6 +887,32 @@ add_executable(test-linear-road.bin
   WinKeyReducer/WinKeyReducerEval-yahoo-winbundle.cpp
   )
 
+add_executable(test-nexmark.bin
+  test/test-nexmark.cpp
+  Nexmark/NexmarkRecord.hpp
+  Nexmark/NexmarkParser.hpp
+  Nexmark/NexmarkParser.cpp
+  Nexmark/NexmarkParserEvaluator.hpp
+  Nexmark/NexmarkFilter.hpp
+  Nexmark/NexmarkFilter.cpp
+  Nexmark/NexmarkFilterEvaluator.hpp
+  Nexmark/NexmarkAggregation.hpp
+  Nexmark/NexmarkAggregation.cpp
+  Nexmark/NexmarkAggregationEvaluator.hpp
+
+  )
+
+TARGET_LINK_LIBRARIES(test-nexmark.bin
+  creek
+  boost_date_time
+  boost_system
+  boost_thread
+  boost_program_options
+  numa ${tbb}
+  ${folly}
+  ${re2}
+  pcre
+  )
 
 TARGET_LINK_LIBRARIES(test-linear-road.bin
   creek

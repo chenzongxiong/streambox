@@ -34,7 +34,7 @@ window_size: 1
 pbegin --> [unbounded-inmem] --> src_out --> [yahoo_parser] --> parser_out --> [yahoo_filter] --> filter_out --> [yahoo_aggregate] --> mapper_out --> [wingbk] --> wgbk_out --> [reducer] --> reducer_out --> [sink] --> sink_out --> 
 [0;31m162 StartThreads: 1 threads fired up...[0m
                     Trans      MB/s       Avg    KRec/s       Avg
-start thread: 0x7ffe53bd18c8
+start thread: 0x7fff322a8a38
 [0;31m410 evaluate:  ---- punc internal is 2 sec (ev time) --- [0m
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
@@ -48,7 +48,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4388.81   4091.26  57617.19  53710.94
+        [unbounded-inmem]   4240.04   4016.88  55664.06  52734.38
            [yahoo_parser]      0.00     37.19      0.00    488.28
            [yahoo_filter]      0.00      0.00      0.00    488.28
         [yahoo_aggregate]      0.00      0.00      0.00    162.43
@@ -56,7 +56,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4388.81   4190.44  57617.19  55013.02
+        [unbounded-inmem]   4314.42   4116.06  56640.62  54036.46
            [yahoo_parser]      0.00     24.80      0.00    325.52
            [yahoo_filter]      0.00      0.00      0.00    325.52
         [yahoo_aggregate]      0.00      0.00      0.00    108.28
@@ -64,7 +64,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4388.81   4238.98  57617.19  55650.15
+        [unbounded-inmem]   4314.42   4164.61  56640.62  54673.83
            [yahoo_parser]      0.00     18.59      0.00    244.08
            [yahoo_filter]      0.00      0.00      0.00    244.08
         [yahoo_aggregate]      0.00      0.00      0.00     81.19
@@ -72,7 +72,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4388.81   4268.94  57617.19  56043.48
+        [unbounded-inmem]   4240.04   4179.69  55664.06  54871.84
            [yahoo_parser]      0.00     14.87      0.00    195.27
            [yahoo_filter]      0.00      0.00      0.00    195.27
         [yahoo_aggregate]      0.00      0.00      0.00     64.96
@@ -80,7 +80,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4388.81   4288.91  57617.19  56305.72
+        [unbounded-inmem]   4240.04   4189.75  55664.06  55003.85
            [yahoo_parser]      0.00     12.40      0.00    162.73
            [yahoo_filter]      0.00      0.00      0.00    162.73
         [yahoo_aggregate]      0.00      0.00      0.00     54.13
@@ -88,7 +88,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4314.42   4292.56  56640.62  56353.56
+        [unbounded-inmem]   4240.04   4196.93  55664.06  55098.16
            [yahoo_parser]      0.00     10.62      0.00    139.47
            [yahoo_filter]      0.00      0.00      0.00    139.47
         [yahoo_aggregate]      0.00      0.00      0.00     46.39
@@ -96,7 +96,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4314.42   4294.75  56640.62  56382.39
+        [unbounded-inmem]   4240.04   4201.79  55664.06  55161.99
            [yahoo_parser]      0.00      9.30      0.00    122.04
            [yahoo_filter]      0.00      0.00      0.00    122.04
         [yahoo_aggregate]      0.00      0.00      0.00     40.60
@@ -104,7 +104,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4314.42   4296.94  56640.62  56411.08
+        [unbounded-inmem]   4240.04   4206.04  55664.06  55217.76
            [yahoo_parser]      0.00      8.26      0.00    108.48
            [yahoo_filter]      0.00      0.00      0.00    108.48
         [yahoo_aggregate]      0.00      0.00      0.00     36.09
@@ -112,7 +112,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4240.04   4291.25  55664.06  56336.39
+        [unbounded-inmem]   4165.65   4202.00  54687.50  55164.75
            [yahoo_parser]      0.00      7.44      0.00     97.64
            [yahoo_filter]      0.00      0.00      0.00     97.64
         [yahoo_aggregate]      0.00      0.00      0.00     32.48
@@ -120,7 +120,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4240.04   4286.20  55664.06  56270.16
+        [unbounded-inmem]   4165.65   4198.32  54687.50  55116.36
            [yahoo_parser]      0.00      6.76      0.00     88.75
            [yahoo_filter]      0.00      0.00      0.00     88.75
         [yahoo_aggregate]      0.00      0.00      0.00     29.52
@@ -128,7 +128,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4240.04   4282.36  55664.06  56219.67
+        [unbounded-inmem]   4165.65   4195.59  54687.50  55080.63
            [yahoo_parser]      0.00      6.20      0.00     81.36
            [yahoo_filter]      0.00      0.00      0.00     81.36
         [yahoo_aggregate]      0.00      0.00      0.00     27.06
@@ -136,7 +136,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4240.04   4279.10  55664.06  56176.94
+        [unbounded-inmem]   4165.65   4193.29  54687.50  55050.40
            [yahoo_parser]      0.00      5.72      0.00     75.10
            [yahoo_filter]      0.00      0.00      0.00     75.10
         [yahoo_aggregate]      0.00      0.00      0.00     24.98
@@ -144,7 +144,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4165.65   4271.00  54687.50  56070.57
+        [unbounded-inmem]   4165.65   4191.32  54687.50  55024.48
            [yahoo_parser]      0.00      5.31      0.00     69.74
            [yahoo_filter]      0.00      0.00      0.00     69.74
         [yahoo_aggregate]      0.00      0.00      0.00     23.20
@@ -152,7 +152,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4165.65   4263.69  54687.50  55974.66
+        [unbounded-inmem]   4091.26   4184.37  53710.94  54933.27
            [yahoo_parser]      0.00      4.96      0.00     65.09
            [yahoo_filter]      0.00      0.00      0.00     65.09
         [yahoo_aggregate]      0.00      0.00      0.00     21.65
@@ -160,7 +160,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4165.65   4257.57  54687.50  55894.23
+        [unbounded-inmem]   4091.26   4178.55  53710.94  54856.89
            [yahoo_parser]      0.00      4.65      0.00     61.02
            [yahoo_filter]      0.00      0.00      0.00     61.02
         [yahoo_aggregate]      0.00      0.00      0.00     20.30
@@ -168,7 +168,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4165.65   4252.16  54687.50  55823.26
+        [unbounded-inmem]   4016.88   4169.04  52734.38  54732.07
            [yahoo_parser]      0.00      4.37      0.00     57.43
            [yahoo_filter]      0.00      0.00      0.00     57.43
         [yahoo_aggregate]      0.00      0.00      0.00     19.10
@@ -176,7 +176,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4091.26   4243.23  53710.94  55705.94
+        [unbounded-inmem]   4091.26   4164.49  53710.94  54672.31
            [yahoo_parser]      0.00      4.13      0.00     54.24
            [yahoo_filter]      0.00      0.00      0.00     54.24
         [yahoo_aggregate]      0.00      0.00      0.00     18.04
@@ -184,7 +184,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4165.65   4238.92  54687.50  55649.42
+        [unbounded-inmem]   4016.88   4156.73  52734.38  54570.34
            [yahoo_parser]      0.00      3.91      0.00     51.38
            [yahoo_filter]      0.00      0.00      0.00     51.38
         [yahoo_aggregate]      0.00      0.00      0.00     17.09
@@ -192,7 +192,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4091.26   4231.54  53710.94  55552.52
+        [unbounded-inmem]   4091.26   4153.45  53710.94  54527.38
            [yahoo_parser]      0.00      3.72      0.00     48.82
            [yahoo_filter]      0.00      0.00      0.00     48.82
         [yahoo_aggregate]      0.00      0.00      0.00     16.24
@@ -200,7 +200,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4091.26   4224.86  53710.94  55464.84
+        [unbounded-inmem]   4016.88   4146.95  52734.38  54442.02
            [yahoo_parser]      0.00      3.54      0.00     46.49
            [yahoo_filter]      0.00      0.00      0.00     46.49
         [yahoo_aggregate]      0.00      0.00      0.00     15.47
@@ -208,7 +208,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4016.88   4215.41  52734.38  55340.76
+        [unbounded-inmem]   3942.49   4137.47  51757.81  54317.57
            [yahoo_parser]      0.00      3.38      0.00     44.38
            [yahoo_filter]      0.00      0.00      0.00     44.38
         [yahoo_aggregate]      0.00      0.00      0.00     14.76
@@ -216,7 +216,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4091.26   4209.83  53710.94  55267.51
+        [unbounded-inmem]   4016.88   4132.23  52734.38  54248.76
            [yahoo_parser]      0.00      3.23      0.00     42.45
            [yahoo_filter]      0.00      0.00      0.00     42.45
         [yahoo_aggregate]      0.00      0.00      0.00     14.12
@@ -224,7 +224,7 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4016.88   4201.79  52734.38  55161.99
+        [unbounded-inmem]   4016.88   4127.42  52734.38  54185.67
            [yahoo_parser]      0.00      3.10      0.00     40.68
            [yahoo_filter]      0.00      0.00      0.00     40.68
         [yahoo_aggregate]      0.00      0.00      0.00     13.53
@@ -232,6 +232,734 @@ start thread: 0x7ffe53bd18c8
                    [sink]      0.00      0.00      0.00      0.00
 ----- Pipeline Statistics  ---- 
                     Trans      MB/s       Avg    KRec/s       Avg
-        [unbounded-inmem]   4016.88   4194.40  52734.38  55064.91
+        [unbounded-inmem]   3868.10   4117.05  50781.25  54049.53
            [yahoo_parser]      0.00      2.97      0.00     39.05
-         
+           [yahoo_filter]      0.00      0.00      0.00     39.05
+        [yahoo_aggregate]      0.00      0.00      0.00     12.99
+                [reducer]      0.00      0.00      0.00     12.99
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   4016.88   4113.04  52734.38  53996.88
+           [yahoo_parser]      0.00      2.86      0.00     37.55
+           [yahoo_filter]      0.00      0.00      0.00     37.55
+        [yahoo_aggregate]      0.00      0.00      0.00     12.49
+                [reducer]      0.00      0.00      0.00     12.49
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4103.97  50781.25  53877.81
+           [yahoo_parser]      0.00      2.75      0.00     36.16
+           [yahoo_filter]      0.00      0.00      0.00     36.16
+        [yahoo_aggregate]      0.00      0.00      0.00     12.03
+                [reducer]      0.00      0.00      0.00     12.03
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3942.49   4098.21  51757.81  53802.12
+           [yahoo_parser]      0.00      2.66      0.00     34.87
+           [yahoo_filter]      0.00      0.00      0.00     34.87
+        [yahoo_aggregate]      0.00      0.00      0.00     11.60
+                [reducer]      0.00      0.00      0.00     11.60
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4090.13  50781.25  53696.12
+           [yahoo_parser]      0.00      2.56      0.00     33.67
+           [yahoo_filter]      0.00      0.00      0.00     33.67
+        [yahoo_aggregate]      0.00      0.00      0.00     11.20
+                [reducer]      0.00      0.00      0.00     11.20
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4082.74  50781.25  53598.99
+           [yahoo_parser]      0.00      2.48      0.00     32.54
+           [yahoo_filter]      0.00      0.00      0.00     32.54
+        [yahoo_aggregate]      0.00      0.00      0.00     10.83
+                [reducer]      0.00      0.00      0.00     10.83
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4075.81  50781.25  53508.12
+           [yahoo_parser]      0.00      2.40      0.00     31.49
+           [yahoo_filter]      0.00      0.00      0.00     31.49
+        [yahoo_aggregate]      0.00      0.00      0.00     10.48
+                [reducer]      0.00      0.00      0.00     10.48
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4069.32  50781.25  53422.92
+           [yahoo_parser]      0.00      2.32      0.00     30.51
+           [yahoo_filter]      0.00      0.00      0.00     30.51
+        [yahoo_aggregate]      0.00      0.00      0.00     10.15
+                [reducer]      0.00      0.00      0.00     10.15
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4063.11  50781.25  53341.28
+           [yahoo_parser]      0.00      2.25      0.00     29.58
+           [yahoo_filter]      0.00      0.00      0.00     29.58
+        [yahoo_aggregate]      0.00      0.00      0.00      9.84
+                [reducer]      0.00      0.00      0.00      9.84
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3868.10   4057.37  50781.25  53266.00
+           [yahoo_parser]      0.00      2.19      0.00     28.71
+           [yahoo_filter]      0.00      0.00      0.00     28.71
+        [yahoo_aggregate]      0.00      0.00      0.00      9.55
+                [reducer]      0.00      0.00      0.00      9.55
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4049.84  49804.69  53167.13
+           [yahoo_parser]      0.00      2.12      0.00     27.89
+           [yahoo_filter]      0.00      0.00      0.00     27.89
+        [yahoo_aggregate]      0.00      0.00      0.00      9.28
+                [reducer]      0.00      0.00      0.00      9.28
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4042.73  49804.69  53073.75
+           [yahoo_parser]      0.00      2.07      0.00     27.12
+           [yahoo_filter]      0.00      0.00      0.00     27.12
+        [yahoo_aggregate]      0.00      0.00      0.00      9.02
+                [reducer]      0.00      0.00      0.00      9.02
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4035.89  49804.69  52983.99
+           [yahoo_parser]      0.00      2.01      0.00     26.39
+           [yahoo_filter]      0.00      0.00      0.00     26.39
+        [yahoo_aggregate]      0.00      0.00      0.00      8.78
+                [reducer]      0.00      0.00      0.00      8.78
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4029.52  49804.69  52900.35
+           [yahoo_parser]      0.00      1.96      0.00     25.69
+           [yahoo_filter]      0.00      0.00      0.00     25.69
+        [yahoo_aggregate]      0.00      0.00      0.00      8.55
+                [reducer]      0.00      0.00      0.00      8.55
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4023.47  49804.69  52820.99
+           [yahoo_parser]      0.00      1.91      0.00     25.03
+           [yahoo_filter]      0.00      0.00      0.00     25.03
+        [yahoo_aggregate]      0.00      0.00      0.00      8.33
+                [reducer]      0.00      0.00      0.00      8.33
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3719.33   4015.87  48828.12  52721.19
+           [yahoo_parser]      0.00      1.86      0.00     24.41
+           [yahoo_filter]      0.00      0.00      0.00     24.41
+        [yahoo_aggregate]      0.00      0.00      0.00      8.12
+                [reducer]      0.00      0.00      0.00      8.12
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3793.72   4010.36  49804.69  52648.79
+           [yahoo_parser]      0.00      1.81      0.00     23.81
+           [yahoo_filter]      0.00      0.00      0.00     23.81
+        [yahoo_aggregate]      0.00      0.00      0.00      7.92
+                [reducer]      0.00      0.00      0.00      7.92
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3719.33   4003.43  48828.12  52557.85
+           [yahoo_parser]      0.00      1.77      0.00     23.25
+           [yahoo_filter]      0.00      0.00      0.00     23.25
+        [yahoo_aggregate]      0.00      0.00      0.00      7.73
+                [reducer]      0.00      0.00      0.00      7.73
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3719.33   3996.82  48828.12  52471.13
+           [yahoo_parser]      0.00      1.73      0.00     22.70
+           [yahoo_filter]      0.00      0.00      0.00     22.70
+        [yahoo_aggregate]      0.00      0.00      0.00      7.55
+                [reducer]      0.00      0.00      0.00      7.55
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3719.33   3990.43  48828.12  52387.17
+           [yahoo_parser]      0.00      1.69      0.00     22.19
+           [yahoo_filter]      0.00      0.00      0.00     22.19
+        [yahoo_aggregate]      0.00      0.00      0.00      7.38
+                [reducer]      0.00      0.00      0.00      7.38
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3982.75  47851.56  52286.40
+           [yahoo_parser]      0.00      1.65      0.00     21.70
+           [yahoo_filter]      0.00      0.00      0.00     21.70
+        [yahoo_aggregate]      0.00      0.00      0.00      7.22
+                [reducer]      0.00      0.00      0.00      7.22
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3719.33   3977.03  48828.12  52211.24
+           [yahoo_parser]      0.00      1.62      0.00     21.22
+           [yahoo_filter]      0.00      0.00      0.00     21.22
+        [yahoo_aggregate]      0.00      0.00      0.00      7.06
+                [reducer]      0.00      0.00      0.00      7.06
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3969.96  47851.56  52118.51
+           [yahoo_parser]      0.00      1.58      0.00     20.77
+           [yahoo_filter]      0.00      0.00      0.00     20.77
+        [yahoo_aggregate]      0.00      0.00      0.00      6.91
+                [reducer]      0.00      0.00      0.00      6.91
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3963.11  47851.56  52028.55
+           [yahoo_parser]      0.00      1.55      0.00     20.34
+           [yahoo_filter]      0.00      0.00      0.00     20.34
+        [yahoo_aggregate]      0.00      0.00      0.00      6.77
+                [reducer]      0.00      0.00      0.00      6.77
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3956.62  47851.56  51943.33
+           [yahoo_parser]      0.00      1.52      0.00     19.92
+           [yahoo_filter]      0.00      0.00      0.00     19.92
+        [yahoo_aggregate]      0.00      0.00      0.00      6.63
+                [reducer]      0.00      0.00      0.00      6.63
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3950.39  47851.56  51861.52
+           [yahoo_parser]      0.00      1.49      0.00     19.53
+           [yahoo_filter]      0.00      0.00      0.00     19.53
+        [yahoo_aggregate]      0.00      0.00      0.00      6.50
+                [reducer]      0.00      0.00      0.00      6.50
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3944.40  47851.56  51782.91
+           [yahoo_parser]      0.00      1.46      0.00     19.14
+           [yahoo_filter]      0.00      0.00      0.00     19.14
+        [yahoo_aggregate]      0.00      0.00      0.00      6.37
+                [reducer]      0.00      0.00      0.00      6.37
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3938.57  47851.56  51706.33
+           [yahoo_parser]      0.00      1.43      0.00     18.77
+           [yahoo_filter]      0.00      0.00      0.00     18.77
+        [yahoo_aggregate]      0.00      0.00      0.00      6.25
+                [reducer]      0.00      0.00      0.00      6.25
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3931.63  46875.00  51615.20
+           [yahoo_parser]      0.00      1.40      0.00     18.42
+           [yahoo_filter]      0.00      0.00      0.00     18.42
+        [yahoo_aggregate]      0.00      0.00      0.00      6.13
+                [reducer]      0.00      0.00      0.00      6.13
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3644.94   3926.32  47851.56  51545.52
+           [yahoo_parser]      0.00      1.38      0.00     18.08
+           [yahoo_filter]      0.00      0.00      0.00     18.08
+        [yahoo_aggregate]      0.00      0.00      0.00      6.01
+                [reducer]      0.00      0.00      0.00      6.01
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3919.78  46875.00  51459.69
+           [yahoo_parser]      0.00      1.35      0.00     17.75
+           [yahoo_filter]      0.00      0.00      0.00     17.75
+        [yahoo_aggregate]      0.00      0.00      0.00      5.90
+                [reducer]      0.00      0.00      0.00      5.90
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3913.55  46875.00  51377.84
+           [yahoo_parser]      0.00      1.33      0.00     17.43
+           [yahoo_filter]      0.00      0.00      0.00     17.43
+        [yahoo_aggregate]      0.00      0.00      0.00      5.80
+                [reducer]      0.00      0.00      0.00      5.80
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3907.53  46875.00  51298.86
+           [yahoo_parser]      0.00      1.30      0.00     17.13
+           [yahoo_filter]      0.00      0.00      0.00     17.13
+        [yahoo_aggregate]      0.00      0.00      0.00      5.70
+                [reducer]      0.00      0.00      0.00      5.70
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3900.44  45898.44  51205.78
+           [yahoo_parser]      0.00      1.28      0.00     16.83
+           [yahoo_filter]      0.00      0.00      0.00     16.83
+        [yahoo_aggregate]      0.00      0.00      0.00      5.60
+                [reducer]      0.00      0.00      0.00      5.60
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3894.78  46875.00  51131.53
+           [yahoo_parser]      0.00      1.26      0.00     16.55
+           [yahoo_filter]      0.00      0.00      0.00     16.55
+        [yahoo_aggregate]      0.00      0.00      0.00      5.50
+                [reducer]      0.00      0.00      0.00      5.50
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3888.14  45898.44  51044.33
+           [yahoo_parser]      0.00      1.24      0.00     16.27
+           [yahoo_filter]      0.00      0.00      0.00     16.27
+        [yahoo_aggregate]      0.00      0.00      0.00      5.41
+                [reducer]      0.00      0.00      0.00      5.41
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3570.56   3882.94  46875.00  50976.00
+           [yahoo_parser]      0.00      1.22      0.00     16.01
+           [yahoo_filter]      0.00      0.00      0.00     16.01
+        [yahoo_aggregate]      0.00      0.00      0.00      5.32
+                [reducer]      0.00      0.00      0.00      5.32
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3876.70  45898.44  50894.12
+           [yahoo_parser]      0.00      1.20      0.00     15.75
+           [yahoo_filter]      0.00      0.00      0.00     15.75
+        [yahoo_aggregate]      0.00      0.00      0.00      5.24
+                [reducer]      0.00      0.00      0.00      5.24
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3870.60  45898.44  50814.04
+           [yahoo_parser]      0.00      1.18      0.00     15.50
+           [yahoo_filter]      0.00      0.00      0.00     15.50
+        [yahoo_aggregate]      0.00      0.00      0.00      5.15
+                [reducer]      0.00      0.00      0.00      5.15
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3863.59  44921.88  50722.00
+           [yahoo_parser]      0.00      1.16      0.00     15.25
+           [yahoo_filter]      0.00      0.00      0.00     15.25
+        [yahoo_aggregate]      0.00      0.00      0.00      5.07
+                [reducer]      0.00      0.00      0.00      5.07
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3857.94  45898.44  50647.81
+           [yahoo_parser]      0.00      1.14      0.00     15.02
+           [yahoo_filter]      0.00      0.00      0.00     15.02
+        [yahoo_aggregate]      0.00      0.00      0.00      5.00
+                [reducer]      0.00      0.00      0.00      5.00
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3852.46  45898.44  50575.87
+           [yahoo_parser]      0.00      1.13      0.00     14.79
+           [yahoo_filter]      0.00      0.00      0.00     14.79
+        [yahoo_aggregate]      0.00      0.00      0.00      4.92
+                [reducer]      0.00      0.00      0.00      4.92
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3845.98  44921.88  50490.75
+           [yahoo_parser]      0.00      1.11      0.00     14.57
+           [yahoo_filter]      0.00      0.00      0.00     14.57
+        [yahoo_aggregate]      0.00      0.00      0.00      4.85
+                [reducer]      0.00      0.00      0.00      4.85
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3496.17   3840.83  45898.44  50423.23
+           [yahoo_parser]      0.00      1.09      0.00     14.36
+           [yahoo_filter]      0.00      0.00      0.00     14.36
+        [yahoo_aggregate]      0.00      0.00      0.00      4.78
+                [reducer]      0.00      0.00      0.00      4.78
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3834.76  44921.88  50343.52
+           [yahoo_parser]      0.00      1.08      0.00     14.15
+           [yahoo_filter]      0.00      0.00      0.00     14.15
+        [yahoo_aggregate]      0.00      0.00      0.00      4.71
+                [reducer]      0.00      0.00      0.00      4.71
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3828.81  44921.88  50265.37
+           [yahoo_parser]      0.00      1.06      0.00     13.95
+           [yahoo_filter]      0.00      0.00      0.00     13.95
+        [yahoo_aggregate]      0.00      0.00      0.00      4.64
+                [reducer]      0.00      0.00      0.00      4.64
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3823.08  44921.88  50190.13
+           [yahoo_parser]      0.00      1.05      0.00     13.75
+           [yahoo_filter]      0.00      0.00      0.00     13.75
+        [yahoo_aggregate]      0.00      0.00      0.00      4.57
+                [reducer]      0.00      0.00      0.00      4.57
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3817.50  44921.88  50116.98
+           [yahoo_parser]      0.00      1.03      0.00     13.56
+           [yahoo_filter]      0.00      0.00      0.00     13.56
+        [yahoo_aggregate]      0.00      0.00      0.00      4.51
+                [reducer]      0.00      0.00      0.00      4.51
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3811.07  43945.31  50032.46
+           [yahoo_parser]      0.00      1.02      0.00     13.37
+           [yahoo_filter]      0.00      0.00      0.00     13.37
+        [yahoo_aggregate]      0.00      0.00      0.00      4.45
+                [reducer]      0.00      0.00      0.00      4.45
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3421.78   3805.76  44921.88  49962.74
+           [yahoo_parser]      0.00      1.00      0.00     13.19
+           [yahoo_filter]      0.00      0.00      0.00     13.19
+        [yahoo_aggregate]      0.00      0.00      0.00      4.39
+                [reducer]      0.00      0.00      0.00      4.39
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3799.65  43945.31  49882.53
+           [yahoo_parser]      0.00      0.99      0.00     13.02
+           [yahoo_filter]      0.00      0.00      0.00     13.02
+        [yahoo_aggregate]      0.00      0.00      0.00      4.33
+                [reducer]      0.00      0.00      0.00      4.33
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3793.70  43945.31  49804.43
+           [yahoo_parser]      0.00      0.98      0.00     12.85
+           [yahoo_filter]      0.00      0.00      0.00     12.85
+        [yahoo_aggregate]      0.00      0.00      0.00      4.27
+                [reducer]      0.00      0.00      0.00      4.27
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3787.90  43945.31  49728.36
+           [yahoo_parser]      0.00      0.97      0.00     12.68
+           [yahoo_filter]      0.00      0.00      0.00     12.68
+        [yahoo_aggregate]      0.00      0.00      0.00      4.22
+                [reducer]      0.00      0.00      0.00      4.22
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3782.21  43945.31  49653.60
+           [yahoo_parser]      0.00      0.95      0.00     12.52
+           [yahoo_filter]      0.00      0.00      0.00     12.52
+        [yahoo_aggregate]      0.00      0.00      0.00      4.16
+                [reducer]      0.00      0.00      0.00      4.16
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3776.71  43945.31  49581.36
+           [yahoo_parser]      0.00      0.94      0.00     12.36
+           [yahoo_filter]      0.00      0.00      0.00     12.36
+        [yahoo_aggregate]      0.00      0.00      0.00      4.11
+                [reducer]      0.00      0.00      0.00      4.11
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3771.34  43945.31  49510.93
+           [yahoo_parser]      0.00      0.93      0.00     12.20
+           [yahoo_filter]      0.00      0.00      0.00     12.20
+        [yahoo_aggregate]      0.00      0.00      0.00      4.06
+                [reducer]      0.00      0.00      0.00      4.06
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3766.06  43945.31  49441.63
+           [yahoo_parser]      0.00      0.92      0.00     12.05
+           [yahoo_filter]      0.00      0.00      0.00     12.05
+        [yahoo_aggregate]      0.00      0.00      0.00      4.01
+                [reducer]      0.00      0.00      0.00      4.01
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3760.05  42968.75  49362.71
+           [yahoo_parser]      0.00      0.91      0.00     11.91
+           [yahoo_filter]      0.00      0.00      0.00     11.91
+        [yahoo_aggregate]      0.00      0.00      0.00      3.96
+                [reducer]      0.00      0.00      0.00      3.96
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3347.40   3755.08  43945.31  49297.46
+           [yahoo_parser]      0.00      0.90      0.00     11.76
+           [yahoo_filter]      0.00      0.00      0.00     11.76
+        [yahoo_aggregate]      0.00      0.00      0.00      3.91
+                [reducer]      0.00      0.00      0.00      3.91
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3749.34  42968.75  49222.13
+           [yahoo_parser]      0.00      0.89      0.00     11.62
+           [yahoo_filter]      0.00      0.00      0.00     11.62
+        [yahoo_aggregate]      0.00      0.00      0.00      3.87
+                [reducer]      0.00      0.00      0.00      3.87
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3743.70  42968.75  49148.01
+           [yahoo_parser]      0.00      0.87      0.00     11.49
+           [yahoo_filter]      0.00      0.00      0.00     11.49
+        [yahoo_aggregate]      0.00      0.00      0.00      3.82
+                [reducer]      0.00      0.00      0.00      3.82
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3738.22  42968.75  49076.17
+           [yahoo_parser]      0.00      0.86      0.00     11.35
+           [yahoo_filter]      0.00      0.00      0.00     11.35
+        [yahoo_aggregate]      0.00      0.00      0.00      3.78
+                [reducer]      0.00      0.00      0.00      3.78
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3732.88  42968.75  49005.99
+           [yahoo_parser]      0.00      0.85      0.00     11.22
+           [yahoo_filter]      0.00      0.00      0.00     11.22
+        [yahoo_aggregate]      0.00      0.00      0.00      3.73
+                [reducer]      0.00      0.00      0.00      3.73
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3727.65  42968.75  48937.40
+           [yahoo_parser]      0.00      0.85      0.00     11.09
+           [yahoo_filter]      0.00      0.00      0.00     11.09
+        [yahoo_aggregate]      0.00      0.00      0.00      3.69
+                [reducer]      0.00      0.00      0.00      3.69
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3722.51  42968.75  48869.81
+           [yahoo_parser]      0.00      0.84      0.00     10.97
+           [yahoo_filter]      0.00      0.00      0.00     10.97
+        [yahoo_aggregate]      0.00      0.00      0.00      3.65
+                [reducer]      0.00      0.00      0.00      3.65
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3716.69  41992.19  48793.41
+           [yahoo_parser]      0.00      0.83      0.00     10.85
+           [yahoo_filter]      0.00      0.00      0.00     10.85
+        [yahoo_aggregate]      0.00      0.00      0.00      3.61
+                [reducer]      0.00      0.00      0.00      3.61
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3711.81  42968.75  48729.42
+           [yahoo_parser]      0.00      0.82      0.00     10.73
+           [yahoo_filter]      0.00      0.00      0.00     10.73
+        [yahoo_aggregate]      0.00      0.00      0.00      3.57
+                [reducer]      0.00      0.00      0.00      3.57
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3706.19  41992.19  48655.68
+           [yahoo_parser]      0.00      0.81      0.00     10.61
+           [yahoo_filter]      0.00      0.00      0.00     10.61
+        [yahoo_aggregate]      0.00      0.00      0.00      3.53
+                [reducer]      0.00      0.00      0.00      3.53
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3273.01   3701.54  42968.75  48594.55
+           [yahoo_parser]      0.00      0.80      0.00     10.50
+           [yahoo_filter]      0.00      0.00      0.00     10.50
+        [yahoo_aggregate]      0.00      0.00      0.00      3.49
+                [reducer]      0.00      0.00      0.00      3.49
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3696.19  41992.19  48524.33
+           [yahoo_parser]      0.00      0.79      0.00     10.39
+           [yahoo_filter]      0.00      0.00      0.00     10.39
+        [yahoo_aggregate]      0.00      0.00      0.00      3.45
+                [reducer]      0.00      0.00      0.00      3.45
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3690.95  41992.19  48455.59
+           [yahoo_parser]      0.00      0.78      0.00     10.28
+           [yahoo_filter]      0.00      0.00      0.00     10.28
+        [yahoo_aggregate]      0.00      0.00      0.00      3.42
+                [reducer]      0.00      0.00      0.00      3.42
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3685.79  41992.19  48387.77
+           [yahoo_parser]      0.00      0.77      0.00     10.17
+           [yahoo_filter]      0.00      0.00      0.00     10.17
+        [yahoo_aggregate]      0.00      0.00      0.00      3.38
+                [reducer]      0.00      0.00      0.00      3.38
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3680.77  41992.19  48321.86
+           [yahoo_parser]      0.00      0.77      0.00     10.06
+           [yahoo_filter]      0.00      0.00      0.00     10.06
+        [yahoo_aggregate]      0.00      0.00      0.00      3.35
+                [reducer]      0.00      0.00      0.00      3.35
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3675.09  41015.62  48247.32
+           [yahoo_parser]      0.00      0.76      0.00      9.96
+           [yahoo_filter]      0.00      0.00      0.00      9.96
+        [yahoo_aggregate]      0.00      0.00      0.00      3.31
+                [reducer]      0.00      0.00      0.00      3.31
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3670.28  41992.19  48184.16
+           [yahoo_parser]      0.00      0.75      0.00      9.86
+           [yahoo_filter]      0.00      0.00      0.00      9.86
+        [yahoo_aggregate]      0.00      0.00      0.00      3.28
+                [reducer]      0.00      0.00      0.00      3.28
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3198.62   3665.53  41992.19  48121.77
+           [yahoo_parser]      0.00      0.74      0.00      9.76
+           [yahoo_filter]      0.00      0.00      0.00      9.76
+        [yahoo_aggregate]      0.00      0.00      0.00      3.25
+                [reducer]      0.00      0.00      0.00      3.25
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3660.17  41015.62  48051.43
+           [yahoo_parser]      0.00      0.74      0.00      9.67
+           [yahoo_filter]      0.00      0.00      0.00      9.67
+        [yahoo_aggregate]      0.00      0.00      0.00      3.22
+                [reducer]      0.00      0.00      0.00      3.22
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3654.91  41015.62  47982.47
+           [yahoo_parser]      0.00      0.73      0.00      9.57
+           [yahoo_filter]      0.00      0.00      0.00      9.57
+        [yahoo_aggregate]      0.00      0.00      0.00      3.18
+                [reducer]      0.00      0.00      0.00      3.18
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3649.73  41015.62  47914.39
+           [yahoo_parser]      0.00      0.72      0.00      9.48
+           [yahoo_filter]      0.00      0.00      0.00      9.48
+        [yahoo_aggregate]      0.00      0.00      0.00      3.15
+                [reducer]      0.00      0.00      0.00      3.15
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3644.68  41015.62  47848.07
+           [yahoo_parser]      0.00      0.72      0.00      9.39
+           [yahoo_filter]      0.00      0.00      0.00      9.39
+        [yahoo_aggregate]      0.00      0.00      0.00      3.12
+                [reducer]      0.00      0.00      0.00      3.12
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3639.72  41015.62  47783.02
+           [yahoo_parser]      0.00      0.71      0.00      9.30
+           [yahoo_filter]      0.00      0.00      0.00      9.30
+        [yahoo_aggregate]      0.00      0.00      0.00      3.09
+                [reducer]      0.00      0.00      0.00      3.09
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3634.86  41015.62  47719.19
+           [yahoo_parser]      0.00      0.70      0.00      9.21
+           [yahoo_filter]      0.00      0.00      0.00      9.21
+        [yahoo_aggregate]      0.00      0.00      0.00      3.06
+                [reducer]      0.00      0.00      0.00      3.06
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3630.06  41015.62  47656.11
+           [yahoo_parser]      0.00      0.70      0.00      9.12
+           [yahoo_filter]      0.00      0.00      0.00      9.12
+        [yahoo_aggregate]      0.00      0.00      0.00      3.04
+                [reducer]      0.00      0.00      0.00      3.04
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3625.37  41015.62  47594.64
+           [yahoo_parser]      0.00      0.69      0.00      9.04
+           [yahoo_filter]      0.00      0.00      0.00      9.04
+        [yahoo_aggregate]      0.00      0.00      0.00      3.01
+                [reducer]      0.00      0.00      0.00      3.01
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3620.09  40039.06  47525.34
+           [yahoo_parser]      0.00      0.68      0.00      8.96
+           [yahoo_filter]      0.00      0.00      0.00      8.96
+        [yahoo_aggregate]      0.00      0.00      0.00      2.98
+                [reducer]      0.00      0.00      0.00      2.98
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3124.24   3615.59  41015.62  47466.18
+           [yahoo_parser]      0.00      0.68      0.00      8.88
+           [yahoo_filter]      0.00      0.00      0.00      8.88
+        [yahoo_aggregate]      0.00      0.00      0.00      2.95
+                [reducer]      0.00      0.00      0.00      2.95
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3610.46  40039.06  47398.86
+           [yahoo_parser]      0.00      0.67      0.00      8.80
+           [yahoo_filter]      0.00      0.00      0.00      8.80
+        [yahoo_aggregate]      0.00      0.00      0.00      2.93
+                [reducer]      0.00      0.00      0.00      2.93
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3605.46  40039.06  47333.16
+           [yahoo_parser]      0.00      0.66      0.00      8.72
+           [yahoo_filter]      0.00      0.00      0.00      8.72
+        [yahoo_aggregate]      0.00      0.00      0.00      2.90
+                [reducer]      0.00      0.00      0.00      2.90
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3600.54  40039.06  47268.63
+           [yahoo_parser]      0.00      0.66      0.00      8.64
+           [yahoo_filter]      0.00      0.00      0.00      8.64
+        [yahoo_aggregate]      0.00      0.00      0.00      2.87
+                [reducer]      0.00      0.00      0.00      2.87
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3595.71  40039.06  47205.23
+           [yahoo_parser]      0.00      0.65      0.00      8.56
+           [yahoo_filter]      0.00      0.00      0.00      8.56
+        [yahoo_aggregate]      0.00      0.00      0.00      2.85
+                [reducer]      0.00      0.00      0.00      2.85
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3590.93  40039.06  47142.52
+           [yahoo_parser]      0.00      0.65      0.00      8.49
+           [yahoo_filter]      0.00      0.00      0.00      8.49
+        [yahoo_aggregate]      0.00      0.00      0.00      2.82
+                [reducer]      0.00      0.00      0.00      2.82
+                   [sink]      0.00      0.00      0.00      0.00
+----- Pipeline Statistics  ---- 
+                    Trans      MB/s       Avg    KRec/s       Avg
+        [unbounded-inmem]   3049.85   3586.27  40039.06  47081.30
+           [yahoo_parser]      0.00      0.64      0.00      8.42
+           [yahoo_fi

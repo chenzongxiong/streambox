@@ -451,26 +451,26 @@ class UnboundedInMemEvaluator<string_range, BundleT>
             //     break;
             // }
 
-#ifdef MEASURE_40M_TUPLES
-            unsigned long total_records = t->record_counter_.load(std::memory_order_relaxed);
-            // std::cout << "already consumes: " << total_records << std::endl;
+// #ifdef MEASURE_40M_TUPLES
+//             unsigned long total_records = t->record_counter_.load(std::memory_order_relaxed);
+//             // std::cout << "already consumes: " << total_records << std::endl;
 
-            if (total_records >= 40*1000*1000) {
-                // std::cout << "c->num_workers: " << c->num_workers << ", c->executor_.nwait_: " << c->executor_.nwait_ << std::endl;
-                // MAX_LOOP ++;
-                // all the workers are idle, that means there is no
-                // further tuples to processing.
-                if (c->executor_.nwait_ == c->num_workers) {
-                    std::cout << "already consumes: " << total_records << std::endl;
-                    break;
-                } else {
-//                    std::cout << "already consumes: " << total_records << std::endl;
-                    usleep(us_per_iteration);
-                    // if (MAX_LOOP >= 100)
-                    continue;
-                }
-            }
-#endif
+//             if (total_records >= 40*1000*1000) {
+//                 // std::cout << "c->num_workers: " << c->num_workers << ", c->executor_.nwait_: " << c->executor_.nwait_ << std::endl;
+//                 // MAX_LOOP ++;
+//                 // all the workers are idle, that means there is no
+//                 // further tuples to processing.
+//                 if (c->executor_.nwait_ == c->num_workers) {
+//                     std::cout << "already consumes: " << total_records << std::endl;
+//                     break;
+//                 } else {
+// //                    std::cout << "already consumes: " << total_records << std::endl;
+//                     usleep(us_per_iteration);
+//                     // if (MAX_LOOP >= 100)
+//                     continue;
+//                 }
+//             }
+// #endif
 
             // unsigned long total_records = t->record_counter_.load(std::memory_order_relaxed);
             // // if (total_records >= t->records_per_interval * 5) {
