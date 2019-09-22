@@ -25,7 +25,23 @@ uint64_t NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::do_map(Record<
     return 1;
 }
 
+template<>
+uint64_t NexmarkAggregation<KVPair, KVPair, RecordBundle>::do_map(Record<KVPair> const& in,
+                                                                  shared_ptr<RecordBundle<KVPair>> output_bundle) {
+    // uint64_t auction = in.data.auction;
+    // output_bundle->emplace_record(KVPair(auction, 1), in.ts);
+    // std::cout << "nexmark aggregation 2" << std::endl;
+    output_bundle->emplace_record(in.data, in.ts);
+
+    return 1;
+}
+
 template
 void NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::ExecEvaluator(int nodeid,
                                                                             EvaluationBundleContext *c,
                                                                             shared_ptr<BundleBase> bundle=nullptr);
+
+template
+void NexmarkAggregation<KVPair, KVPair, RecordBundle>::ExecEvaluator(int nodeid,
+                                                                     EvaluationBundleContext *c,
+                                                                     shared_ptr<BundleBase> bundle=nullptr);

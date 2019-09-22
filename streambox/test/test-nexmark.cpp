@@ -73,15 +73,28 @@ void testInput() {
                   > reducer("[reducer]");
 
 
-    // NexmarkAggregation<NexmarkRecord, KVPair, BundleT> mapper("[nexmark_aggregation]");
-    // WindowsBundleSink<pair<uint64_t, uint64_t>> sink("[sink]");
+    NexmarkAggregation<KVPair, KVPair, BundleT> mapper2("[nexmark_aggregation2]");
+	WinGBK<KVPair, BundleT, WinKeyFragLocal_Std> wgbk2("[wingbk2]", seconds(config.window_size));
+
+    // reduce aggregation
+    WinKeyReducer<KVPair,  /* pair in */
+                  WinKeyFragLocal_Std,
+                  WinKeyFrag_Std, /* kv d/s */
+                  KVPair,  /* pair out */
+                  WindowsBundle /* bundle out */
+                  // RecordBundle
+                  > reducer2("[reducer2]");
+    WindowsBundleSink<pair<uint64_t, uint64_t>> sink("[sink]");
 
 	connect_transform(unbound, parser);
     connect_transform(parser, filter);
     connect_transform(filter, mapper);
 	connect_transform(mapper, wgbk);
     connect_transform(wgbk, reducer);
-    // connect_transform(reducer, sink);
+    connect_transform(reducer, mapper2);
+    connect_transform(mapper2, wgbk2);
+    connect_transform(wgbk2, reducer2);
+    connect_transform(reducer2, sink);
 
 	EvaluationBundleContext eval(1, config.cores);
 	eval.runSimple(p);
