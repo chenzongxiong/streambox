@@ -8,9 +8,11 @@
 #include "Nexmark/NexmarkParser.hpp"
 #include "Nexmark/NexmarkFilter.hpp"
 #include "Nexmark/NexmarkAggregation.hpp"
+#include "Nexmark/NexmarkSink.hpp"
 #include "Win/WinGBKEvaluator.h"
 #include "WinKeyReducer/WinKeyReducerEval.h"
 #include "Sink/WindowsBundleSinkEvaluator.h"
+
 #include "Values.h"
 #include "test-common.h"
 
@@ -43,6 +45,7 @@ Timestamp getTimestamp() {
 using KVPair = pair<uint64_t, uint64_t>;
 
 void testInput() {
+
     UnboundedInMem<string_range, BundleT>
         unbound("[unbounded-inmem]",
                 config.input_file.c_str(),
@@ -101,6 +104,72 @@ void testInput() {
 
 }
 
+// stream
+// .map("record.price = (record.price * 89) / 100;")
+// .select({"auction", "price"})
+// .execute();
+void testQ1() {
+    UnboundedInMem<string_range, BundleT>
+        unbound("[unbounded-inmem]",
+                config.input_file.c_str(),
+                config.records_per_interval , 	/* records per wm interval */
+                config.target_tput, 		/* target tput (rec/sec) */
+                config.record_size,
+                0  				/* session_gap_ms */
+            );
+
+    // create a new pipeline
+	Pipeline* p = Pipeline::create(NULL);
+	PCollection *unbound_output = dynamic_cast<PCollection *>(p->apply1(&unbound));
+	unbound_output->_name = "src_out";
+
+    NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
+    NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
+    RecordBundleSink<NexmarkRecord> sink("[sink]");
+
+	connect_transform(unbound, parser);
+    connect_transform(parser, mapper);
+    connect_transform(mapper, sink);
+
+	EvaluationBundleContext eval(1, config.cores);
+	eval.runSimple(p);
+}
+
+// stream
+// .filter("auction" == 1007L || "auction" == 2001L || "auction" == 2019L || "auction" ==  )
+// .select({"auction", "price"})
+// .execute();
+void testQ2() {
+    UnboundedInMem<string_range, BundleT>
+        unbound("[unbounded-inmem]",
+                config.input_file.c_str(),
+                config.records_per_interval , 	/* records per wm interval */
+                config.target_tput, 		/* target tput (rec/sec) */
+                config.record_size,
+                0  				/* session_gap_ms */
+            );
+
+    // create a new pipeline
+	Pipeline* p = Pipeline::create(NULL);
+	PCollection *unbound_output = dynamic_cast<PCollection *>(p->apply1(&unbound));
+	unbound_output->_name = "src_out";
+
+    NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
+    NexmarkFilter<NexmarkRecord, NexmarkRecord, RecordBundle> filter("[nexmark_filter]");
+    NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
+    RecordBundleSink<NexmarkRecord> sink("[sink]");
+
+	connect_transform(unbound, parser);
+    connect_transform(parser, filter);
+    connect_transform(filter, mapper);
+    connect_transform(mapper, sink);
+
+	EvaluationBundleContext eval(1, config.cores);
+	eval.runSimple(p);
+
+
+}
+
 
 ofstream statistics_file;
 ofstream latency_file;
@@ -143,7 +212,8 @@ int main(int ac, char *av[]) {
     latency_file.open(latency_fname.c_str());
 
     Timestamp begin = getTimestamp();
-    testInput();
+    // testInput();
+    testQ2();
     Timestamp end = getTimestamp();
 
 

@@ -202,6 +202,10 @@ SET(SOURCES
   Mapper/WindowedGrepMapper.cpp
   Sink/Sink.cpp
   Sink/WindowsBundleSink.cpp
+  Sink/RecordBundleSink.cpp
+  Sink/WindowsBundleSinkEvaluator.h
+  Sink/RecordBundleSinkEvaluator.h
+
   LookAheadPipelineVisitor.cpp
   Win/FixedWindowInto.cpp
   measure.c
@@ -624,6 +628,7 @@ add_executable(test-tweet.bin
   Sink/Sink.cpp
   Sink/WindowsBundleSink.cpp
   Sink/RecordBundleSink.cpp
+
   LookAheadPipelineVisitor.cpp
   #FixedWindowInto.cpp
   measure.c
@@ -906,6 +911,8 @@ add_executable(test-nexmark.bin
   Nexmark/NexmarkWinKeyReducerWinBundle.cpp
   Nexmark/NexmarkWinKeyReducerEvalRecordBundle.cpp
   Nexmark/NexmarkWinKeyReducerRecordBundle.cpp
+  Nexmark/NexmarkSink.hpp
+  Nexmark/NexmarkSink.cpp
   )
 
 TARGET_LINK_LIBRARIES(test-nexmark.bin

@@ -22,15 +22,65 @@ template<class T>
 class RecordBundleSink : public PTransform {
 	using InputBundleT = RecordBundle<T>;
 
-	public:
-	RecordBundleSink(string name) : PTransform(name) { }
+public:
+	RecordBundleSink(string name) : PTransform(name), record_counter_(0) { }
 
 	static void printBundle(const InputBundleT & input_bundle) {
 		I("got one bundle");
 	}
 
+	// void ExecEvaluator(int nodeid, EvaluationBundleContext *c,
+    //                    shared_ptr<BundleBase> bundle_ptr) override;
 	void ExecEvaluator(int nodeid, EvaluationBundleContext *c,
-			shared_ptr<BundleBase> bundle_ptr) override;
+                       shared_ptr<BundleBase> bundle_ptr) override;
+
+    atomic<unsigned long> record_counter_;
+
+    bool ReportStatistics(Statstics* stat) override {
+        /* internal accounting */
+        static unsigned long total_records = 0, total_bytes = 0;
+        /* last time we report */
+        static unsigned long last_bytes = 0, last_records = 0;
+        static ptime last_check, start_time;
+        static int once = 1;
+
+        /* only care about records */
+        total_records = this->record_counter_.load(std::memory_order_relaxed);
+
+        ptime now = boost::posix_time::microsec_clock::local_time();
+
+        if (once) {
+            once = 0;
+            last_check = now;
+            start_time = now;
+            last_records = total_records;
+            return false;
+        }
+
+        boost::posix_time::time_duration diff = now - last_check;
+
+        {
+            double interval_sec = (double) diff.total_milliseconds() / 1000;
+            double total_sec = (double) (now - start_time).total_milliseconds() / 1000;
+
+            stat->name = this->name.c_str();
+            stat->mbps = (double) total_bytes / total_sec;
+            stat->mrps = (double) total_records / total_sec;
+
+            stat->lmbps = (double) (total_bytes - last_bytes) / interval_sec;
+            stat->lmrps = (double) (total_records - last_records) / interval_sec;
+
+#if 1
+            EE("recent: %.2f MB/s %.2f K records/s    avg: %.2f MB/s %.2f K records/s",
+               stat->lmbps, stat->lmrps/1000, stat->mbps, stat->mrps/1000);
+#endif
+
+            last_check = now;
+            last_bytes = total_bytes;
+            last_records = total_records;
+        }
+        return true;
+    }
 
 };
 
@@ -41,7 +91,7 @@ template<class T>
 class RecordBitmapBundleSink : public PTransform {
 	using InputBundleT = RecordBitmapBundle<T>;
 
-	public:
+public:
 	RecordBitmapBundleSink(string name) : PTransform(name) { }
 
 	/* default behavior.
@@ -51,11 +101,11 @@ class RecordBitmapBundleSink : public PTransform {
 	}
 
 	void ExecEvaluator(int nodeid, EvaluationBundleContext *c,
-			shared_ptr<BundleBase> bundle_ptr) override;
+                       shared_ptr<BundleBase> bundle_ptr) override;
 
 	static bool report_progress(InputBundleT & input_bundle){ return false;} //hym: defined in Sink.cpp
 
-	private:
+private:
 	//hym: for measuring throughput(report_progress())
 	static uint64_t total_bytes;
 	static uint64_t total_records;
@@ -95,15 +145,15 @@ template<class T>
 class WindowsBundleSink : public PTransform {
 	using InputBundleT = WindowsBundle<T>;
 
-	public:
-WindowsBundleSink(string name)  : PTransform(name), record_counter_(0) { }
+public:
+    WindowsBundleSink(string name)  : PTransform(name), record_counter_(0) { }
 
 	static void printBundle(const InputBundleT & input_bundle) {
 		I("got one bundle");
 	}
 
 	void ExecEvaluator(int nodeid, EvaluationBundleContext *c,
-			shared_ptr<BundleBase> bundle_ptr) override;
+                       shared_ptr<BundleBase> bundle_ptr) override;
 
     atomic<unsigned long> record_counter_;
 // #ifndef LSDS_STREAMBOX
@@ -143,7 +193,7 @@ WindowsBundleSink(string name)  : PTransform(name), record_counter_(0) { }
 
 #if 0
             EE("recent: %.2f MB/s %.2f K records/s    avg: %.2f MB/s %.2f K records/s",
-              stat->lmbps, stat->lmrps/1000, stat->mbps, stat->mrps/1000);
+               stat->lmbps, stat->lmrps/1000, stat->mbps, stat->mrps/1000);
 #endif
 
             last_check = now;

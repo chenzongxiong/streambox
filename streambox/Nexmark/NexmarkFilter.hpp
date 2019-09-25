@@ -16,28 +16,12 @@ public:
     NexmarkFilter(string name="nexmark_filter") : Mapper<InputT>(name), record_counter_(0) {}
 
     bool do_map(Record<InputT> const & in) {
-        // pick up a event from {"view", "click", "purchase"}
-        // if the event is the same as the given event, return true
-        // else, return false.
-        // return true, means the input record will flow into the next
-        // pipeline.
-        // const char* event_type = in.data.event_type;
-        // if (strcmp(event_type, "view") == 0) {
-        //     // std::cout << "true: event_type: " << event_type << std::endl;
-        //     return true;
-        // } else {
-        //     // std::cout << "false: event_type: " << event_type << std::endl;
-        //     return false;
-        // }
-
         uint64_t auction = in.data.auction;
         uint64_t price = in.data.price;
-        // std::cout << "auction: " << auction << ", "
-        //           << "price: " << price << std::endl;
 
-        // auto tuple = in.data;
-        // tuple.print();
-        return true;
+        if (auction == 1007L || auction == 2001L || auction == 2019L || auction == 2087L)
+            return true;
+        return false;
 
     }
 

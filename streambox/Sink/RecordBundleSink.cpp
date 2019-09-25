@@ -1,9 +1,13 @@
 #define K2_NO_DEBUG 1
 
 #include "Yahoo/YahooRecord.h"
+#include "Nexmark/NexmarkRecord.hpp"
 #include "Sink.h"
 #include "RecordBundleSinkEvaluator.h"
 #include "RecordBundleSinkEvaluatorJD.h"
+
+
+
 
 #ifdef USE_TBB_DS
 #include "tbb/concurrent_vector.h"
@@ -168,6 +172,16 @@ template
 void RecordBundleSink<YahooRecord>::ExecEvaluator(
 		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
+template
+void RecordBundleSink<NexmarkRecord>::ExecEvaluator(
+		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+
+// template<>
+// void RecordBundleSink<NexmarkRecord>::printBundle(const RecordBundle<NexmarkRecord & input_bundle) {
+//     I("----------------");
+// }
+
+
 /*
 template
 void RecordBundleSink<string>::ExecEvaluator(
@@ -221,4 +235,3 @@ void RecordBundleSink<creek::tvpair>::ExecEvaluator(
 template
 void RecordBundleSink<pair<long, vector<long>>>::ExecEvaluator(
 		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
-
