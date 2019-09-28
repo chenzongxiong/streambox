@@ -5,14 +5,26 @@
 template <>
 WindowResultPtr const & NexmarkWinKeyReducer::combine(WindowResultPtr & mine, WindowResultPtr const & others)
 {
+    // std::cout << "[DBG] NexmarkWinKeyReducer Combine" << std::endl;
+
     xzl_assert(mine && others);
     xzl_assert(WindowEqual()(mine->w, others->w));
+
     for (auto && kvs : others->vals) {
         auto & key = kvs.first;
         auto & v_container = kvs.second;
+        // std::cout << "key: " << key << ", size: " << v_container.size() << std::endl;
         mine->add_vcontainer_safe(key, v_container);
     }
 
+    // for (auto && kvs : others->vals) {
+    //     auto & key = kvs.first;
+    //     auto & v_container = kvs.second;
+    //     // std::cout << "key: " << key << ", size: " << v_container.size() << std::endl;
+    //     // mine->add_vcontainer_safe(key, v_container);
+    // }
+
+    // mine->vals.clear();
     return mine;
 }
 
@@ -21,19 +33,31 @@ std::pair<uint64_t, uint64_t> NexmarkWinKeyReducer::do_reduce(uint64_t const & k
 
     auto end = vcontainer.cend(); /* avoid calling it in each iteration */
 
+    // std::cout << "do_reduce.name: " << this->name.c_str() << std::endl;
+
     long sum = 0;
     for (auto it = vcontainer.cbegin(); it != end; ++it) {
         this->record_counter_.fetch_add(1, std::memory_order_relaxed);
         sum += *it;
     }
-
+    std::cout << "do_reduce.sum: " << sum << std::endl;
     return make_pair(key, sum);
+
+    // long max = 0;
+    // for (auto it = vcontainer.cbegin(); it != end; ++it) {
+    //     this->record_counter_.fetch_add(1, std::memory_order_relaxed);
+    //     // sum += *it;
+    //     if (max < *it) {
+    //         max = *it;
+    //     }
+    // }
+    // return make_pair(key, max);
 }
 
 template<>
 std::pair<uint64_t, uint64_t> NexmarkWinKeyReducer::do_reduce_unsafe
 (uint64_t const & key, InputValueContainerT const & vcontainer) {
-
+    // std::cout << "do_reduce_unsafe.name: " << this->name.c_str() << std::endl;
     auto end = vcontainer.cend(); /* avoid calling it in each iteration */
 
     long sum = 0;
@@ -41,7 +65,18 @@ std::pair<uint64_t, uint64_t> NexmarkWinKeyReducer::do_reduce_unsafe
         this->record_counter_.fetch_add(1, std::memory_order_relaxed);
         sum += *it;
     }
+    std::cout << "do_reduce.sum: " << sum << std::endl;
     return make_pair(key, sum);
+
+    // long max = 0;
+    // for (auto it = vcontainer.cbegin(); it != end; ++it) {
+    //     this->record_counter_.fetch_add(1, std::memory_order_relaxed);
+    //     // sum += *it;
+    //     if (max < *it) {
+    //         max = *it;
+    //     }
+    // }
+    // return make_pair(key, max);
 }
 
 template<>

@@ -10,6 +10,8 @@
 #include "Nexmark/NexmarkAggregation.hpp"
 #include "Nexmark/NexmarkSink.hpp"
 #include "Win/WinGBKEvaluator.h"
+// #include "Win/SlidingWindowInto.hpp"
+#include "Win/FixedWindowInto.h"
 #include "WinKeyReducer/WinKeyReducerEval.h"
 #include "Sink/WindowsBundleSinkEvaluator.h"
 
@@ -71,7 +73,6 @@ void testInput() {
                   WinKeyFragLocal_Std,
                   WinKeyFrag_Std, /* kv d/s */
                   KVPair,  /* pair out */
-                  // WindowsBundle /* bundle out */
                   RecordBundle
                   > reducer("[reducer]");
 
@@ -166,8 +167,118 @@ void testQ2() {
 
 	EvaluationBundleContext eval(1, config.cores);
 	eval.runSimple(p);
+}
 
 
+// Stream
+// .groupBy("auction")
+// .window(SlidingProcessingTimeWindow(windowSizeSec, windowPeriodSec))
+// .aggregate(Count())
+// .window(SlidingProcessingTimeWindow(windowSizeSec, windowPeriodSec))
+// .aggregate(Max("count"))
+// .execute();
+void testQ3() {
+    UnboundedInMem<string_range, BundleT>
+        unbound("[unbounded-inmem]",
+                config.input_file.c_str(),
+                config.records_per_interval , 	/* records per wm interval */
+                config.target_tput, 		/* target tput (rec/sec) */
+                config.record_size,
+                0  				/* session_gap_ms */
+            );
+
+    // create a new pipeline
+	Pipeline* p = Pipeline::create(NULL);
+	PCollection *unbound_output = dynamic_cast<PCollection *>(p->apply1(&unbound));
+	unbound_output->_name = "src_out";
+
+    NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
+
+    NexmarkAggregation<NexmarkRecord, KVPair, BundleT> mapper("[nexmark_mapper]");
+
+	WinGBK<KVPair, BundleT, WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
+
+    // reduce aggregation
+    WinKeyReducer<KVPair,  /* pair in */
+                  WinKeyFragLocal_Std,
+                  WinKeyFrag_Std, /* kv d/s */
+                  KVPair,  /* pair out */
+                  RecordBundle
+                  > reducer("[reducer]");
+
+    NexmarkAggregation<KVPair, KVPair, BundleT> mapper2("[nexmark_aggregation2]");
+    WinGBK<KVPair, BundleT, WinKeyFragLocal_Std> wgbk2("[wingbk2]", seconds(config.window_size));
+
+    // reduce aggregation
+    WinKeyReducer<KVPair,  /* pair in */
+                  WinKeyFragLocal_Std,
+                  WinKeyFrag_Std, /* kv d/s */
+                  KVPair,  /* pair out */
+                  WindowsBundle /* bundle out */
+                  > reducer2("[reducer2]");
+    WindowsBundleSink<KVPair> sink("[sink]");
+
+	connect_transform(unbound, parser);
+    connect_transform(parser, mapper);
+	connect_transform(mapper, wgbk);
+    connect_transform(wgbk, reducer);
+    connect_transform(reducer, mapper2);
+    connect_transform(mapper2, wgbk2);
+    connect_transform(wgbk2, reducer2);
+    connect_transform(reducer2, sink);
+
+	EvaluationBundleContext eval(1, config.cores);
+	eval.runSimple(p);
+}
+
+// stream
+// .window(SlidingProcessingTimeWindow(windowSizeSec, windowPeriodSec))
+// .aggregate(Max("price"))
+// .execute();
+void testQ4() {
+    UnboundedInMem<string_range, BundleT>
+        unbound("[unbounded-inmem]",
+                config.input_file.c_str(),
+                config.records_per_interval , 	/* records per wm interval */
+                config.target_tput, 		/* target tput (rec/sec) */
+                config.record_size,
+                0  				/* session_gap_ms */
+            );
+
+    // create a new pipeline
+	Pipeline* p = Pipeline::create(NULL);
+	PCollection *unbound_output = dynamic_cast<PCollection *>(p->apply1(&unbound));
+	unbound_output->_name = "src_out";
+
+    NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
+    // SlidingWindowInto<NexmarkRecord, BundleT> sliding_win("sliding_win",
+    //                                                       seconds(config.window_size),
+    //                                                       seconds(config.window_size));
+
+    FixedWindowInto<NexmarkRecord, BundleT> fixed_win("fixed_win",
+                                                      seconds(config.window_size));
+    // TODO: implemente MAX aggregation
+    // WinGBK<NexmarkRecord, BundleT, WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
+
+    // NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
+
+    // WinKeyReducer<NexmarkRecord,  /* pair in */
+    //               WinKeyFragLocal_Std,
+    //               WinKeyFrag_Std, /* kv d/s */
+    //               NexmarkRecord,  /* pair out */
+    //               // WindowsBundle /* bundle out */
+    //               RecordBundle
+    //               > reducer("[nexmark_reducer]");
+
+    // RecordBundleSink<NexmarkRecord> sink("[sink]");
+
+	connect_transform(unbound, parser);
+    // connect_transform(parser, sliding_win);
+    // connect_transform(filter, mapper);
+    // connect_transform(mapper, sink);
+
+	EvaluationBundleContext eval(1, config.cores);
+	eval.runSimple(p);
 }
 
 
@@ -213,7 +324,10 @@ int main(int ac, char *av[]) {
 
     Timestamp begin = getTimestamp();
     // testInput();
-    testQ2();
+    // testQ1();
+    // testQ2();
+    testQ3();
+    // testQ4();
     Timestamp end = getTimestamp();
 
 

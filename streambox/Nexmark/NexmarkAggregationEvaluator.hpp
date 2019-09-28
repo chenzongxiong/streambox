@@ -25,7 +25,6 @@ public:
                               shared_ptr<OutputBundleT> output_bundle) override {
 
         for (auto && it = input_bundle->begin(); it != input_bundle->end(); ++it) {
-            // TransformT::do_map(*it, output_bundle); /* static rocks! */
             trans->do_map(*it, output_bundle);
         }
         trans->record_counter_.fetch_add(input_bundle->size(), std::memory_order_relaxed);

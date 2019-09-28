@@ -18,9 +18,13 @@ template <typename KVPair,
           typename KVPairOut,
           template<class> class OutputBundleT_
           >
-void WinKeyReducer<KVPair, InputWinKeyFragT, InternalWinKeyFragT, KVPairOut, OutputBundleT_>::ExecEvaluator(int nodeid,
-                                                                                                            EvaluationBundleContext *c,
-                                                                                                            shared_ptr<BundleBase> bundle_ptr)
+void WinKeyReducer<KVPair,
+                   InputWinKeyFragT,
+                   InternalWinKeyFragT,
+                   KVPairOut,
+                   OutputBundleT_>::ExecEvaluator(int nodeid,
+                                                  EvaluationBundleContext *c,
+                                                  shared_ptr<BundleBase> bundle_ptr)
 {
     /* instantiate an evaluator */
 #ifdef WORKAROUND_WINKEYREDUCER_RECORDBUNDLE
@@ -52,7 +56,8 @@ using WindowResultPtr = shared_ptr<WinKeyFrag_Std<std::pair<uint64_t, uint64_t>>
 /* template instantiation with concrete types */
 template
 void NexmarkWinKeyReducer::ExecEvaluator(int nodeid,
-                                     EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+                                         EvaluationBundleContext *c,
+                                         shared_ptr<BundleBase> bundle_ptr);
 
 template
 bool NexmarkWinKeyReducer::ReportStatistics(PTransform::Statstics* stat);
