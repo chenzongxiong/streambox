@@ -38,34 +38,18 @@ struct __attribute__((packed)) NexmarkRecord {
 }; // size 32 bytes
 
 
-// class NexmarkRecord {
-// public:
-//     uint64_t auction;
-//     uint64_t bidder;
-//     uint64_t price;
-//     uint64_t dateTime;
-
-//     NexmarkRecord() {}
-
-//     NexmarkRecord(string_range rawRecord) {
-//         memcpy(&auction, rawRecord.data, 8);
-//         memcpy(&bidder, rawRecord.data, 8);
-//         memcpy(&price, rawRecord.data, 8);
-//         memcpy(&dateTime, rawRecord.data, 8);
-//     }
-
-//     void print() {
-//         std::cout << "auction: " << this->auction
-//                   // << "\nbidder: " << bidder
-//                   // << "\nprice: " << price
-//                   // << "\ndateTime: " << dateTime
-//                   << std::endl;
-//     }
-
-//     void setPrice(uint64_t p) {
-//         price = p;
-//     }
-// }; // size 32 bytes
-
+struct __attribute__((packed)) NexmarkOutputRecord {
+    uint64_t auction;
+    uint64_t price;
+    NexmarkOutputRecord() {}
+    NexmarkOutputRecord(NexmarkRecord &rec) {
+        auction = rec.auction;
+        price = rec.price;
+    }
+    NexmarkOutputRecord(uint64_t auction, uint64_t price) {
+        this->auction = auction;
+        this->price = price;
+    }
+};
 
 #endif /* NEXMARK_RECORD_HPP */

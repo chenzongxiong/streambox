@@ -102,11 +102,11 @@ public:
 
 	PipelineOptions *getOptions();
 
-	 /**
-	   * Adds the given {@link PValue} to this {@link Pipeline}.
-	   *
-	   * <p>For internal use only.
-	   */
+    /**
+     * Adds the given {@link PValue} to this {@link Pipeline}.
+     *
+     * <p>For internal use only.
+     */
 	void addValueInternal(PValue *value);
 
 	PipelineResult* run();
@@ -122,17 +122,17 @@ private:
 	PipelineRunner* 			_runner;
 	PipelineOptions* 			_options;
 	TransformHierarchy*			_transforms;
-  set<PValue *>         _values;
+    set<PValue *>         _values;
 	set<string>					_usedFullnames;
 
 	void verifyOutputState(PValue *output,
-			TransformTreeNode *node);
+                           TransformTreeNode *node);
 
 	PValue* applyInternal(string name, PValue *input,
-			PTransform* transform);
+                          PTransform* transform);
 
 	list<AppliedPTransform* >
-		getProducingTransforms(PValue* output);
+    getProducingTransforms(PValue* output);
 
 	string uniquifyInternal(string namePrefix, string origName);
 

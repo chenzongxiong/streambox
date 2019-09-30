@@ -125,8 +125,8 @@ void testQ1() {
 	unbound_output->_name = "src_out";
 
     NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
-    NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
-    RecordBundleSink<NexmarkRecord> sink("[sink]");
+    NexmarkAggregation<NexmarkRecord, NexmarkOutputRecord, BundleT> mapper("[nexmark_mapper]");
+    RecordBundleSink<NexmarkOutputRecord> sink("[sink]");
 
 	connect_transform(unbound, parser);
     connect_transform(parser, mapper);
@@ -157,8 +157,8 @@ void testQ2() {
 
     NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
     NexmarkFilter<NexmarkRecord, NexmarkRecord, RecordBundle> filter("[nexmark_filter]");
-    NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
-    RecordBundleSink<NexmarkRecord> sink("[sink]");
+    NexmarkAggregation<NexmarkRecord, NexmarkOutputRecord, BundleT> mapper("[nexmark_mapper]");
+    RecordBundleSink<NexmarkOutputRecord> sink("[sink]");
 
 	connect_transform(unbound, parser);
     connect_transform(parser, filter);

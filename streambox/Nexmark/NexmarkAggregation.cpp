@@ -46,6 +46,15 @@ uint64_t NexmarkAggregation<NexmarkRecord, NexmarkRecord, RecordBundle>::do_map(
     return 0;
 }
 
+template<>
+uint64_t NexmarkAggregation<NexmarkRecord, NexmarkOutputRecord, RecordBundle>::do_map(Record<NexmarkRecord> const& in,
+                                                                                      shared_ptr<RecordBundle<NexmarkOutputRecord>> output_bundle) {
+    uint64_t price = in.data.price * 89 / 100;
+    NexmarkOutputRecord tuple(in.data.auction, price);
+    output_bundle->emplace_record(tuple, in.ts);
+    return 0;
+}
+
 
 template
 void NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::ExecEvaluator(int nodeid,
@@ -61,3 +70,8 @@ template
 void NexmarkAggregation<NexmarkRecord, NexmarkRecord, RecordBundle>::ExecEvaluator(int nodeid,
                                                                                    EvaluationBundleContext *c,
                                                                                    shared_ptr<BundleBase> bundle=nullptr);
+
+template
+void NexmarkAggregation<NexmarkRecord, NexmarkOutputRecord, RecordBundle>::ExecEvaluator(int nodeid,
+                                                                                         EvaluationBundleContext *c,
+                                                                                         shared_ptr<BundleBase> bundle=nullptr);

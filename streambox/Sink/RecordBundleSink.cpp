@@ -21,7 +21,7 @@
 /* an integer only. for tweet (sentiment score) */
 template<>
 void RecordBundleSink<long>::printBundle
-	(const RecordBundle<long> & input_bundle) {
+(const RecordBundle<long> & input_bundle) {
     W("got one bundle: ", );
 #ifndef NDEBUG
     for (auto && rec : input_bundle.content) {
@@ -37,15 +37,15 @@ void RecordBundleSink<long>::printBundle
 /* for tweet (tvpair sink) */
 template<>
 void RecordBundleSink<creek::tvpair>::printBundle
-	(const RecordBundle<creek::tvpair> & input_bundle) {
+(const RecordBundle<creek::tvpair> & input_bundle) {
     W("got one bundle: ", );
 #ifndef NDEBUG
     for (auto && rec : input_bundle.content) {
     	I("==== rec (long) ===== ");
     	// XXX dump the ts as well ??
     	EE("tvpair: %ld %ld (window end %s",
-    			rec.data.first, rec.data.second,
-    			to_simple_string(rec.ts).c_str()); // dbg, do "grep printBundle"
+           rec.data.first, rec.data.second,
+           to_simple_string(rec.ts).c_str()); // dbg, do "grep printBundle"
 //    	abort();
     }
     I("----------------");
@@ -56,7 +56,7 @@ void RecordBundleSink<creek::tvpair>::printBundle
 /* for wc? */
 template<>
 void RecordBundleSink<vector<creek::string>>::printBundle
-	(const RecordBundle<vector<creek::string>> & input_bundle) {
+(const RecordBundle<vector<creek::string>> & input_bundle) {
     W("got one bundle: ");
 #ifndef NDEBUG
     for (auto && rec : input_bundle.content) {
@@ -84,7 +84,7 @@ using SetPtr = shared_ptr<Set>;
 
 template<>
 void RecordBundleSink<SetPtr>::printBundle
-	(const RecordBundle<SetPtr> & input_bundle) {
+(const RecordBundle<SetPtr> & input_bundle) {
 #if 0
 	for (auto && rec : input_bundle.content) {
 		auto & ptr = rec.data;
@@ -122,7 +122,7 @@ void RecordBundleSink<SetPtr>::printBundle
 
 template<class T>
 void RecordBundleSink<T>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr)
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr)
 {
 	/* modeled after RecordBitmapBundleSink<T>::ExecEvaluator. dispatch
 	 * based on side info...
@@ -136,7 +136,7 @@ void RecordBundleSink<T>::ExecEvaluator(
 		eval.evaluate(this, c, bundle_ptr);
 	} else {
 		xzl_assert(this->get_side_info() == SIDE_INFO_JDD
-							|| this->get_side_info() == SIDE_INFO_NONE);
+                   || this->get_side_info() == SIDE_INFO_NONE);
 		RecordBundleSinkEvaluator<T> eval(nodeid); /* default side info */
 		eval.evaluate(this, c, bundle_ptr);
 	}
@@ -145,7 +145,7 @@ void RecordBundleSink<T>::ExecEvaluator(
 #if 0
 template<class T>
 void RecordBundleSink<T>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c)
+    int nodeid, EvaluationBundleContext *c)
 {
 	RecordBundleSinkEvaluator<T> eval(nodeid);
 	eval.evaluate(this, c);
@@ -156,25 +156,29 @@ void RecordBundleSink<T>::ExecEvaluator(
 
 template
 void RecordBundleSink<vector<creek::string>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 template
 void RecordBundleSink<string_range>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* for grep */
 template
 void RecordBundleSink<creek::string>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* for Yahoo */
 template
 void RecordBundleSink<YahooRecord>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 template
 void RecordBundleSink<NexmarkRecord>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+
+template
+void RecordBundleSink<NexmarkOutputRecord>::ExecEvaluator(
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 // template<>
 // void RecordBundleSink<NexmarkRecord>::printBundle(const RecordBundle<NexmarkRecord & input_bundle) {
@@ -183,29 +187,29 @@ void RecordBundleSink<NexmarkRecord>::ExecEvaluator(
 
 
 /*
-template
-void RecordBundleSink<string>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+  template
+  void RecordBundleSink<string>::ExecEvaluator(
+  int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 */
 /* for wingrep*/
 /*
-template
-void RecordBundleSink<shared_ptr<tbb::concurrent_vector<std::string>>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+  template
+  void RecordBundleSink<shared_ptr<tbb::concurrent_vector<std::string>>>::ExecEvaluator(
+  int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 */
 #ifdef USE_TBB_DS
 /* temp workaround. XXX we should output vector<> */
 template
 void RecordBundleSink<tbb::concurrent_vector<creek::string>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 template
 void RecordBundleSink<shared_ptr<tbb::concurrent_vector<creek::string>>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 template
 void RecordBundleSink<tbb::concurrent_vector<YahooRecord>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 #endif
 
 /* ---- for distinct count ---- */
@@ -213,7 +217,7 @@ template
 //void RecordBundleSink<shared_ptr<tbb::concurrent_unordered_set<creek::string>>>::ExecEvaluator(
 //		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 void RecordBundleSink<SetPtr>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 //#ifdef USE_FOLLY_HASHMAP
 //template
@@ -224,14 +228,14 @@ void RecordBundleSink<SetPtr>::ExecEvaluator(
 /* for tweet (sentiment score) */
 template
 void RecordBundleSink<long>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* for tweet (test tvpair) */
 template
 void RecordBundleSink<creek::tvpair>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
 
 /* for tweet (join) */
 template
 void RecordBundleSink<pair<long, vector<long>>>::ExecEvaluator(
-		int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
+    int nodeid, EvaluationBundleContext *c, shared_ptr<BundleBase> bundle_ptr);
