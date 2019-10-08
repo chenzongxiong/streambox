@@ -20,15 +20,30 @@ using KVPair = pair<uint64_t, uint64_t>;
 template<>
 uint64_t NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::do_map(Record<NexmarkRecord> const& in,
                                                                          shared_ptr<RecordBundle<KVPair>> output_bundle) {
+    ptime ts = boost::posix_time::microsec_clock::local_time(); //  has negative impact on throughput
     uint64_t auction = in.data.auction;
     // if ((in.ts - Window::epoch).total_microseconds() < 0) {
     //     std::cout << "name: " << this->name << ", ts: " << (in.ts - Window::epoch).total_microseconds() << std::endl;
     //     abort();
     // }
-    ptime ts = boost::posix_time::microsec_clock::local_time(); //  has negative impact on throughput
     output_bundle->emplace_record(KVPair(auction, 1), ts);
     // output_bundle->emplace_record(KVPair(auction, 1), in.ts);
     return 1;
+
+    // uint64_t price = in.data.price;
+    // // if ((in.ts - Window::epoch).total_microseconds() < 0) {
+    // //     std::cout << "name: " << this->name << ", ts: " << (in.ts - Window::epoch).total_microseconds() << std::endl;
+    // //     abort();
+    // // }
+    // if (maxPrice < price) {
+    //     maxPrice = price;
+    //     output_bundle->emplace_record(KVPair(0, price), ts);
+    // }
+
+    // // output_bundle->emplace_record(KVPair(auction, 1), ts);
+    // // output_bundle->emplace_record(KVPair(auction, 1), in.ts);
+    // return 1;
+
 }
 
 template<>

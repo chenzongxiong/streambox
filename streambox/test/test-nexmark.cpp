@@ -27,7 +27,7 @@ template<class T>
 using BundleT = RecordBundle<T>;
 
 pipeline_config config = {
-    .records_per_interval = 2500000,
+    .records_per_interval = 500000,
     .target_tput = std::numeric_limits<uint64_t>::max(),
     .record_size = 32,
     .window_size = 1,
@@ -249,25 +249,27 @@ void testQ4() {
 	unbound_output->_name = "src_out";
 
     NexmarkParser<string_range, NexmarkRecord, RecordBundle> parser("[nexmark_parser]");
-    FixedWindowInto<NexmarkRecord, BundleT> fixed_win("fixed_win",
-                                                      seconds(config.window_size));
+    // FixedWindowInto<NexmarkRecord, BundleT> fixed_win("fixed_win",
+    //                                                   seconds(config.window_size));
     // TODO: implemente MAX aggregation
-    // WinGBK<NexmarkRecord, BundleT, WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
+    NexmarkAggregation<NexmarkRecord, KVPair, BundleT> mapper("[nexmark_mapper]");
+    WinGBK<KVPair, BundleT, WinKeyFragLocal_Std> wgbk ("[wingbk]", seconds(config.window_size));
 
-    // NexmarkAggregation<NexmarkRecord, NexmarkRecord, BundleT> mapper("[nexmark_mapper]");
-
-    // WinKeyReducer<NexmarkRecord,  /* pair in */
-    //               WinKeyFragLocal_Std,
-    //               WinKeyFrag_Std, /* kv d/s */
-    //               NexmarkRecord,  /* pair out */
-    //               // WindowsBundle /* bundle out */
-    //               RecordBundle
-    //               > reducer("[nexmark_reducer]");
+    WinKeyReducer<KVPair,  /* pair in */
+                  WinKeyFragLocal_Std,
+                  WinKeyFrag_Std, /* kv d/s */
+                  KVPair,  /* pair out */
+                  WindowsBundle /* bundle out */
+                  // RecordBundle
+                  > reducer("[nexmark_reducer]");
     RecordBundleSink<NexmarkRecord> sink("[sink]");
 
 	connect_transform(unbound, parser);
-    connect_transform(parser, fixed_win);
-    connect_transform(fixed_win, sink);
+    // connect_transform(parser, fixed_win);
+    connect_transform(parser, mapper);
+    connect_transform(mapper, wgbk);
+    connect_transform(wgbk, reducer);
+    connect_transform(reducer, sink);
     // connect_transform(filter, mapper);
     // connect_transform(mapper, sink);
 

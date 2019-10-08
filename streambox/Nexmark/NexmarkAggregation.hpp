@@ -26,6 +26,7 @@ public:
      * may result in multiple output records (words)
      * @return: the # of records emitted
      */
+    uint64_t maxPrice = 0;
     uint64_t do_map(Record<InputT> const & in,
                     shared_ptr<OutputBundleT> output_bundle);
 
