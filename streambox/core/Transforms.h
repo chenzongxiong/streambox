@@ -2005,6 +2005,8 @@ public:
   bool SetWatermarkSafe(ptime const & new_wm) {
 //  bool AdvanceWatermarkAtomic(ptime const & new_wm) {
   	unique_lock<mutex> lock(mtx_watermark);
+    // std::cout << "SetWatermarkSafe" << std::endl;
+    // std::cout << "new_wm: " << to_simple_string(new_wm) << std::endl;
 
   	if (new_wm < this->watermark) {
   		cout << "wm regression: ";

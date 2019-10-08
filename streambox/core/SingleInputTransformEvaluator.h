@@ -65,7 +65,7 @@ public:
 	virtual ptime flushState(TransformT* trans, const ptime up_wm,
 				vector<shared_ptr<OutputBundleT>>* output_bundles,
 				EvaluationBundleContext* c, bool purge = true) {
-        // std::cout << "flush state in single input transform evaluator" << std::endl;
+        // std::cout << "flush state in single input transform evaluator" << to_simple_string(up_wm) << std::endl;
 			return up_wm;
 	}
 

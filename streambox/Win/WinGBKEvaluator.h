@@ -94,7 +94,8 @@ public:
          */
         Window ww;
         ww.duration = trans->window_size;
-
+        // std::cout << "ww.epoch: " << to_simple_string(ww.epoch) << std::endl;
+        // ww.epoch = Window::epoch;
         /* Go through Records in input bundle (the iterator automatically
            skips "masked" Records.
            When records are fine-grained (e.g. words), this can be hot. */
@@ -115,7 +116,19 @@ public:
 //          output_bundle->add_record(
 //              	Window((*it).ts - milliseconds(offset), trans->window_size),
 //              	*it);
+            // ww.start = (*it).ts - milliseconds(offset_ms) - Window::epoch;
+
             ww.start = (*it).ts - milliseconds(offset_ms) - Window::epoch;
+            if (ww.start.total_microseconds() < 0) {
+                std::cout << "error window, trans->name: " << trans->name << std::endl;
+                std::cout << "it->ts: " << (it->ts - Window::epoch).total_microseconds() << std::endl;
+                std::cout << "it->data: " << it->data.first << std::endl;
+                std::cout << "offset_ms: " << offset_ms << std::endl;
+                std::cout << "ww.start: " << ww.start.total_microseconds() << std::endl;
+
+                abort();
+            }
+
             output_bundle->add_record(ww, *it); /* hot. WindowsKeyedBundle op inline? */
 
             ret = true;

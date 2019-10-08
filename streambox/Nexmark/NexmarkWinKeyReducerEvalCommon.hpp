@@ -4,9 +4,9 @@
 
 template<>
 void NexmarkWinKeyReduerEval::ReduceTopKParallel(TransformT* trans,
-                                             typename TransformT::AggResultT const & winmap,
-                                             vector<shared_ptr<OutputBundleT>>* output_bundles,
-                                             EvaluationBundleContext* c, bool do_topK)
+                                                 typename TransformT::AggResultT const & winmap,
+                                                 vector<shared_ptr<OutputBundleT>>* output_bundles,
+                                                 EvaluationBundleContext* c, bool do_topK)
 {
     // std::cout << "Hello from reduce top k parallel" << std::endl;
     // return ;
@@ -277,9 +277,9 @@ void NexmarkWinKeyReduerEval::ReduceTopKParallel(TransformT* trans,
              */
             for (auto & vecptr : vec_of_vecptr) {
                 for (auto && kv : *vecptr) {
-                // EE("win.start: %s, k: %lu, v: %lu", to_simplest_string(win.window_start()).c_str(),
-                //    // kv.data.first, kv.data.second);
-                //    kv.first, kv.second);
+                    // EE("win.start: %s, k: %lu, v: %lu", to_simplest_string(win.window_start()).c_str(),
+                    // kv.data.first, kv.data.second);
+                    // kv.first, kv.second);
 
                     output_bundle->add_record(win, kv);
 //                     std::cout << "first: " << kv.first
@@ -297,6 +297,7 @@ void NexmarkWinKeyReduerEval::ReduceTopKParallel(TransformT* trans,
     output_bundles->push_back(output_bundle);
 
     W("reduce done. global res has %lu windows", gres.size());
+    // std::cout << "name: " << trans->name << std::endl;
     // EE("reduce done. global res has %lu windows", gres.size());
 }
 

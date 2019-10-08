@@ -27,6 +27,8 @@ public:
         for (auto && it = input_bundle->begin(); it != input_bundle->end(); ++it) {
             trans->do_map(*it, output_bundle);
         }
+        // std::cout << "input_bundle->size: " << input_bundle->size() << std::endl;
+
         trans->record_counter_.fetch_add(input_bundle->size(), std::memory_order_relaxed);
         // return false;
         return true;

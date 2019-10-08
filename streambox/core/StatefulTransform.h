@@ -50,7 +50,7 @@ template <typename TransformT, typename InputT, typename WindowResultT = InputT,
           typename LocalWindowResultT = WindowResultT>
 class StatefulTransform : public PTransform {
 
-  public:
+public:
     /* (partial) agg results for a set of windows.
      *
      * this is submitted by evaluator to trans, and also retrieved by evaluator
@@ -67,7 +67,7 @@ class StatefulTransform : public PTransform {
     using LocalAggResultT = map<Window, LocalWindowResultT, Window>;
     using time_duration = boost::posix_time::time_duration;
 
-  private:
+private:
     /* Internal agg results (state) organizes as a seq of windows.
      *
      * For this, we tried tbb::concurrent_unordered_map or
@@ -160,7 +160,7 @@ class StatefulTransform : public PTransform {
 
         if (!(win.start.total_milliseconds() ==
               index * this->win_duration_ms_ /* 2000 */
-                  + start.total_milliseconds())) {
+              + start.total_milliseconds())) {
             EE("bug: start_win.start %lu win.start.total_milliseconds() %lu "
                "diff %lu index %lu duration %lu",
                start.total_milliseconds(), win.start.total_milliseconds(),
@@ -231,10 +231,14 @@ class StatefulTransform : public PTransform {
     ptime wm_rounddown_epoch(ptime const &wm,
                              boost::posix_time::time_duration const &duration) {
 
+
         int64_t span = (wm - Window::epoch).total_microseconds();
         int64_t winspan = duration.total_microseconds();
+        // std::cout << "Window::epoch.total_microseconds: " << to_simple_string(Window::epoch) << std::endl;
+        // std::cout << "wm.total_microseconds: " << wm.total_microseconds() << std::endl;
 
-        //		cout << to_simple_string(wm) << endl;
+        // std::cout << "span: " << span << std::endl;
+        // std::cout << "wm: " << to_simple_string(wm) << std::endl;
 
         xzl_assert(span >= 0);
         xzl_assert(winspan && winspan != -1);
@@ -256,7 +260,7 @@ class StatefulTransform : public PTransform {
 	}
 #endif
 
-  public:
+public:
     StatefulTransform(string name) : PTransform(name), unflushed_(0) {
         /* so that we know start_win_ is unassigned */
         start_win_.duration = boost::posix_time::time_duration(0, 0, 0);
@@ -283,6 +287,7 @@ class StatefulTransform : public PTransform {
         /* partial_res is a vector. need to compute its index */
         for (auto &win_res : in) {
             auto &win = win_res.first;
+            // std::cout << "win.start: " << win.start.total_microseconds() << std::endl;
             auto &res = win_res.second;
 
         restart:
@@ -327,6 +332,7 @@ class StatefulTransform : public PTransform {
                             wm_rounddown_epoch(win.window_start() - seconds(10),
                                                win.duration),
                             win.duration);
+
                         // TODO: GC cannot happen if we force time_t to be 0
                         // if not set to 0, assertion in line 353 maybe fail
                         // start_win_ = Window(from_time_t(0), win.duration);
@@ -441,26 +447,26 @@ class StatefulTransform : public PTransform {
      *           must be window aligned.
      *
      * @return: the min ts among the remaining internal state, or max_date_time
-              if no internal state
+     if no internal state
 
 
-          newer                  older
-               3      2    1   0
-          <--+---+---+---+---+---+
-                           |         |     |
-                           wmret     |     unflushed_=0
-                                                          wm_flush
+     newer                  older
+     3      2    1   0
+     <--+---+---+---+---+---+
+     |         |     |
+     wmret     |     unflushed_=0
+     wm_flush
 
      ret: win0/1/2  flush: win0/1
 
-           Expect to take & hold rlock. Upgrade to wlock only when necessary
-           we don't need the lock unless we do GC: updating the index unflushed_
+     Expect to take & hold rlock. Upgrade to wlock only when necessary
+     we don't need the lock unless we do GC: updating the index unflushed_
      can
-           be atomic.
-           In fact, we do not need to care for concurrent flushers. A later punc
+     be atomic.
+     In fact, we do not need to care for concurrent flushers. A later punc
      is only
-           retrieved *after* the prior one is consumed.
-     */
+     retrieved *after* the prior one is consumed.
+    */
     ptime RetrieveState(AggResultT *out, ptime const &wm_ret,
                         ptime const &wm_flush) {
 
@@ -547,11 +553,10 @@ class StatefulTransform : public PTransform {
              * use that min ts, which will be tighter.
              * */
             ret_min_ts = start_win_.window_start() +
-                         milliseconds(unflushed * win_duration_ms_);
+                milliseconds(unflushed * win_duration_ms_);
         } else {
             xzl_assert(0 && "bug: unflushed exceeds end of latest window?");
         }
-
         /* GC: too many stale items in the partial results.
          * Since we return copies in flushing (or smart pointers), GC here is
          * safe.
@@ -601,7 +606,7 @@ class StatefulTransform : public PTransform {
 
                     partial_results_.erase(partial_results_.begin(),
                                            partial_results_.begin() +
-                                               unflushed_);
+                                           unflushed_);
                     unflushed_ = 0;
                     VV("GC done. #items=%ld", unflushed_.load());
                 }
@@ -633,7 +638,7 @@ class StatefulTransform : public PTransform {
          * show up in later sliding windows. */
         ptime flush = t - milliseconds(multi * this->win_duration_ms_);
         xzl_assert(t > ptime(min_date_time) +
-                           milliseconds(multi * this->win_duration_ms_) &&
+                   milliseconds(multi * this->win_duration_ms_) &&
                    "ptime value underflow.");
 
         return RetrieveState(out, wm_up, flush);
@@ -656,7 +661,7 @@ class StatefulTransform : public PTransform {
      only
      retrieved *after* the prior one is consumed.
 
-     */
+    */
 
     ptime RetrieveState(AggResultT *out, bool purge = false,
                         ptime wm = max_date_time, int n = -1) {
@@ -687,8 +692,8 @@ class StatefulTransform : public PTransform {
                 partial_results_.size() - unflushed; /* all items. can be 0. */
         else {
             cnt = (wm - start_win_.window_start()).total_milliseconds() /
-                      start_win_.duration.total_milliseconds() -
-                  unflushed;
+                start_win_.duration.total_milliseconds() -
+                unflushed;
             /* e.g.
              * wm delta = 0.5x window: 	cnt = 0, high_index = -1
              * wm delta = 1x window: 		cnt = 1, high_index = 0
@@ -722,7 +727,7 @@ class StatefulTransform : public PTransform {
             /* compute the window for each returned value. */
             Window w(
                 start_win_.window_start() +
-                    milliseconds(i * start_win_.duration.total_milliseconds()),
+                milliseconds(i * start_win_.duration.total_milliseconds()),
                 start_win_.duration);
             //  		ret[w] = partial_results_[i]; /* copy */
             ret.emplace(w, partial_results_[i]);
@@ -742,8 +747,8 @@ class StatefulTransform : public PTransform {
              * use that min ts, which will be tighter.
              * */
             ret_min_ts = start_win_.window_start() +
-                         milliseconds(unflushed *
-                                      start_win_.duration.total_milliseconds());
+                milliseconds(unflushed *
+                             start_win_.duration.total_milliseconds());
         } else {
             xzl_assert(0 && "bug: unflushed too large?");
         }
@@ -774,7 +779,7 @@ class StatefulTransform : public PTransform {
 
                     partial_results_.erase(partial_results_.begin(),
                                            partial_results_.begin() +
-                                               unflushed_);
+                                           unflushed_);
                     unflushed_ = 0;
                     EE("GC done. #items=%ld", unflushed_.load());
                 }

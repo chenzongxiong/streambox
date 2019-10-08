@@ -13,7 +13,6 @@ class FixedWindowIntoEvaluator
 	InputBundleT_<InputT>, WindowsBundle<InputT>> {
 
 		using TransformT = FixedWindowInto<InputT, InputBundleT_>;
-		//  using InputBundleT = RecordBitmapBundle<InputT>;
 		using InputBundleT = InputBundleT_<InputT>;
 		using OutputBundleT = WindowsBundle<InputT>;
 
@@ -61,6 +60,7 @@ class FixedWindowIntoEvaluator
 			// }
 
             return true;
+            // return false;
 
 		}
 	};

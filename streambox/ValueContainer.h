@@ -137,7 +137,7 @@ struct ValueContainer
 //  	unique_lock<mutex> lock(mtx_);
 //  	vals.insert(vals.end(), other.vals.begin(), other.vals.end());
 //       zxchen
-//       std::cout << "merge safe is called" << std::endl;
+      // std::cout << "merge safe is called" << std::endl;
   	vals.grow_by(other.vals.begin(), other.vals.end());
   	min_ts = std::min(min_ts, other.min_ts); /* this is unsafe...XXX */
 

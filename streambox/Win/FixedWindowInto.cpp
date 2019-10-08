@@ -31,3 +31,10 @@ template
 void FixedWindowInto<NYTRecord, RecordBundle>::ExecEvaluator(int nodeid,
                                                              EvaluationBundleContext *c,
                                                              shared_ptr<BundleBase> bundle_ptr);
+
+#include "Nexmark/NexmarkRecord.hpp"
+
+template
+void FixedWindowInto<NexmarkRecord, RecordBundle>::ExecEvaluator(int nodeid,
+                                                                 EvaluationBundleContext *c,
+                                                                 shared_ptr<BundleBase> bundle_ptr);

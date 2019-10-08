@@ -90,8 +90,10 @@ public:
 	{
 		/* NB: local and intput_bundle only have to have same vcontainer */
 		typename TransformT::LocalAggResultT local;
+        std::cout << "evaluateSingleInputReduce is called" << std::endl;
 
 		/* single thread reduction */
+        ptime ts = boost::posix_time::microsec_clock::local_time(); //  has negative impact on throughput
 		for (auto && w : input_bundle->vals) {
 			auto && win = w.first;
 			auto && frag = w.second;
@@ -102,13 +104,15 @@ public:
 				 if (local.find(win) == local.end()) { /* shared ptr was not init */
 					 TransformT::local_aggregate_init(&local[win]);
 				 }
-				 local[win]->add_kv_unsafe(kvpair, vcontainer.min_ts);
+                 //
+				 // local[win]->add_kv_unsafe(kvpair, vcontainer.min_ts);
+                 local[win]->add_kv_unsafe(kvpair, ts);
 			}
 		}
 
 		trans->AddAggregatedResult(local);
 
-#if 0
+#if 1
 		/* debugging */
 		int total_keys = 0; /* may out of multiple windows */
 		for (auto && w : local) {   // partial_results_
@@ -118,7 +122,8 @@ public:
 		EE("total_keys %d", total_keys);
 #endif
 
-		return false;
+        // return false;
+        return true;
 	}
 
 	/* the data bundle path */

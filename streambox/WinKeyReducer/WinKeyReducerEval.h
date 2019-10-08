@@ -704,6 +704,8 @@ private:
                 typename TransformT::AggResultT winmap;
 //		ptime in_min_ts = trans->RetrieveState(&winmap, purge, up_wm);  // old impl.
                 ptime in_min_ts = trans->RetrieveState(&winmap, up_wm, up_wm);
+                std::cout << "ret_min_ts: " << to_simple_string(in_min_ts) << ", up_wm: " << to_simple_string(up_wm) << std::endl;
+
                 // std::cout << "winmap.size: " << winmap.size() << std::endl;
                 // no window is being closed.
                 if (winmap.size() == 0) {
@@ -717,7 +719,7 @@ private:
                 /* -- some windows are closed -- */
 // 		ReduceSerial(trans, winmap, output_bundles);
 // 		ReduceTopKSerial(trans, winmap, output_bundles);
-                ReduceTopKParallel(trans, winmap, output_bundles, c, true);
+                ReduceTopKParallel(trans, winmap, output_bundles, c, false);
                 // std::cout << "finshed flush state" << std::endl;
                 return min(in_min_ts, up_wm);
 
@@ -767,6 +769,7 @@ private:
                         if (local.find(win) == local.end()) { /* shared ptr was not init */
                             TransformT::local_aggregate_init(&local[win]);
                         }
+                        // std::cout << "reducer.win.start: " << win.start.total_microseconds() << std::endl;
                         local[win]->add_kv_unsafe(kvpair, vcontainer.min_ts);
                         // local[win]->add_kv_unsafe(kvpair, vcontainer.min_ts, vcontainer.max_ts);
                     }
@@ -836,8 +839,8 @@ private:
                 // return false;
                 // cout << "evaluate single input reduce : input_bundle.size: " << input_bundle->vals.size() << std::endl;
                 // cout << "evaluate single input reduce : output_bundle.size: " << output_bundle->vals.size() << std::endl;
-                // return true;
-                return false;
+                return true;
+                // return false;
             }
 
             /* the data bundle path */

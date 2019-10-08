@@ -21,17 +21,26 @@ template<>
 uint64_t NexmarkAggregation<NexmarkRecord, KVPair, RecordBundle>::do_map(Record<NexmarkRecord> const& in,
                                                                          shared_ptr<RecordBundle<KVPair>> output_bundle) {
     uint64_t auction = in.data.auction;
-    output_bundle->emplace_record(KVPair(auction, 1), in.ts);
+    // if ((in.ts - Window::epoch).total_microseconds() < 0) {
+    //     std::cout << "name: " << this->name << ", ts: " << (in.ts - Window::epoch).total_microseconds() << std::endl;
+    //     abort();
+    // }
+    ptime ts = boost::posix_time::microsec_clock::local_time(); //  has negative impact on throughput
+    output_bundle->emplace_record(KVPair(auction, 1), ts);
+    // output_bundle->emplace_record(KVPair(auction, 1), in.ts);
     return 1;
 }
 
 template<>
 uint64_t NexmarkAggregation<KVPair, KVPair, RecordBundle>::do_map(Record<KVPair> const& in,
                                                                   shared_ptr<RecordBundle<KVPair>> output_bundle) {
-    // uint64_t auction = in.data.auction;
-    // output_bundle->emplace_record(KVPair(auction, 1), in.ts);
-    // std::cout << "nexmark aggregation 2" << std::endl;
-    output_bundle->emplace_record(in.data, in.ts);
+    // if ((in.ts - Window::epoch).total_microseconds() < 0) {
+    //     std::cout << "name: " << this->name << ", ts: " << (in.ts - Window::epoch).total_microseconds() << std::endl;
+    //     abort();
+    // }
+    ptime ts = boost::posix_time::microsec_clock::local_time(); //  has negative impact on throughput
+    output_bundle->emplace_record(in.data, ts);
+    // output_bundle->emplace_record(in.data, in.ts);
 
     return 1;
 }
@@ -43,7 +52,7 @@ uint64_t NexmarkAggregation<NexmarkRecord, NexmarkRecord, RecordBundle>::do_map(
     uint64_t price = in.data.price * 89 / 100;
     NexmarkRecord tuple(in.data.auction, in.data.bidder, price, in.data.dateTime);
     output_bundle->emplace_record(tuple, in.ts);
-    return 0;
+    return 1;
 }
 
 template<>
@@ -52,7 +61,7 @@ uint64_t NexmarkAggregation<NexmarkRecord, NexmarkOutputRecord, RecordBundle>::d
     uint64_t price = in.data.price * 89 / 100;
     NexmarkOutputRecord tuple(in.data.auction, price);
     output_bundle->emplace_record(tuple, in.ts);
-    return 0;
+    return 1;
 }
 
 
